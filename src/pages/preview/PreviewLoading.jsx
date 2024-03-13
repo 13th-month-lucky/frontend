@@ -1,5 +1,6 @@
 import React from "react";
 import dollarImg from "~/assets/dollar-color.png";
+import LoadingComments from "~/components/preview/loadingComments";
 
 const PreviewLoading = () => {
   return (
@@ -22,7 +23,7 @@ const PreviewLoading = () => {
         </div>
         <div className="text-center mt-5">
           <p className="text-xl font-semibold mt-4">
-            13월의 강도에서 13일의 월급으로
+            <LoadingComments />
           </p>
         </div>
       </div>
