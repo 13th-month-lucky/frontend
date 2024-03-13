@@ -1,6 +1,25 @@
 import React from "react";
 import dollarImg from "~/assets/dollar-color.png";
 import LoadingComments from "~/components/preview/loadingComments";
+import styled, { keyframes } from "styled-components";
+
+const floatAnimation = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+
+const FloatingIcon = styled.img`
+  animation: ${floatAnimation} 1.5s ease-in-out infinite; // 둥실둥실 애니메이션 적용
+  width: 100%;
+  height: 100%;
+`;
 
 const PreviewLoading = () => {
   return (
@@ -15,11 +34,12 @@ const PreviewLoading = () => {
 
         <div className="mt-16">
           {/* Hover scale effect added here */}
-          <img
+          <FloatingIcon src={dollarImg} alt="Floating Icon" />
+          {/* <img
             src={dollarImg}
             alt="Magnifying glass"
             className="w-36 h-50 transition-transform duration-300 ease-in-out hover:scale-150"
-          />
+          /> */}
         </div>
         <div className="text-center mt-5">
           <p className="text-xl font-semibold mt-4">
