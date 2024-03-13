@@ -1,6 +1,6 @@
-import * as React from "react";
-
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+
 import FindOutPage from "~/pages/products/findout/page";
 import IndexPage from "~/pages/Main/IndexPage";
 import Login from "~/pages/Main/Login";

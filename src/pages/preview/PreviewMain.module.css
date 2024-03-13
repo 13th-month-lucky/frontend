@@ -1,0 +1,16 @@
+.img3 {
+  animation: rotate_image 3s linear infinite; /* Animation duration adjusted to 4s */
+  transform-origin: 50% 50%;
+}
+
+@keyframes rotate_image {
+  0%,
+  100% {
+    transform: rotate(
+      0deg
+    ); /* Start and end at 0 degrees (original position) */
+  }
+  50% {
+    transform: rotate(20deg); /* Rotate to 50 degrees at the halfway point */
+  }
+}
