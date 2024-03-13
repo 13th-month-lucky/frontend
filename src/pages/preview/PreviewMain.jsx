@@ -2,6 +2,7 @@ import React from "react";
 import lenseImg from "~/assets/lense.png";
 import "./PreviewMain.css";
 import style from "./PreviewMain.module.css";
+import { Link } from "react-router-dom";
 
 const PreviewMain = () => {
   return (
@@ -29,9 +30,11 @@ const PreviewMain = () => {
         </div>
         <div className="flex flex-col items-center justify-center mt-10 w-full">
           <div className="w-9/12">
-            <button className="bg-blue-500 text-white text-lg w-full h-12 py-2 rounded-full font-semibold mb-4">
-              연말정산 계산하기
-            </button>
+            <Link to="/preview/loading">
+              <button className="bg-blue-500 text-white text-lg w-full h-12 py-2 rounded-full font-semibold mb-4">
+                연말정산 계산하기
+              </button>
+            </Link>
           </div>
           <div className="w-9/12">
             <button className="bg-blue-500 text-white text-lg w-full h-12 py-2 rounded-full font-semibold">
