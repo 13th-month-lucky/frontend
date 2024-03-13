@@ -58,13 +58,13 @@ export const mainRoutes = [
       },
       {
         path: "/preview/main",
-        element: <PreviewMain></PreviewMain>,
+        element: <PreviewMain />,
+      },
+      {
+        path: "/preview/loading",
+        element: <PreviewLoading />,
       },
     ],
-  },
-  {
-    path: "/preview/loading",
-    element: <PreviewLoading></PreviewLoading>,
   },
 ];
 
