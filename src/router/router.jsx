@@ -11,6 +11,7 @@ import EasyFound from "~/pages/EasySeries/EasyFound";
 import EasyMain from "~/pages/EasySeries/EasyMain";
 import EasyTax from "~/pages/EasySeries/EasyTax";
 import PreviewMain from "../pages/preview/PreviewMain";
+import PreviewLoading from "../pages/preview/PreviewLoading";
 
 export const mainRoutes = [
   {
@@ -53,6 +54,10 @@ export const mainRoutes = [
   {
     path: "/preview/main",
     element: <PreviewMain></PreviewMain>,
+  },
+  {
+    path: "/preview/loading",
+    element: <PreviewLoading></PreviewLoading>,
   },
 ];
 
