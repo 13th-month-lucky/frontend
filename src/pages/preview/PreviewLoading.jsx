@@ -33,13 +33,7 @@ const PreviewLoading = () => {
         </div>
 
         <div className="mt-16">
-          {/* Hover scale effect added here */}
           <FloatingIcon src={dollarImg} alt="Floating Icon" />
-          {/* <img
-            src={dollarImg}
-            alt="Magnifying glass"
-            className="w-36 h-50 transition-transform duration-300 ease-in-out hover:scale-150"
-          /> */}
         </div>
         <div className="text-center mt-5">
           <p className="text-xl font-semibold mt-4">
