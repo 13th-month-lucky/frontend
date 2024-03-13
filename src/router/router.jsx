@@ -13,6 +13,7 @@ import EasyTax from "~/pages/EasySeries/EasyTax";
 import PreviewMain from "../pages/preview/PreviewMain";
 import PreviewLoading from "../pages/preview/PreviewLoading";
 import MainLayout from "~/pages/layout";
+import PreviewResult from "~/pages/preview/PreviewResult";
 
 export const mainRoutes = [
   {
@@ -63,6 +64,10 @@ export const mainRoutes = [
       {
         path: "/preview/loading",
         element: <PreviewLoading />,
+      },
+      {
+        path: "/preview/result",
+        element: <PreviewResult />,
       },
     ],
   },
