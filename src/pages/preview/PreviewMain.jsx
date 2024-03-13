@@ -1,10 +1,12 @@
 import React from "react";
 import lenseImg from "~/assets/lense.png";
+import "./PreviewMain.css";
+import style from "./PreviewMain.module.css";
 
 const PreviewMain = () => {
   return (
     <div className="bg-white h-screen p-4">
-      <div className="flex flex-col items-center mt-32">
+      <div className="flex flex-col items-center mt-28">
         <div>
           <p className="text-center text-4xl font-bold">연말정산 미리보기</p>
         </div>
@@ -14,7 +16,8 @@ const PreviewMain = () => {
           <img
             src={lenseImg}
             alt="Magnifying glass"
-            className="w-36 h-36 transition-transform duration-300 ease-in-out hover:scale-150"
+            // className="w-36 h-36 transition-transform duration-300 ease-in-out hover:scale-150 img3"
+            className={style.img3}
           />
         </div>
         <div className="text-center mt-5">
