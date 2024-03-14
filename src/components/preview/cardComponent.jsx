@@ -16,17 +16,10 @@ const CardComponent = () => {
           </Accordion.Title>
           <Accordion.Content className={"accordion-content"}>
             <p>신용카드 공제 한도까지 100만원 남았습니다.</p>
-            <p>
-              현금카드 공제 한도까지 200만원 남았습니다
-              <a
-                href="https://flowbite.com/docs/getting-started/introduction/"
-                className="text-cyan-600 hover:underline dark:text-cyan-500"
-              >
-                get started&nbsp;
-              </a>
-              and start developing websites even faster with components on top
-              of Tailwind CSS.
-            </p>
+
+            <p>현금카드 공제 한도까지 200만원 남았습니다</p>
+
+            <p>현금영수증 공제 한도까지 150만원 남았습니다</p>
           </Accordion.Content>
         </Accordion.Panel>
       </Accordion>
