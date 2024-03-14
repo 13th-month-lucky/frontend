@@ -15,8 +15,8 @@ export default function MainLayout() {
       <div
         style={{
           height: "100vh",
-          width: "450px",
-          maxWidth: "450px",
+          width: "400px",
+          maxWidth: "400px",
           overflowY: "auto",
           overflowX: "hidden",
         }}
