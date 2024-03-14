@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import sunImg from "~/assets/images/sun.png";
 import cloudImg from "~/assets/images/cloud.png";
-import "./PreviewMain.css";
 import styled, { keyframes } from "styled-components";
 import { Button, Tooltip } from "flowbite-react";
 
