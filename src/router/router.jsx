@@ -1,14 +1,13 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-
 import FindOutPage from "~/pages/products/findout/page";
-import IndexPage from "~/pages/Main/IndexPage";
-import Login from "~/pages/Main/Login";
-import MainPage from "~/pages/Main/MainPage";
-import MyPage from "~/pages/Main/MyPage";
-import PreviewMain from "../pages/preview/PreviewMain";
-import PreviewLoading from "../pages/preview/PreviewLoading";
+import LoginPage from "~/pages/LoginPage/LoginPage";
+import MainPage from "~/pages/MainPage/MainPage";
+import PreviewMain from "~/pages/preview/PreviewMain";
 import MainLayout from "~/pages/layout";
+import PreviewLoading from "../pages/preview/PreviewLoading";
+import HousingFundLoan from "../components/HousingFundLoan";
+import DaumPost from "~/components/address";
 import PreviewResult from "~/pages/preview/PreviewResult";
 
 export const mainRoutes = [
@@ -18,19 +17,11 @@ export const mainRoutes = [
     children: [
       {
         path: "/",
-        element: <IndexPage />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
+        element: <LoginPage />,
       },
       {
         path: "/main",
         element: <MainPage />,
-      },
-      {
-        path: "/mypage",
-        element: <MyPage />,
       },
       {
         path: "/product/findout",
@@ -38,11 +29,15 @@ export const mainRoutes = [
       },
       {
         path: "/preview/main",
-        element: <PreviewMain />,
+        element: <PreviewMain></PreviewMain>,
       },
       {
-        path: "/preview/loading",
-        element: <PreviewLoading />,
+        path: "/preview/housing",
+        element: <HousingFundLoan />,
+      },
+      {
+        path: "/preview/housing/address",
+        element: <DaumPost />,
       },
       {
         path: "/preview/result",
