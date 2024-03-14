@@ -4,7 +4,6 @@ function App() {
   return (
     <>
       <div>Root Directory</div>
-      <FindoutPage></FindoutPage>
     </>
   );
 }

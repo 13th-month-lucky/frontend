@@ -1,51 +1,48 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import FindOutPage from "~/pages/products/findout/page";
-import IndexPage from "~/components/Main/IndexPage";
-import Login from "~/components/Main/Login";
-import MainPage from "~/components/Main/MainPage";
-import MyPage from "~/components/Main/MyPage";
-import EasyETF from "~/components/EasySeries/EasyETF";
-import EasyFound from "~/components/EasySeries/EasyFound";
-import EasyMain from "~/components/EasySeries/EasyMain";
-import EasyTax from "~/components/EasySeries/EasyTax";
+import LoginPage from "~/pages/LoginPage/LoginPage";
+import MainPage from "~/pages/MainPage/MainPage";
+import PreviewMain from "~/pages/preview/PreviewMain";
+import MainLayout from "~/pages/layout";
+import HousingFundLoan from "../components/HousingFundLoan";
+import DaumPost from "~/components/address";
+import PreviewResult from "~/pages/preview/PreviewResult";
 
 export const mainRoutes = [
   {
-    path: "/",
-    element: <IndexPage />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/main",
-    element: <MainPage />,
-  },
-  {
-    path: "/mypage",
-    element: <MyPage />,
-  },
-  {
-    path: "/EasyETF",
-    element: <EasyETF />,
-  },
-  {
-    path: "/EasyFound",
-    element: <EasyFound />,
-  },
-  {
-    path: "/EasyMain",
-    element: <EasyMain />,
-  },
-  {
-    path: "/EasyTax",
-    element: <EasyTax />,
-  },
-
-  {
-    path: "/product/findout",
-    element: <FindOutPage />,
+    path: "",
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/",
+        element: <LoginPage />,
+      },
+      {
+        path: "/main",
+        element: <MainPage />,
+      },
+      {
+        path: "/product/findout",
+        element: <FindOutPage />,
+      },
+      {
+        path: "/preview/main",
+        element: <PreviewMain></PreviewMain>,
+      },
+      {
+        path: "/preview/housing",
+        element: <HousingFundLoan />,
+      },
+      {
+        path: "/preview/housing/address",
+        element: <DaumPost />,
+      },
+      {
+        path: "/preview/result",
+        element: <PreviewResult />,
+      },
+    ],
   },
 ];
 
