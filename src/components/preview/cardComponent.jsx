@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Accordion } from "flowbite-react";
+import React, { useState } from "react";
 import "./accordion-custom.css";
 import cardImg from "~/assets/image/card-dynamic-color.png";
-import ProgressBar from "./progressBar";
+import ProgressBar from "~/components/preview/progressBar";
 
 const CardComponent = () => {
   const [isAnimationWork, setIsAnimationWork] = useState(false);
