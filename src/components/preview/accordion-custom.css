@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .accordion {
+    @apply border-2;
+  }
+
+  .accordion-title {
+    /* Accordion 제목에 대한 사용자 정의 스타일 */
+    @apply text-xl font-bold;
+  }
+
+  .accordion-content {
+    /* Accordion 내용에 대한 사용자 정의 스타일 */
+    @apply text-blue-700;
+  }
+}

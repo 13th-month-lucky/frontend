@@ -16,7 +16,7 @@ export default function MainLayout() {
         style={{
           height: "100vh",
           width: "450px",
-          maxWidth: "450px",
+          maxWidth: "400px",
           overflowY: "auto",
           overflowX: "hidden",
         }}
