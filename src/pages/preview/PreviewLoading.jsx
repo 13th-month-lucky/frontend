@@ -23,7 +23,7 @@ const FloatingIcon = styled.img`
 
 const PreviewLoading = () => {
   return (
-    <div className="bg-white h-screen p-4">
+    <div className="bg-white p-4">
       <div className="flex flex-col items-center mt-32">
         <div>
           <p className="text-center text-4xl font-bold">
