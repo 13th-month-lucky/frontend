@@ -1,0 +1,27 @@
+diff --git a/node_modules/flowbite-react/lib/esm/components/Accordion/theme.js b/node_modules/flowbite-react/lib/esm/components/Accordion/theme.js
+index 35de378..0a1d957 100644
+--- a/node_modules/flowbite-react/lib/esm/components/Accordion/theme.js
++++ b/node_modules/flowbite-react/lib/esm/components/Accordion/theme.js
+@@ -1,6 +1,6 @@
+ export const accordionTheme = {
+     root: {
+-        base: 'divide-y divide-gray-200 border-gray-200 dark:divide-gray-700 dark:border-gray-700',
++        base: 'divide-y divide-blue-200 border-gray-200 dark:divide-gray-700 dark:border-gray-700',
+         flush: {
+             off: 'rounded-lg border',
+             on: 'border-b',
+@@ -20,12 +20,12 @@ export const accordionTheme = {
+         base: 'flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left font-medium text-gray-500 dark:text-gray-400',
+         flush: {
+             off: 'hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:hover:bg-gray-800 dark:focus:ring-gray-800',
+-            on: 'bg-transparent dark:bg-transparent',
++            on: 'bg-blue-200 dark:bg-blue-200', // 변경된 부분
+         },
+         heading: '',
+         open: {
+             off: '',
+-            on: 'text-gray-900 bg-gray-100 dark:bg-gray-800 dark:text-white',
++            on: 'text-gray-900 bg-blue-200 dark:bg-gray-800 dark:text-white',
+         },
+     },
+ };
