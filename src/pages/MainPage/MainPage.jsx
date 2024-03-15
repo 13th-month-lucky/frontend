@@ -1,16 +1,29 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import CardComponent from "~/components/preview/cardComponent";
-import SmallBusiness from "~/components/preview/smallBusinessComponent";
+import React, { useState } from "react";
+import Header from "~/components/Main/Header/Header";
+import TabBar from "~/components/Main/TabBar/TabBar";
+
+import TaxAdjustment from "~/components/Main/TaxAdjustment/TaxAdjustment";
+import FindOut from "~/components/Main/FindOut/FindOut";
+import Quiz from "~/components/Main/Quiz/Quiz";
+import MyPage from "~/components/Main/MyPage/MyPage";
 
 export default function MainPage() {
-  const userState = useSelector((state) => state.user);
-  console.log("state: ", userState);
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const tabs = [
+    <TaxAdjustment></TaxAdjustment>,
+    <FindOut></FindOut>,
+    <Quiz></Quiz>,
+    <MyPage></MyPage>,
+  ];
 
   return (
     <div>
-      <p>MainPage</p>
-      <SmallBusiness />
+      <Header></Header>
+
+      {tabs[currentTab]}
+
+      <TabBar currentTab={currentTab} setCurrentTab={setCurrentTab}></TabBar>
     </div>
   );
 }
