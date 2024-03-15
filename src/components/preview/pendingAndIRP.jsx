@@ -1,7 +1,7 @@
 import { Accordion } from "flowbite-react";
-import moneyBagImg from "~/assets/images/money-bag.png";
+import moneyBagImg from "~/assets/images/preview/money-bag.png";
 import React from "react";
-import SavingsCalculator from "./savingsCalculator";
+import SavingsCalculator from "~/components/Preview/SavingsCalculator";
 
 export default function PendingAndIRP() {
   const remainPrice = 500000; // 남는 금액

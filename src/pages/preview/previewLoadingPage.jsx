@@ -1,6 +1,6 @@
 import React from "react";
-import dollarImg from "~/assets/dollar-color.png";
-import LoadingComments from "~/components/preview/loadingComments";
+import dollarImg from "~/assets/images/preview/dollar-color.png";
+import LoadingComments from "~/components/Preview/LoadingComments";
 import styled, { keyframes } from "styled-components";
 
 const floatAnimation = keyframes`

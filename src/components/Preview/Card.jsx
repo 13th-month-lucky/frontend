@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./accordion-custom.css";
-import cardImg from "~/assets/image/card-dynamic-color.png";
-import ProgressBar from "~/components/preview/progressBar";
+import "./Accordion-custom.css";
+import cardImg from "~/assets/images/preview/card-dynamic-color.png";
+import ProgressBar from "~/components/Preview/ProgressBar";
 
 const CardComponent = () => {
   const [isAnimationWork, setIsAnimationWork] = useState(false);

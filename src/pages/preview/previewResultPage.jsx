@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import sunImg from "~/assets/images/sun.png";
-import cloudImg from "~/assets/images/cloud.png";
+import sunImg from "~/assets/images/preview/sun.png";
+import cloudImg from "~/assets/images/preview/cloud.png";
 import styled, { keyframes } from "styled-components";
-import { Button, Tooltip } from "flowbite-react";
+import { Tooltip } from "flowbite-react";
 
 export default function PreviewResult() {
   const [name, setName] = useState("김신한");

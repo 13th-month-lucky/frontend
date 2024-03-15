@@ -15,6 +15,8 @@ import {
   createUser,
 } from "../../lib/apis/user";
 import { useNavigate } from "react-router";
+import loginImg from "~/assets/images/login/kakao_login_large_wide_2.png";
+import logoImg from "~/assets/images/logo.png";
 
 export default function LoginPage() {
   const userState = useSelector((state) => state.user);
@@ -64,7 +66,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center">
       <div className="mt-20 mb-10" style={{ width: "40%" }}>
-        <img src="src/assets/images/logo.png"></img>
+        <img src={logoImg}></img>
       </div>
 
       <div className="text-center">
@@ -75,7 +77,7 @@ export default function LoginPage() {
 
       <img
         className="h-8 mt-40"
-        src="src/components/Login/kakao_login_large_wide_2.png"
+        src={loginImg}
         onClick={() => clickLoginBtn()}
       ></img>
     </div>

@@ -1,6 +1,6 @@
 import { Accordion, Card, Checkbox } from "flowbite-react";
 import React from "react";
-import calenderImg from "~/assets/images/calender.png";
+import calenderImg from "~/assets/images/preview/calender.png";
 
 export default function MonthlyRental() {
   return (

@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { Accordion } from "flowbite-react";
-import peopleImg from "~/assets/image/Group 43.png";
+import peopleImg from "~/assets/images/preview/Group 43.png";
 function PersonComponent() {
   const [spouseNum, setSpouseNum] = useState(0); //배우자 수
   const [babyNum, setBabyNum] = useState(0); // 자녀 수

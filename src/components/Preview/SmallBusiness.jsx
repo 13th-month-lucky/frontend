@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Accordion, Checkbox } from "flowbite-react";
-import businessBagImg from "~/assets/image/travel-dynamic-color.png";
+import businessBagImg from "~/assets/images/preview/travel-dynamic-color.png";
 function SmallBusiness() {
   const [smallBusinessCheck, setSmallBusinessCheck] = useState(false);
   const checkHandler = () => {
@@ -29,6 +29,7 @@ function SmallBusiness() {
         </Accordion.Title>
         <Accordion.Content>
           <div className="flex items-center justify-between mb-3">
+            <p>중소기업 공제 추가시, </p>
             <p className=" text-black dark:text-black-400 text-lg mt-3">
               중소기업에 재직 중이신가요?
             </p>

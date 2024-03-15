@@ -18,7 +18,7 @@ export default function TabBar(props) {
             textColor = "text-gray-950";
           }
 
-          const src = "src/components/Main/TabBar/icons/" + ele + ".png";
+          const src = "src/assets/images/tabBarIcons/" + ele + ".png";
 
           return (
             <div

@@ -1,6 +1,6 @@
 import React from "react";
-import lenseImg from "~/assets/lense.png";
-import style from "./PreviewMain.module.css";
+import lenseImg from "~/assets/images/preview/lense.png";
+import style from "~/pages/preview/previewMain.module.css";
 import { Link } from "react-router-dom";
 
 const PreviewMain = () => {

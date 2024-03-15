@@ -21,15 +21,7 @@ export default function MainLayout() {
           overflowX: "hidden",
         }}
       >
-        <div
-          className="container"
-          // style={{
-          //   height: "90vh",
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   alignItems: "center",
-          // }}
-        >
+        <div className="container">
           <Outlet />
         </div>
       </div>

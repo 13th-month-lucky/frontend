@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Accordion, Checkbox, Label, TextInput, Radio } from "flowbite-react";
-import Address from "./address"; // Import Address component
-import houseImg from "~/assets/images/house.png";
+import Address from "./Address"; // Import Address component
+import houseImg from "~/assets/images/preview/house.png";
 
 const HousingFundLoan = () => {
   const [checkLoan, setCheckLoan] = useState(false);
