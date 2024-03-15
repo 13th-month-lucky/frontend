@@ -21,7 +21,12 @@ function Address(props) {
   };
 
   return (
-    <Button color="light" pill onClick={handleClick}>
+    <Button
+      color="light"
+      className="items-end justify-end"
+      pill
+      onClick={handleClick}
+    >
       주소 찾기
     </Button>
   );

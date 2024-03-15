@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Accordion, Checkbox, Label, TextInput, Radio } from "flowbite-react";
 import Address from "./address"; // Import Address component
+import houseImg from "~/assets/images/house.png";
 
 const HousingFundLoan = () => {
   const [checkLoan, setCheckLoan] = useState(false);
@@ -21,7 +22,12 @@ const HousingFundLoan = () => {
       <div>
         <Accordion className="m-5">
           <Accordion.Panel>
-            <Accordion.Title>🏠 주택 대출 상환 공제 추가하기</Accordion.Title>
+            <Accordion.Title>
+              <div className="flex flex-row">
+                <img src={houseImg} className="w-10 h-10" />
+                <h2 className="ml-2 mt-2">주택 대출 상환 공제 추가하기</h2>
+              </div>
+            </Accordion.Title>
             <Accordion.Content className="mb-2 text-gray-500 dark:text-gray-400">
               <div>
                 <div className="flex gap-2">
@@ -37,7 +43,7 @@ const HousingFundLoan = () => {
                 <div>
                   <div className="mt-3">
                     <div className="max-w-md">
-                      <fieldset className="flex max-w-md flex-row gap-4">
+                      <fieldset className="flex max-w-md flex-row gap-4 items-center justify-center">
                         <div className="flex items-center gap-2">
                           <Radio id="monthly" name="type" value="monthly" />
                           <Label htmlFor="monthly">월세</Label>
@@ -67,13 +73,15 @@ const HousingFundLoan = () => {
                         type="text"
                         value={addressDetail}
                         placeholder="상세주소"
-                        className="mt-2"
+                        className="mt-2 mb-2"
                         onChange={(e) => setAddressDetail(e.target.value)}
                       />
                     </div>
 
-                    {/* Replace Button with Address Component */}
-                    <Address setAddressObj={setAddressObj} />
+                    <Address
+                      className="items-end justify-end"
+                      setAddressObj={setAddressObj}
+                    />
                   </div>
                 </div>
               )}

@@ -1,5 +1,3 @@
-import FindoutPage from './products/findout/page';
-
 function App() {
   return (
     <>

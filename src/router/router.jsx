@@ -1,50 +1,50 @@
-import React from "react";
-import { createBrowserRouter } from "react-router-dom";
-import FindOutPage from "~/pages/products/findout/page";
-import LoginPage from "~/pages/LoginPage/LoginPage";
-import MainPage from "~/pages/MainPage/MainPage";
-import PreviewMain from "~/pages/preview/PreviewMain";
-import MainLayout from "~/pages/layout";
-import PreviewLoading from "../pages/preview/PreviewLoading";
-import HousingFundLoan from "../components/HousingFundLoan";
-import DaumPost from "~/components/address";
-import PreviewResult from "~/pages/preview/PreviewResult";
+import React from 'react';
+import { createBrowserRouter } from 'react-router-dom';
+import FindOutPage from '~/pages/products/findout/page';
+import LoginPage from '~/pages/LoginPage/LoginPage';
+import MainPage from '~/pages/MainPage/MainPage';
+import PreviewMain from '~/pages/preview/PreviewMain';
+import MainLayout from '~/pages/layout';
+import HousingFundLoan from '../components/HousingFundLoan';
+import DaumPost from '~/components/address';
+import PreviewResult from '~/pages/preview/PreviewResult';
+import PreviewLoading from '~/pages/preview/PreviewLoading';
 
 export const mainRoutes = [
   {
-    path: "",
+    path: '',
     element: <MainLayout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <LoginPage />,
       },
       {
-        path: "/main",
+        path: '/main',
         element: <MainPage />,
       },
       {
-        path: "/product/findout",
+        path: '/product/findout',
         element: <FindOutPage />,
       },
       {
-        path: "/preview/main",
+        path: '/preview/main',
         element: <PreviewMain></PreviewMain>,
       },
       {
-        path: "/preview/housing",
+        path: '/preview/housing',
         element: <HousingFundLoan />,
       },
       {
-        path: "/preview/housing/address",
+        path: '/preview/housing/address',
         element: <DaumPost />,
       },
       {
-        path: "/preview/result",
+        path: '/preview/result',
         element: <PreviewResult />,
       },
       {
-        path: "/preview/loading",
+        path: '/preview/loading',
         element: <PreviewLoading />,
       },
     ],
