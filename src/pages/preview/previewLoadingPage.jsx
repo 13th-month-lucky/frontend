@@ -1,7 +1,8 @@
-import React from "react";
+import { React, useEffect } from "react";
 import dollarImg from "~/assets/images/preview/dollar-color.png";
 import LoadingComments from "~/components/Preview/LoadingComments";
 import styled, { keyframes } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const floatAnimation = keyframes`
   0% {
@@ -22,6 +23,18 @@ const FloatingIcon = styled.img`
 `;
 
 const PreviewLoading = () => {
+  const navigate = useNavigate();
+
+  const goToResultPage = () => {
+    setTimeout(() => {
+      navigate("/preview/result");
+    }, 6000);
+  };
+
+  useEffect(() => {
+    goToResultPage();
+  });
+
   return (
     <div className="bg-white p-4">
       <div className="flex flex-col items-center mt-32">

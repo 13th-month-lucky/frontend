@@ -21,7 +21,7 @@ const LoadingComments = () => {
     "증권 데이터를 불러오는 중...",
     "보험 데이터를 불러오는 중...",
   ]; // 변경할 텍스트 배열
-  const interval = 3000; // 변경 간격
+  const interval = 1500; // 변경 간격
   const length = commentsArray.length;
   return (
     <TextRotator
