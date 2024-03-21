@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 export default function MainLayout() {
   return (
     <div
-      className="font-['Pretendard-Regular'] tracking-wide"
+      className="font-['SpoqaHanSansNeo'] tracking-wide"
       style={{
         display: "flex",
         flexDirection: "column",
