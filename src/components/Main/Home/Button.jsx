@@ -19,7 +19,7 @@ export default function Button(props) {
       style={{ width: "100%", height: "100%", cursor: "pointer" }}
       onClick={() => navigate(link)}
     >
-      <p className="h3 mb-1">
+      <p className="h3 mb-1" style={{ whiteSpace: "pre-line" }}>
         {firstOfTitle}
         <br></br>
         {secondOfTitle}

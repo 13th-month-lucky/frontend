@@ -10,8 +10,8 @@ import moneyBagImg from "~/assets/images/preview/moneyBag.png";
 export default function Services() {
   const userState = useSelector((state) => state.user13th);
 
-  const firstOfTitle1 = userState.nickname + "님은 13월의 강도일까요,";
-  const secondOfTitle1 = "13월의 월급일까요?";
+  const firstOfTitle1 = "어려운 연말정산!";
+  const secondOfTitle1 = `${userState.nickname}님에게는 13월의 강도일까요,\n13월의 월급일까요?`;
   const subTitle1 = "지금 연말정산 미리보기";
   const link1 = "/preview/main";
 
