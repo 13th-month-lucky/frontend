@@ -39,7 +39,7 @@ const CardComponent = () => {
                 ? {
                     borderBottomLeftRadius: 0,
                     borderBottomRightRadius: 0,
-                    backgroundColor: "#E1EFFE",
+                    backgroundColor: "#C3DDFD",
                   }
                 : null
             }

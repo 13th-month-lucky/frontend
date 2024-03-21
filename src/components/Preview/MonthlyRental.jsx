@@ -6,7 +6,7 @@ export default function MonthlyRental() {
   return (
     <Accordion collapseAll className="m-5">
       <Accordion.Panel>
-        <Accordion.Title className="flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left text-xl text-black-500 dark:text-gray-400 hover:bg-blue-100 focus:ring-4 focus:ring-blue-200 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+        <Accordion.Title className="flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left text-xl text-black-500 dark:text-gray-400 hover:bg-blue-100 focus:ring-4 focus:ring-blue-100 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
           <div className="flex flex-row align-center">
             <img src={calenderImg} className="w-10 h-10 mt-1" />
             <h2 className="ml-2 mt-2">월세 공제 추가하기</h2>
