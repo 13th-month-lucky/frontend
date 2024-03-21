@@ -8,7 +8,7 @@ const PreviewMain = () => {
     <div className="bg-white h-screen p-4">
       <div className="flex flex-col items-center mt-20">
         <div>
-          <p className="text-center text-4xl font-bold">연말정산 미리보기</p>
+          <p className="h1 text-center">연말정산 미리보기</p>
         </div>
 
         <div className="mt-14">
@@ -21,11 +21,9 @@ const PreviewMain = () => {
           />
         </div>
         <div className="text-center mt-4">
-          <p className="text-xl font-semibold mt-4">
-            13월의 강도에서 13일의 월급으로
-          </p>
-          <p className="text-xl font-semibold mt-4">연말정산</p>
-          <p className="text-xl font-semibold mt-4">미리미리 준비하세요!</p>
+          <p className="h3 mt-4">13월의 강도에서 13일의 월급으로</p>
+          <p className="h3 mt-4">연말정산</p>
+          <p className="h3 mt-4">미리미리 준비하세요!</p>
         </div>
         <div className="flex flex-col items-center justify-center mt-10 w-full">
           <div className="w-9/12">

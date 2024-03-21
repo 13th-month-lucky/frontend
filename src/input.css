@@ -15,6 +15,41 @@
   src: url("./font/윤고딕320.ttf");
 }
 
+.h1 {
+  /* text-4xl */
+  font-size: 2.25rem; /* 36px */
+  line-height: 2.5rem; /* 40px */
+
+  /* font-bold*/
+  font-weight: 700;
+}
+
+.h2 {
+  /* text-2xl*/
+  font-size: 1.5rem; /* 24px */
+  line-height: 2rem; /* 32px */
+
+  /* font-bold */
+  font-weight: 700;
+}
+
+.h3 {
+  /* text-xl*/
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+
+  /* font-semibold */
+  font-weight: 600;
+}
+
+.mediumGreyText {
+  /* text-medium */
+  font-weight: 500;
+
+  /* text-slate-500 */
+  color: rgb(100 116 139);
+}
+
 .h body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

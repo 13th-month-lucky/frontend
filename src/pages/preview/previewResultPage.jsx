@@ -17,7 +17,7 @@ export default function PreviewResult() {
 
   return (
     <div className="bg-white h-screen p-4">
-      <div className="flex flex-col items-center mt-28">
+      <div className="flex flex-col items-center mt-16">
         <div>
           {isReceive ? (
             <SunImg src={sunImg} alt="sun" />
@@ -26,15 +26,13 @@ export default function PreviewResult() {
           )}
         </div>
         <div className="text-center mt-5">
-          <p className="text-xl font-medium mt-4">{name}님은</p>
+          <p className="h3 mt-4">{name}님은</p>
           <p className="text-xl font-extrabold mt-4">{price}원</p>
-          <p className="text-xl font-medium mt-4">
+          <p className="h3 mt-4">
             {isReceive ? "받을 수 있어요! 😊" : "더 내야 해요.. 😢"}
           </p>
           <div className="flex justify-content-center align-items-center">
-            <p className="text-xs fond-thin text-[#A09F9F] mt-1">
-              위 금액은 예상납부금입니다.
-            </p>
+            <p className="mediumGreyText mt-1">위 금액은 예상납부금입니다.</p>
             <Tooltip
               style="light"
               placement="right"
@@ -87,13 +85,13 @@ export default function PreviewResult() {
 
         <div className="flex flex-col items-center justify-center mt-10 w-full">
           {isReceive ? (
-            <p className="text-center">
+            <p className="h3 text-center">
               13월의 월급을 더 많이 받을 수 있는
               <br />
               방법을 알려드릴게요!
             </p>
           ) : (
-            <p className="text-center">
+            <p className="h3 text-center">
               13월의 강도에서 13월의 월급으로
               <br />
               바꾸는 방법을 알려드릴게요!

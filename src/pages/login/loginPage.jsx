@@ -69,9 +69,11 @@ export default function LoginPage() {
         <img src={logoImg} style={{ cursor: "pointer" }}></img>
       </div>
 
-      <div className="text-center">
-        <p className="font-mono">
-          13월에도<br></br>월급을 받을 수 있다면?
+      <div className="h3 text-center">
+        <p>
+          13월에도
+          <br />
+          월급을 받을 수 있다면?
         </p>
       </div>
 

@@ -10,7 +10,7 @@ export default function Header(props) {
       onClick={() => setCurrentTab(2)}
     >
       <img src="src/assets/images/logo.png" className="w-12 h-12 mr-2"></img>
-      <p className="font-semibold text-2xl">13월</p>
+      <p className="h2">13월</p>
     </div>
   );
 }
