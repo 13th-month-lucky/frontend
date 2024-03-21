@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { Accordion, Checkbox } from "flowbite-react";
+import { Accordion, Card, Checkbox } from "flowbite-react";
 import businessBagImg from "~/assets/images/preview/travel-dynamic-color.png";
 function SmallBusiness() {
   const [smallBusinessCheck, setSmallBusinessCheck] = useState(false);
@@ -12,34 +12,28 @@ function SmallBusiness() {
     }
   };
   return (
-    <Accordion>
+    <Accordion collapseAll className="m-5">
       <Accordion.Panel>
-        <Accordion.Title className="text-xl font-bold">
-          {/* hover:bg-blue-200 */}
-          <div className="flex items-center">
-            <img
-              src={businessBagImg}
-              alt="card"
-              className="w-12 h-15 mr-2 mb-1"
-            />
-            <span className="text-xl text-black font-bold">
-              중소기업 공제 추가하기
-            </span>
+        <Accordion.Title className="flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left text-xl text-black-500 dark:text-gray-400 hover:bg-blue-100 focus:ring-4 focus:ring-blue-200 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+          <div className="flex flex-row align-center">
+            <img src={businessBagImg} className="w-10 h-10 mt-1" />
+            <h2 className="ml-2 mt-2"> 중소기업 공제 추가하기</h2>
           </div>
         </Accordion.Title>
-        <Accordion.Content>
-          <div className="flex items-center justify-between mb-3">
-            <p>중소기업 공제 추가시, </p>
-            <p className=" text-black dark:text-black-400 text-lg mt-3">
-              중소기업에 재직 중이신가요?
-            </p>
-            <Checkbox
-              id="accept"
-              onChange={checkHandler}
-              className="mt-3 h-6 w-6"
-            />
-            <div className="flex items-center"></div>
-          </div>
+        <Accordion.Content className="bg-gray-100">
+          <Card>
+            <div className="flex items-center justify-between mb-3">
+              <p className=" text-black dark:text-black-400 text-base mt-3">
+                중소기업에 재직 중이고, <br />
+                재직 기간이 3년 미만이신가요?
+              </p>
+              <Checkbox
+                id="accept"
+                onChange={checkHandler}
+                className="mt-3 h-6 w-6"
+              />
+            </div>
+          </Card>
         </Accordion.Content>
       </Accordion.Panel>
     </Accordion>

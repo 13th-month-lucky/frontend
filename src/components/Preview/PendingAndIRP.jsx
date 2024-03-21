@@ -13,20 +13,12 @@ export default function PendingAndIRP() {
       (연금저축계좌 <= 400) */
 
   return (
-    <Accordion>
-      <Accordion.Panel className={"accordion"}>
-        <Accordion.Title className={"accordion-title"}>
-          <div className="flex align-items-center">
-            <div>
-              <img
-                src={moneyBagImg}
-                alt="money bag"
-                style={{ width: "2rem", height: "2rem" }}
-              ></img>
-            </div>
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              연금저축 및 IRP 추가하기
-            </h5>
+    <Accordion collapseAll className="m-5">
+      <Accordion.Panel>
+        <Accordion.Title className="flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left text-xl text-black-500 dark:text-gray-400 hover:bg-blue-100 focus:ring-4 focus:ring-blue-200 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+          <div className="flex flex-row align-center">
+            <img src={moneyBagImg} className="w-10 h-10 mt-1" />
+            <h2 className="ml-2 mt-2">연금저축 및 IRP 추가하기</h2>
           </div>
         </Accordion.Title>
         <Accordion.Content className="bg-gray-100">
