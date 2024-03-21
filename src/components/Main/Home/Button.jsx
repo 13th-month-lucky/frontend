@@ -32,7 +32,7 @@ export default function Button(props) {
       </p>
 
       <div className="absolute right-3 bottom-3">
-        <img className="h-8" src={imageSrc}></img>
+        {props.icon && <props.icon size="40" />}
       </div>
     </div>
   );

@@ -6,6 +6,12 @@ import coinImg from "~/assets/images/preview/coin.png";
 import chartImg from "~/assets/images/preview/chart.png";
 import lenseImg from "~/assets/images/preview/lense.png";
 import moneyBagImg from "~/assets/images/preview/moneyBag.png";
+import {
+  FcBullish,
+  FcMoneyTransfer,
+  FcIdea,
+  FcOnlineSupport,
+} from "react-icons/fc";
 
 export default function Services() {
   const userState = useSelector((state) => state.user13th);
@@ -28,7 +34,7 @@ export default function Services() {
     <div className="mt-6 mb-10 p-6">
       <div className="flex items-center justify-start gap-2 mb-2 ml-1">
         <p className="h2">돈 버는 서비스</p>
-        <img className="h-10" src={coinImg}></img>
+        <FcMoneyTransfer size="40" />
       </div>
 
       <div className="w-1/1 mb-3" style={{ height: "160px" }}>
@@ -38,6 +44,7 @@ export default function Services() {
           firstOfSubTitle={subTitle1}
           imageSrc={lenseImg}
           link={link1}
+          icon={FcIdea}
         ></Button>
       </div>
 
@@ -49,6 +56,7 @@ export default function Services() {
             secondOfSubTitle={secondOfSubTitle2}
             imageSrc={chartImg}
             link={link2}
+            icon={FcBullish}
           ></Button>
         </div>
 
@@ -58,6 +66,7 @@ export default function Services() {
             firstOfSubTitle={firstOfSubTitle3}
             secondOfSubTitle={secondOfSubTitle3}
             imageSrc={moneyBagImg}
+            icon={FcOnlineSupport}
           ></Button>
         </div>
       </div>
