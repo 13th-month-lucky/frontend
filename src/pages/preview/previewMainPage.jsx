@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const PreviewMain = () => {
   return (
     <div className="bg-white h-screen p-4">
-      <div className="flex flex-col items-center mt-20">
+      <div className="flex flex-col items-center mt-9">
         <div>
           <p className="h1 text-center">연말정산 미리보기</p>
         </div>
