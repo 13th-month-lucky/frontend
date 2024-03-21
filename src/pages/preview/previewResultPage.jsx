@@ -3,17 +3,12 @@ import sunImg from "~/assets/images/preview/sun.png";
 import cloudImg from "~/assets/images/preview/cloud.png";
 import styled, { keyframes } from "styled-components";
 import { Tooltip } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
+import BlueButton from "~/components/BlueButton/BlueButton";
 
 export default function PreviewResult() {
   const [name, setName] = useState("김신한");
   const [price, setPrice] = useState("200만");
-  const [isReceive, setIsReceive] = useState(true);
-  const navigate = useNavigate();
-
-  const goToSolution = () => {
-    navigate("/preview/solution");
-  };
+  const [isReceive, setIsReceive] = useState(false);
 
   return (
     <div className="bg-white h-screen p-4">
@@ -85,27 +80,19 @@ export default function PreviewResult() {
 
         <div className="flex flex-col items-center justify-center mt-10 w-full">
           {isReceive ? (
-            <p className="h3 text-center">
+            <p className="h3 text-center mb-16">
               13월의 월급을 더 많이 받을 수 있는
               <br />
               방법을 알려드릴게요!
             </p>
           ) : (
-            <p className="h3 text-center">
+            <p className="h3 text-center mb-16">
               13월의 강도에서 13월의 월급으로
               <br />
               바꾸는 방법을 알려드릴게요!
             </p>
           )}
-
-          <div className="w-9/12 mt-20">
-            <button
-              className="bg-blue-500 text-white text-lg w-full py-4 rounded-[15px] font-semibold"
-              onClick={goToSolution}
-            >
-              솔루션 보러가기
-            </button>
-          </div>
+          <BlueButton text="솔루션 보러가기" destination="/preview/solution" />
         </div>
       </div>
     </div>
