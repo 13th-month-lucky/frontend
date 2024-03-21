@@ -10,7 +10,12 @@
   font-style: normal;
 }
 
-body {
+@font-face {
+  font-family: "YOON-Gothic";
+  src: url("./font/윤고딕320.ttf");
+}
+
+.h body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
