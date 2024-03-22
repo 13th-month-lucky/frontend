@@ -29,10 +29,10 @@ function ProgressBar({ percentage, color, isAnimation }) {
   return (
     <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
       <div
-        className="bg-blue-600 text-xl font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+        className="bg-blue-600 text-s font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
         style={progressBarStyle}
       >
-        {currentPercentage}원
+        {currentPercentage}만원
       </div>
     </div>
   );
