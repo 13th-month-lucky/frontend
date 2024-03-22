@@ -27,8 +27,8 @@ export default function PreviewSolutionPage() {
       <HousingFundLoan />
       <SmallBusiness />
       <PendingAndIRP />
-      <div className="flex justify-center">
-        <BlueButton text="결과 확인하기" link="#" className="" />
+      <div className="flex justify-center mb-5">
+        <BlueButton text="결과 확인하기" destination="/preview/result/detail" />
       </div>
     </>
   );
