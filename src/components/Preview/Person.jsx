@@ -1,12 +1,26 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useMemo } from "react";
 import { Accordion, Card } from "flowbite-react";
 import peopleImg from "~/assets/images/preview/Group 43.png";
-function PersonComponent() {
+function PersonComponent({ updateTotal }) {
   const [spouseNum, setSpouseNum] = useState(0); //배우자 수
   const [babyNum, setBabyNum] = useState(0); // 자녀 수
   const [childNum, setChildNum] = useState(0); // 8세 이상 자녀의 수
   const [youngParentNum, setYoungParentNum] = useState(0); //60-70세 미만의 부모님
   const [oldParentNum, setOldParentNum] = useState(0); // 70세 이상의 부모님
+  const [totalPeopleNum, setTotalPeopleNum] = useState(0);
+
+  useEffect(() => {
+    // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
+    const price = calculatePrice();
+    console.log(price);
+    updateTotal("person", price);
+  }, [totalPeopleNum]);
+
+  const calculatePrice = () => {
+    const pricePerPerson = 1500000; // 각 인원당 가격
+    const calculatedPrice = totalPeopleNum * pricePerPerson;
+    return calculatedPrice;
+  };
 
   const PlusButton = ({ plusFunc }) => {
     // 더하기 버튼 컴포넌트
@@ -23,24 +37,10 @@ function PersonComponent() {
     );
   };
 
-  const MinusButton = ({ minusFunc }) => {
-    //마이너스 버튼 컴포넌트
-    return (
-      <button
-        type="button"
-        className="flex-shrink-0 py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-        onClick={() => {
-          handleMinusButton(minusFunc);
-        }}
-      >
-        -
-      </button>
-    );
-  };
-
   const handlePlusButton = (plusFunc) => {
     // 플러스 버튼 눌렀을때 들어온 set 함수 실행
     plusFunc((prevValue) => prevValue + 1);
+    setTotalPeopleNum((prevTotal) => prevTotal + 1);
   };
 
   const handleMinusButton = (minusFunc) => {
@@ -54,7 +54,28 @@ function PersonComponent() {
         return prevValue - 1;
       }
     });
+
+    setTotalPeopleNum((prevTotal) => prevTotal - 1);
   };
+  const MinusButton = useMemo(() => {
+    const component = ({ minusFunc }) => {
+      //마이너스 버튼 컴포넌트
+      return (
+        <button
+          type="button"
+          className="flex-shrink-0 py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          onClick={() => {
+            handleMinusButton(minusFunc);
+          }}
+        >
+          -
+        </button>
+      );
+    };
+    component.displayName = "MinusButton";
+    return component;
+  }, [handleMinusButton]);
+
   return (
     <Accordion collapseAll className="m-5">
       <Accordion.Panel>
@@ -79,6 +100,7 @@ function PersonComponent() {
                 <p className="mb-2 text-black dark:text-gray-400">
                   8세 미만의 자녀
                 </p>
+
                 <div className="flex items-center">
                   <PlusButton plusFunc={setBabyNum} />
                   <p className="mr-4 ml-3">{babyNum}</p>
