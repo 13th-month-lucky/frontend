@@ -18,7 +18,7 @@ export default function SavingsCalculator({ title, limitPrice }) {
     <Card>
       <div className="text-center font-normal">
         <p>
-          {title} 세액공제 한도가 <br />{" "}
+          <b>{title + " "}</b> 세액공제 한도가 <br />
           <b>{currLimitPrice.toLocaleString("ko-KR")}원</b> 남았어요!
         </p>
         <p>
