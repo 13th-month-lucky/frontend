@@ -39,6 +39,12 @@ export default function SavingsCalculator({ title, limitPrice }) {
             const newValue = e.target.value;
             setValue(newValue);
           }}
+          style={{
+            // CSS-in-JS 방식으로 스타일 적용
+            background: `linear-gradient(to right, #1B64F2 0%, #1B64F2 ${
+              (value / (limitPrice / unit)) * 100
+            }%, #D1D5DB ${(value / (limitPrice / unit)) * 100}%, #D1D5DB 100%)`,
+          }}
         />
       </div>
     </Card>
