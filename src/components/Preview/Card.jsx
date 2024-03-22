@@ -73,21 +73,25 @@ const CardComponent = () => {
         >
           <div className="p-5 border border-gray-200 rounded-b-xl dark:border-gray-700 dark:bg-gray-900 bg-gray-100">
             <Card>
-              <p className="text-base">
-                신용카드 공제 한도까지 100만원 남았습니다.
+              <p className="text-sm">
+                <b>신용카드</b> 공제 한도까지 <b>100만원</b> 남았습니다.
               </p>
               <ProgressBar
                 percentage={30}
                 color={"#8DB4FF"}
                 isAnimation={isAnimationWork}
               />
-              <p>현금카드 공제 한도까지 150만원 남았습니다.</p>
+              <p className="text-sm">
+                <b>체크카드</b> 공제 한도까지 <b>150만원</b> 남았습니다.
+              </p>
               <ProgressBar
                 percentage={50}
                 color={"#FEA6FA"}
                 isAnimation={isAnimationWork}
               />
-              <p>현금영수증 공제 한도까지 150만원 남았습니다.</p>
+              <p className="text-sm">
+                <b>현금영수증</b> 공제 한도까지 <b>150만원</b> 남았습니다.
+              </p>
               <ProgressBar
                 percentage={70}
                 color={"#FFDB97"}
