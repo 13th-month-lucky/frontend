@@ -28,7 +28,6 @@ export const deleteComment = async (commentId) => {
 
     const resp = await axios.delete(deleteCommentUrl);
 
-    console.log("delete: ", deleteCommentUrl);
     return resp.data;
   } catch (err) {
     console.log(err);

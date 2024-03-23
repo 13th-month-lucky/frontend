@@ -2,20 +2,18 @@ import React from "react";
 
 export default function Detail(props) {
   const code = props.code;
+  const stockInfo = props.stockInfo;
 
   //test data
   const infos = {
-    설명: "국내 유가증권시장 및 코스닥 시장에 상장되어 있는 종목 중, 의료기기 소부장 관련 키워드와 종목 유사도를 스코어링 후 상위 종목을 선정하여 산출한 지수",
-    "순자산 총액": 305,
-    사무수탁사: "신한펀드파트너스",
-    상장일: "2023.08.22",
-    수탁은행: "HSBC",
-    연금투자: "가능",
-    설정단위: "50,000좌",
-    총보수:
-      "0.45%(집합투자: 0.4%, AP/LP: 0.01%, 신탁업자: 0.02%, 일반사무: 0.02%)",
-    분배금지급: "연 1회 지급",
-    최소거래단위: "1주",
+    설명: stockInfo.basicInfo.종목설명,
+    "순자산 총액": stockInfo.basicInfo.순자산총액,
+    사무수탁사: stockInfo.basicInfo.사무수탁사,
+    상장일: stockInfo.basicInfo.상장일,
+    수탁은행: stockInfo.basicInfo.수탁은행,
+    설정단위: stockInfo.basicInfo.설정단위,
+    분배금지급: stockInfo.basicInfo.분배금지급,
+    최소거래단위: stockInfo.basicInfo.최소거래단위,
   };
 
   return (

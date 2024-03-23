@@ -18,7 +18,7 @@ export default function SavingsCalculator({ title, limitPrice }) {
     <Card>
       <div className="text-center font-normal">
         <p>
-          {title} 세액공제 한도가 <br />{" "}
+          <b>{title + " "}</b> 세액공제 한도가 <br />
           <b>{currLimitPrice.toLocaleString("ko-KR")}원</b> 남았어요!
         </p>
         <p>
@@ -38,6 +38,12 @@ export default function SavingsCalculator({ title, limitPrice }) {
           onChange={(e) => {
             const newValue = e.target.value;
             setValue(newValue);
+          }}
+          style={{
+            // CSS-in-JS 방식으로 스타일 적용
+            background: `linear-gradient(to right, #1B64F2 0%, #1B64F2 ${
+              (value / (limitPrice / unit)) * 100
+            }%, #D1D5DB ${(value / (limitPrice / unit)) * 100}%, #D1D5DB 100%)`,
           }}
         />
       </div>

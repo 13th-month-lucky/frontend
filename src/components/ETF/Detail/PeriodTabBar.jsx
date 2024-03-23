@@ -2,8 +2,9 @@ import React from "react";
 
 export default function PeriodTabBar(props) {
   const setCurrentPeriod = props.setCurrentPeriod;
-  const periods = props.periods;
   const currentPeriod = props.currentPeriod;
+
+  const periods = ["1주", "1개월", "3개월", "6개월", "1년"];
 
   return (
     <div className="flex text-center">

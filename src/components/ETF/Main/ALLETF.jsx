@@ -1,68 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Card } from "flowbite-react";
 import MyResponsiveLine from "~/components/ETF/Main/MyResponsiveLine";
 import riskIconImg1 from "~/assets/images/riskIcons/riskIcon1.png";
+import riskIconImg2 from "~/assets/images/riskIcons/riskIcon2.png";
+import riskIconImg3 from "~/assets/images/riskIcons/riskIcon3.png";
+import riskIconImg4 from "~/assets/images/riskIcons/riskIcon4.png";
+import riskIconImg5 from "~/assets/images/riskIcons/riskIcon5.png";
+import riskIconImg6 from "~/assets/images/riskIcons/riskIcon6.png";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 const ALLETF = () => {
+  const [risk0, setRisk0] = useState([]);
+
   const [risk1, setRisk1] = useState([]);
   const [risk2, setRisk2] = useState([]);
   const [risk3, setRisk3] = useState([]);
   const [risk4, setRisk4] = useState([]);
   const [risk5, setRisk5] = useState([]);
-  const [etf, setEtf] = useState({});
-  const code = 12;
-  const detailLink = `/etf/detail/12`;
+  const [risk6, setRisk6] = useState([]);
 
-  const updateEtfHistory = async () => {
-    for (let i = 0; i < risk1.length; i++) {
-      const code = risk1[i].code;
-      const history = await axios.get(`~~~~/${code}/chart`);
-      setEtf((prev) => {
-        return {
-          ...prev,
-          code: history,
-        };
-      });
-    }
-  };
-
-  useEffect(() => {
-    updateEtfHistory();
-  }, [risk1]);
-
-  // const [etf,setEtf] = useState({'<etfKey>': [
-  //   {
-  //       "stck_bsop_date": "20240321",
-  //       "stck_clpr": "9970",
-  //       "stck_oprc": "10025",
-  //       "stck_hgpr": "10025",
-  //       "stck_lwpr": "9780",
-  //       "acml_vol": "303634",
-  //       "acml_tr_pbmn": "3010226990",
-  //       "flng_cls_code": "00",
-  //       "prtt_rate": "0.00",
-  //       "mod_yn": "N",
-  //       "prdy_vrss_sign": "2",
-  //       "prdy_vrss": "40",
-  //       "revl_issu_reas": ""
-  //   },
-  //   {
-  //       "stck_bsop_date": "20240320",
-  //       "stck_clpr": "9930",
-  //       "stck_oprc": "9760",
-  //       "stck_hgpr": "9965",
-  //       "stck_lwpr": "9755",
-  //       "acml_vol": "636232",
-  //       "acml_tr_pbmn": "6287391250",
-  //       "flng_cls_code": "00",
-  //       "prtt_rate": "0.00",
-  //       "mod_yn": "N",
-  //       "prdy_vrss_sign": "2",
-  //       "prdy_vrss": "220",
-  //       "revl_issu_reas": ""
-  //   },]})
   useEffect(() => {
     const getData = async () => {
       const infoResponse = await axios.get(
@@ -87,83 +43,128 @@ const ALLETF = () => {
       setRisk3(risks[2]);
       setRisk4(risks[3]);
       setRisk5(risks[4]);
+      setRisk6(risks[5]);
+      setRisk0(risk0.concat(risk1, risk2, risk3));
 
       console.log(risks[3]);
+      return [
+        ...risks[0],
+        ...risks[1],
+        ...risks[2],
+        ...risks[3],
+        ...risks[4],
+        ...risks[5],
+      ];
     };
-    getData();
-  }, []); // Empty dependecy array means this effect runs once on mount
-  const data = [
-    {
-      id: "series1", // 시리즈 ID
+    getData().then((riskArray) => {
+      fetchCharts(riskArray).then((chartData) => {
+        const chartObj = {};
+        for (let chart of chartData) {
+          chartObj[chart.code] = chart.chart;
+        }
+        setEtf(chartObj);
+        console.log(chartObj);
+      });
+    });
+  }, []);
 
-      data: [
-        {
-          x: "1",
-          y: 55,
-        },
-        {
-          x: "2",
-          y: 262,
-        },
-        {
-          x: "3",
-          y: 73,
-        },
-        {
-          x: "4",
-          y: 77,
-        },
-        {
-          x: "5",
-          y: 104,
-        },
-        {
-          x: "6",
-          y: 217,
-        },
-        {
-          x: "7",
-          y: 85,
-        },
-        {
-          x: "8",
-          y: 9,
-        },
-        {
-          x: "9",
-          y: 203,
-        },
-        {
-          x: "10",
-          y: 104,
-        },
-      ],
-    },
-  ];
+  const fetchCharts = useCallback(async (riskArray) => {
+    const codeArray = riskArray.map((elem) => elem.code);
+    const promiseArr = codeArray.map(async (code) => {
+      const chartData = await fetchChart(code);
+      return {
+        code,
+        chart: chartData,
+      };
+    }, {});
+    return await Promise.all(promiseArr);
+  }, []);
+
+  const fetchChart = useCallback(async (code) => {
+    const response = await axios.get(
+      `http://localhost:3000/api/etf/${code}/chart`
+    );
+    const chartData = response.data[0];
+
+    const stck_bsop_date = chartData.chart.output2.stck_bsop_date;
+    const stck_clpr = chartData.chart.output1.stck_clpr;
+    const acml_vol = chartData.chart.output1.acml_vol;
+    const hts_avls = chartData.chart.output1.hts_avls;
+    const prdy_vol = chartData.chart.output1.prdy_vol;
+    const hts_kor_isnm = chartData.chart.output1.hts_kor_isnm;
+    const chart = {
+      id: "stock",
+      data: chartData.chart.output2.map((elem) => ({
+        x: elem.stck_bsop_date,
+        y: elem.stck_clpr,
+      })),
+    };
+
+    return {
+      stck_bsop_date,
+      stck_clpr,
+      acml_vol,
+      hts_avls,
+      prdy_vol,
+      hts_kor_isnm,
+      chart: chart,
+    };
+  }, []);
+
+  const [etf, setEtf] = useState(null);
+
+  console.log(etf);
 
   return (
-    <Card
-      className="m-5"
-      theme={{
-        root: {
-          children: "p-3",
-        },
-      }}
-    >
-      <Link to="/etf/detail/12">
-        <div className="flex flex-row">
-          <div className="relative h-8 w-24">
-            <MyResponsiveLine data={data} />
-          </div>
-          <div className="flex flex-col ml-3">
-            <div>
-              <img src={riskIconImg1} />
+    <div>
+      {risk0.map((item) => (
+        <Card
+          className="m-5"
+          key={item.code}
+          theme={{
+            root: {
+              children: "p-3",
+            },
+          }}
+        >
+          <div className="flex flex-row">
+            <div className="relative h-8 w-24">
+              {etf && (
+                <MyResponsiveLine
+                  data={[
+                    {
+                      id: "stock",
+                      data: etf[item.code]?.chart.data,
+                    },
+                  ]}
+                />
+              )}
             </div>
-            <div className="font-bold text-sm">SOL 반도체후공정</div>
+            <div className="flex flex-col ml-3">
+              <div className="w-5 h-5">
+                {item.data.dangerDegree === 1 ? (
+                  <img src={riskIconImg1} />
+                ) : item.data.dangerDegree === 2 ? (
+                  <img src={riskIconImg2} />
+                ) : item.data.dangerDegree === 3 ? (
+                  <img src={riskIconImg3} />
+                ) : item.data.dangerDegree === 4 ? (
+                  <img src={riskIconImg4} />
+                ) : item.data.dangerDegree === 5 ? (
+                  <img src={riskIconImg5} />
+                ) : (
+                  <img src={riskIconImg6} />
+                )}
+              </div>
+
+              <div className="font-bold text-sm">
+                {etf[item.code]?.hts_kor_isnm}
+              </div>
+            </div>
           </div>
-        </div>
-      </Link>
-    </Card>
+        </Card>
+      ))}
+    </div>
   );
 };
 

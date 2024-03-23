@@ -6,33 +6,42 @@ import Risk from "~/components/ETF/Risk/Risk";
 import blankLikeIcon from "~/assets/images/detail/blankLikeIcon.png";
 import redLikeIcon from "~/assets/images/detail/redLikeIcon.png";
 
+import {
+  pushLikedEtf,
+  pullLikedEtf,
+  findUserWithNickname,
+} from "~/lib/apis/user";
+
 export default function CommonInfo(props) {
   const userState = useSelector((state) => state.user13th);
   const code = props.code;
+  const title = props.title;
+  const riskDegree = props.riskDegree;
 
   const [isLiked, setIsLiked] = useState(false);
+
   let heartImg = blankLikeIcon;
   if (isLiked) {
     heartImg = redLikeIcon;
   }
-  // get info
-  const title = "SOL 반도체후공정";
-  const description = "국내 반도체 후공정 핵심 기업에 투자하는 ETF";
-  const riskDegree = 1;
 
   useEffect(() => {
-    // 리덕스 userID 비교해서 좋아요 누른 ETF인지 확인, set
-  });
+    findUserWithNickname(userState.nickname).then((resp) => {
+      if (resp.likedEtf.includes(code)) {
+        setIsLiked(true);
+      }
+    });
+  }, []);
 
   const clickEtfLike = () => {
-    console.log("click");
     if (isLiked) {
       setIsLiked(false);
-      // user 좋아요 ETF 목록에 저장
+      pullLikedEtf(userState.userId, code);
       return;
     }
+
     setIsLiked(true);
-    // user 좋아요 ETF 목록에서 제외
+    pushLikedEtf(userState.userId, code);
   };
 
   return (
@@ -40,12 +49,12 @@ export default function CommonInfo(props) {
       <Risk riskDegree={riskDegree} />
 
       <div className="flex justify-between">
-        <div className="flex items-center left-div">
+        <div className="left-div mt-2">
           <p className="text-3xl mr-3 font-bold">{title}</p>
-          <p className="text-xl text-gray-500 font-medium">{code}</p>
+          <p className="text-md text-gray-500 font-medium mt-1">{code}</p>
         </div>
 
-        <div className="right-div">
+        <div className="right-div mt-2">
           <img
             src={heartImg}
             className="h-8"
@@ -55,8 +64,6 @@ export default function CommonInfo(props) {
           />
         </div>
       </div>
-
-      <p className="text-gray-900 mt-2 text-lg">{description}</p>
     </div>
   );
 }

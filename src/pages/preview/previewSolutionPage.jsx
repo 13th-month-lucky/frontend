@@ -7,6 +7,7 @@ import MonthlyRental from "~/components/Preview/MonthlyRental";
 import PendingAndIRP from "~/components/Preview/PendingAndIRP";
 import MonthAndHouse from "~/components/Preview/MonthAndHouse";
 import { useSearchParams } from "react-router-dom";
+import BlueButton from "~/components/BlueButton/BlueButton";
 
 export default function PreviewSolutionPage() {
   const [total, setTotal] = React.useState({
@@ -40,7 +41,7 @@ export default function PreviewSolutionPage() {
           솔루션 이행시 최대 {result}원까지 아낄 수 있어요!
         </h1>
         <div className="text-center">
-          <p className="text-gray-500 mb-3 text-base">
+          <p className="mediumGreyText mb-3 text-base">
             아래 공제를 추가해보세요. <br />
             추가할 때마다 아낄 수 있는 돈이 늘어나요.
           </p>

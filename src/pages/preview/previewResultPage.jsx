@@ -4,11 +4,13 @@ import cloudImg from "~/assets/images/preview/cloud.png";
 import styled, { keyframes } from "styled-components";
 import { Tooltip } from "flowbite-react";
 import BlueButton from "~/components/BlueButton/BlueButton";
+import { useSelector } from "react-redux";
 
 export default function PreviewResult() {
-  const [name, setName] = useState("김신한");
+  const userState = useSelector((state) => state.user13th);
+
   const [price, setPrice] = useState("200만");
-  const [isReceive, setIsReceive] = useState(false);
+  const [isReceive, setIsReceive] = useState(true);
 
   return (
     <div className="bg-white h-screen p-4">
@@ -21,7 +23,7 @@ export default function PreviewResult() {
           )}
         </div>
         <div className="text-center mt-5">
-          <p className="h3 mt-4">{name}님은</p>
+          <p className="h3 mt-4">{userState.nickname}님은</p>
           <p className="text-xl font-extrabold mt-4">{price}원</p>
           <p className="h3 mt-4">
             {isReceive ? "받을 수 있어요! 😊" : "더 내야 해요.. 😢"}

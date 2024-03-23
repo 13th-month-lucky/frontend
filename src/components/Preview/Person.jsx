@@ -97,7 +97,7 @@ function PersonComponent({ updateTotal }) {
                 <p className="mb-2 text-black dark:text-black-400">배우자</p>
                 <div className="flex items-center">
                   <PlusButton plusFunc={setSpouseNum} />
-                  <p className="mr-4 ml-3">{spouseNum}</p>
+                  <p className="mr-2 ml-2">{spouseNum}</p>
                   <MinusButton minusFunc={setSpouseNum} />
                 </div>
               </div>
@@ -108,37 +108,39 @@ function PersonComponent({ updateTotal }) {
 
                 <div className="flex items-center">
                   <PlusButton plusFunc={setBabyNum} />
-                  <p className="mr-4 ml-3">{babyNum}</p>
+                  <p className="mr-2 ml-2">{babyNum}</p>
                   <MinusButton minusFunc={setBabyNum} />
                 </div>
               </div>
               <div className="flex items-center justify-between mb-3">
                 <p className="mb-2 text-black dark:text-gray-400">
-                  8세 이상 20세 이하의 자녀
+                  8세 이상 20세 이하의 <br />
+                  자녀
                 </p>
                 <div className="flex items-center">
                   <PlusButton plusFunc={setChildNum} />
-                  <p className="mr-4 ml-3">{childNum}</p>
+                  <p className="mr-2 ml-2">{childNum}</p>
                   <MinusButton minusFunc={setChildNum} />
                 </div>
               </div>
               <div className="flex items-center justify-between mb-3">
                 <p className="mb-2 text-black dark:text-gray-400">
-                  60세 이상 70세 미만의 부모님
+                  60세 이상 70세 미만의 <br />
+                  부모님
                 </p>
                 <div className="flex items-center">
                   <PlusButton plusFunc={setYoungParentNum} />
-                  <p className="mr-4 ml-3">{youngParentNum}</p>
+                  <p className="mr-2 ml-2">{youngParentNum}</p>
                   <MinusButton minusFunc={setYoungParentNum} />
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <p className="mb-2 text-black dark:text-gray-400">
+                <p className="mb-2 text-black dark:text-gray-400 ">
                   70세 이상의 부모님
                 </p>
                 <div className="flex items-center">
                   <PlusButton plusFunc={setOldParentNum} />
-                  <p className="mr-4 ml-3">{oldParentNum}</p>
+                  <p className="mr-2 ml-2">{oldParentNum}</p>
                   <MinusButton minusFunc={setOldParentNum} />
                 </div>
               </div>

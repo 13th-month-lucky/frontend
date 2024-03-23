@@ -47,12 +47,6 @@ export default function Input(props) {
           setContent(e.target.value);
         }}
         value={content}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault(); // Enter 키 기본 동작 방지
-            document.getElementById("publishBtn").click();
-          }
-        }}
       />
 
       <div className="flex justify-end border-t">
