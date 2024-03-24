@@ -3,7 +3,7 @@ import sunImg from "~/assets/images/preview/sun.png";
 import cloudImg from "~/assets/images/preview/cloud.png";
 import styled, { keyframes } from "styled-components";
 import { Tooltip } from "flowbite-react";
-import BlueButton from "~/components/BlueButton/BlueButton";
+import BlueButton from "~/components/Button/BlueButton";
 import { useSelector } from "react-redux";
 
 export default function PreviewResult() {

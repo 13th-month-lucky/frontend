@@ -7,7 +7,7 @@ import MonthlyRental from "~/components/Preview/MonthlyRental";
 import PendingAndIRP from "~/components/Preview/PendingAndIRP";
 import MonthAndHouse from "~/components/Preview/MonthAndHouse";
 import { useSearchParams } from "react-router-dom";
-import BlueButton from "~/components/BlueButton/BlueButton";
+import BlueButton from "~/components/Button/BlueButton";
 
 export default function PreviewSolutionPage() {
   const [total, setTotal] = React.useState({

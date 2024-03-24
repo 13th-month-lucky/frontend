@@ -2,7 +2,7 @@ import React from "react";
 import lenseImg from "~/assets/images/preview/lense.png";
 import style from "~/pages/preview/previewMain.module.css";
 import { Link } from "react-router-dom";
-import BlueButton from "~/components/BlueButton/BlueButton";
+import BlueButton from "~/components/Button/BlueButton";
 
 const PreviewMain = () => {
   return (

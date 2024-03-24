@@ -2,7 +2,7 @@ import { Card } from "flowbite-react";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import BlueButton from "~/components/BlueButton/BlueButton";
+import BlueButton from "~/components/Button/BlueButton";
 
 const PreviewResultDetailPage = () => {
   const userState = useSelector((state) => state.user13th);
