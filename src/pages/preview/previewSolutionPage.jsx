@@ -52,9 +52,9 @@ export default function PreviewSolutionPage() {
       <MonthAndHouse updateTotal={updateTotal} />
       <SmallBusiness updateTotal={updateTotal} />
       <PendingAndIRP updateTotal={updateTotal} />
-      <button className="bg-blue-500 text-white text-lg w-full h-20 rounded-lg font-semibold">
-        결과 확인하기
-      </button>
+      <div className="flex justify-center">
+        <BlueButton text="결과 확인하기" destination="/preview/result/detail" />
+      </div>
     </>
   );
 }

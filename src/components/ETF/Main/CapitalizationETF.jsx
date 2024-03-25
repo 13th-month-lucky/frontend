@@ -9,7 +9,7 @@ import riskIconImg4 from "~/assets/images/riskIcons/4.png";
 import riskIconImg5 from "~/assets/images/riskIcons/5.png";
 import riskIconImg6 from "~/assets/images/riskIcons/6.png";
 
-const ALLETF = ({ selectedDangerDegree, selectedType }) => {
+const CapitalizationETF = ({ selectedDangerDegree, selectedType }) => {
   const [etf, setEtf] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,7 +20,10 @@ const ALLETF = ({ selectedDangerDegree, selectedType }) => {
           "http://localhost:3000/api/etf/overview"
         );
         const data = response.data;
-        let filteredETF = data;
+
+        let filteredETF = data.sort(
+          (a, b) => b.chart.prdy_vol - a.chart.prdy_vol
+        );
 
         if (selectedDangerDegree) {
           console.log(selectedDangerDegree);
@@ -107,4 +110,4 @@ const getRiskIcon = (dangerDegree) => {
   }
 };
 
-export default ALLETF;
+export default CapitalizationETF;
