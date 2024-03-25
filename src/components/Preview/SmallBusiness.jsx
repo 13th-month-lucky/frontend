@@ -1,14 +1,32 @@
 import { React, useEffect, useState } from "react";
 import { Accordion, Card, Checkbox } from "flowbite-react";
 import businessBagImg from "~/assets/images/preview/travel-dynamic-color.png";
-function SmallBusiness() {
-  const [smallBusinessCheck, setSmallBusinessCheck] = useState(false);
-  const checkHandler = () => {
-    console.log(smallBusinessCheck);
-    if (smallBusinessCheck) {
-      setSmallBusinessCheck(false);
+function SmallBusiness({ updateTotal }) {
+  const [smallBusinessJunior, setSmallBusinessJunior] = useState(false);
+  const [smallBusinessSenior, setSmallBusinessSenior] = useState(false);
+
+  useEffect(() => {
+    const tax = 800000; // 소득세 80만원
+    const age = 28;
+    let price = 0;
+    // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
+    if ((age <= 35 || age >= 16) && smallBusinessJunior) {
+      price = tax * 0.9;
+    } else if (age >= 60 && smallBusinessSenior) {
+      price = tax * 0.7;
+    }
+    if (price >= 2000000) {
+      price = 2000000;
+    }
+    updateTotal("business", price);
+  }, [smallBusinessJunior, smallBusinessSenior]);
+
+  const checkHandler = (option, optionHandler) => {
+    console.log(option);
+    if (option) {
+      optionHandler(false);
     } else {
-      setSmallBusinessCheck(true);
+      optionHandler(true);
     }
   };
   return (
@@ -29,7 +47,24 @@ function SmallBusiness() {
               </p>
               <Checkbox
                 id="accept"
-                onChange={checkHandler}
+                onChange={() =>
+                  checkHandler(smallBusinessSenior, setSmallBusinessSenior)
+                }
+                className="mt-3 h-6 w-6"
+              />
+            </div>
+          </Card>
+          <Card>
+            <div className="flex items-center justify-between mb-3">
+              <p className=" text-black dark:text-black-400 text-base mt-3">
+                중소기업에 재직 중이고, <br />
+                재직 기간이 5년 미만이신가요?
+              </p>
+              <Checkbox
+                id="accept"
+                onChange={() =>
+                  checkHandler(smallBusinessJunior, setSmallBusinessJunior)
+                }
                 className="mt-3 h-6 w-6"
               />
             </div>
