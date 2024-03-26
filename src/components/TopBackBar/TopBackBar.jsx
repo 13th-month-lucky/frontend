@@ -8,7 +8,12 @@ export default function TopBackBar() {
 
   return (
     <div className="pt-2 pb-2 bg-white" style={{ width: "400px" }}>
-      <img src={BackImg} className="h-8" onClick={() => navigate(-1)}></img>
+      <img
+        src={BackImg}
+        className="h-8"
+        onClick={() => navigate(-1)}
+        style={{ cursor: "pointer" }}
+      ></img>
     </div>
   );
 }

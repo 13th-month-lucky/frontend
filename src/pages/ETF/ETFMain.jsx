@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Card, Tabs } from "flowbite-react";
-import ETFDangerFilter from "../../components/ETF/Filter/ETFDangerFilter";
-import ETFAssetFilter from "../../components/ETF/Filter/ETFAssetFilter";
+import React, { useState } from "react";
+import { Tabs } from "flowbite-react";
+import ETFFilter from "../../components/ETF/Filter/ETFFilter";
 
 import ALLETF from "~/components/ETF/Main/ALLETF";
 import HotIssue from "~/components/ETF/Main/HotIssue";
+import VolumeETF from "~/components/ETF/Main/VolumeETF";
+import CapitalizationETF from "~/components/ETF/Main/CapitalizationETF";
 
 const ETFMain = () => {
   const [selectedDangerDegree, setSelectedDangerDegree] = useState(null);
 
-  // 위험도 선택 시 호출되는 콜백 함수
   const handleDangerDegreeChange = (dangerDegree) => {
     setSelectedDangerDegree(dangerDegree);
   };
   const [selectedType, setSelectedType] = useState(null);
 
   const handleTypeSelect = (type) => {
+    console.log(type);
     setSelectedType(type);
   };
 
@@ -30,16 +31,10 @@ const ETFMain = () => {
       <div className="bg-white">
         <Tabs aria-label="Default tabs" style="default">
           <Tabs.Item active title="전체" className="bg-blue-100">
-            <div className="mb-4">
-              <h1 className="text-center font-bold m  ">유형</h1>
-              <ETFAssetFilter onTypeSelect={handleTypeSelect} />
-            </div>
-            <div className="mb-4">
-              <h1 className="text-center font-bold">위험도</h1>
-              <ETFDangerFilter
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-            </div>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
             <div className="mb-4">
               <ALLETF
                 selectedDangerDegree={selectedDangerDegree}
@@ -48,52 +43,34 @@ const ETFMain = () => {
             </div>
           </Tabs.Item>
           <Tabs.Item title="거래량">
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
             <div className="mb-4">
-              <h1 className="text-center font-bold m  ">유형</h1>
-              <ETFAssetFilter onTypeSelect={handleTypeSelect} />
-            </div>
-            <div className="mb-4">
-              <h1 className="text-center font-bold">위험도</h1>
-              <ETFDangerFilter
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-            </div>
-            <div className="mb-4">
-              <ALLETF
+              <VolumeETF
                 selectedDangerDegree={selectedDangerDegree}
                 selectedType={selectedType}
               />
             </div>
           </Tabs.Item>
           <Tabs.Item title="시가총액">
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
             <div className="mb-4">
-              <h1 className="text-center font-bold m  ">유형</h1>
-              <ETFAssetFilter onTypeSelect={handleTypeSelect} />
-            </div>
-            <div className="mb-4">
-              <h1 className="text-center font-bold">위험도</h1>
-              <ETFDangerFilter
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-            </div>
-            <div className="mb-4">
-              <ALLETF
+              <CapitalizationETF
                 selectedDangerDegree={selectedDangerDegree}
                 selectedType={selectedType}
               />
             </div>
           </Tabs.Item>
           <Tabs.Item title="관심">
-            <div className="mb-4">
-              <h1 className="text-center font-bold m  ">유형</h1>
-              <ETFAssetFilter onTypeSelect={handleTypeSelect} />
-            </div>
-            <div className="mb-4">
-              <h1 className="text-center font-bold">위험도</h1>
-              <ETFDangerFilter
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-            </div>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
             <div className="mb-4">
               <ALLETF
                 selectedDangerDegree={selectedDangerDegree}
@@ -102,16 +79,10 @@ const ETFMain = () => {
             </div>
           </Tabs.Item>
           <Tabs.Item title="최근">
-            <div className="mb-4">
-              <h1 className="text-center font-bold m  ">유형</h1>
-              <ETFAssetFilter onTypeSelect={handleTypeSelect} />
-            </div>
-            <div className="mb-4">
-              <h1 className="text-center font-bold">위험도</h1>
-              <ETFDangerFilter
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-            </div>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
             <div className="mb-4">
               <ALLETF
                 selectedDangerDegree={selectedDangerDegree}

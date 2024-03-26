@@ -5,6 +5,7 @@ import PriceTable from "./PriceTable";
 
 export default function DailyPrice(props) {
   const priceData = props.priceData;
+  const isFund = props.isFund;
   const [currentPeriod, setCurrentPeriod] = useState(0);
 
   const periods = ["1주", "1개월", "3개월", "6개월", "1년"];
@@ -16,6 +17,15 @@ export default function DailyPrice(props) {
   for (let i = 0; i < Math.min(size, priceData.length); i++) {
     const ele = priceData[i];
 
+    if (isFund) {
+      formattedData.push({
+        기준일: ele.기준일,
+        기준가: ele.기준가,
+        증감: ele.전일대비,
+      });
+
+      continue;
+    }
     // 날짜
     const date = ele.stck_bsop_date;
     // 종가
@@ -51,7 +61,11 @@ export default function DailyPrice(props) {
         periods={periods}
       />
 
-      {formattedData ? <PriceTable priceData={formattedData} /> : <></>}
+      {formattedData ? (
+        <PriceTable priceData={formattedData} isFund={isFund} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

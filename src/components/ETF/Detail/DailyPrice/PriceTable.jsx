@@ -3,18 +3,19 @@ import moment from "moment";
 
 export default function PriceTable(props) {
   const priceData = props.priceData;
+  const isFund = props.isFund;
 
   const keys = Object.keys(priceData[0]);
 
-  let month = 0;
-
   return (
-    <div className="mb-36">
+    <div className="mb-36 flex justify-center">
       <table className="table-auto text-center">
         <thead className="h-12 border-b">
           <tr>
             {keys.map((ele, idx) => (
-              <th className="w-20">{ele}</th>
+              <th key={idx} className="w-20">
+                {ele}
+              </th>
             ))}
           </tr>
         </thead>
@@ -28,7 +29,7 @@ export default function PriceTable(props) {
             }
 
             return (
-              <tr className={style}>
+              <tr key={idx} className={style}>
                 {Object.values(obj).map((ele, idx) => {
                   if (idx == 0) {
                     let dateStyle = "font-xs";
@@ -43,7 +44,7 @@ export default function PriceTable(props) {
                   if (idx == 1) {
                     return (
                       <td key={idx} className="font-bold">
-                        {Number(ele).toLocaleString()}
+                        {isFund ? ele : Number(ele).toLocaleString()}
                       </td>
                     );
                   }

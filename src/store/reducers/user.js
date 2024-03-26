@@ -5,6 +5,8 @@ const initialState = {
   kakaoToken: "",
   nickname: "",
   profileImageUrl: "",
+  etfHistory: [],
+  fundHistory: [],
 };
 
 const userSlice = createSlice({
@@ -27,6 +29,12 @@ const userSlice = createSlice({
       console.log("Init");
       return initialState;
     },
+    pushEtfHistory(state, action) {
+      state.etfHistory.push(action.payload);
+    },
+    pushFundHistory(state, action) {
+      state.fundHistory.push(action.payload);
+    },
   },
 });
 
@@ -36,6 +44,8 @@ export const {
   setNickname,
   setProfileImageUrl,
   removeUser,
+  pushEtfHistory,
+  pushFundHistory,
 } = userSlice.actions;
 
 export default userSlice.reducer;

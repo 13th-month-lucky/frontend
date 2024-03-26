@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CardComponent from "~/components/Preview/Card";
 import HousingFundLoan from "~/components/Preview/HousingFundLoan";
 import PersonComponent from "~/components/Preview/Person";
@@ -6,8 +6,10 @@ import SmallBusiness from "~/components/Preview/SmallBusiness";
 import MonthlyRental from "~/components/Preview/MonthlyRental";
 import PendingAndIRP from "~/components/Preview/PendingAndIRP";
 import MonthAndHouse from "~/components/Preview/MonthAndHouse";
-import { useSearchParams } from "react-router-dom";
 import BlueButton from "~/components/Button/BlueButton";
+import { useSelector, useDispatch } from "react-redux";
+import { getMyData } from "~/lib/apis/myData";
+import { findUserWithNickname } from "~/lib/apis/user";
 
 export default function PreviewSolutionPage() {
   const [total, setTotal] = React.useState({
@@ -16,6 +18,22 @@ export default function PreviewSolutionPage() {
     business: 0,
   });
   const [result, setResult] = React.useState(0);
+  const userState = useSelector((state) => state.user13th);
+  const [user, setUser] = useState({});
+  const [mydata, setMydata] = useState({});
+
+  const nickname = userState.nickname;
+
+  useEffect(() => {
+    findUserWithNickname(nickname).then((resp) => {
+      // console.log(resp);
+      setUser(resp);
+    });
+    getMyData(userState.userId).then((resp) => {
+      // console.log(resp);
+      setMydata(resp);
+    });
+  }, []);
 
   function updateTotal(type, value) {
     setTotal((prevTotal) => ({
@@ -48,13 +66,13 @@ export default function PreviewSolutionPage() {
         </div>
       </div>
       <CardComponent />
-      <PersonComponent updateTotal={updateTotal} />
-      <MonthAndHouse updateTotal={updateTotal} />
-      <SmallBusiness updateTotal={updateTotal} />
-      <PendingAndIRP updateTotal={updateTotal} />
-      <button className="bg-blue-500 text-white text-lg w-full h-20 rounded-lg font-semibold">
-        결과 확인하기
-      </button>
+      <PersonComponent updateTotal={updateTotal} user={user} myData={mydata} />
+      <MonthAndHouse updateTotal={updateTotal} user={user} myData={mydata} />
+      <SmallBusiness updateTotal={updateTotal} user={user} myData={mydata} />
+      <PendingAndIRP updateTotal={updateTotal} user={user} myData={mydata} />
+      <div className="flex justify-center">
+        <BlueButton text="결과 확인하기" destination="/preview/result/detail" />
+      </div>
     </>
   );
 }

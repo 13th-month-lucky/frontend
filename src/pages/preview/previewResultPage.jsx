@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import sunImg from "~/assets/images/preview/sun.png";
 import cloudImg from "~/assets/images/preview/cloud.png";
 import styled, { keyframes } from "styled-components";
@@ -6,11 +6,87 @@ import { Tooltip } from "flowbite-react";
 import BlueButton from "~/components/Button/BlueButton";
 import { useSelector } from "react-redux";
 
+import { getMyData } from "~/lib/apis/myData";
+
 export default function PreviewResult() {
   const userState = useSelector((state) => state.user13th);
 
-  const [price, setPrice] = useState("200만");
   const [isReceive, setIsReceive] = useState(true);
+
+  const [taxToPaidMessage, setTaxToPaidMessage] = useState("");
+  const [taxPaidMessage, setTaxPaidMessage] = useState("");
+  const [resultReturn, setResultReturn] = useState();
+
+  const simpleTaxRate = [
+    [1200, 0.06],
+    [4600, 0.15],
+    [8800, 0.24],
+    [15000, 0.35],
+    [30000, 0.38],
+    [50000, 0.4],
+    [0, 0.42],
+  ];
+
+  const taxRate = [
+    [1400, 0, 0],
+    [5000, 84, 0.06],
+    [8800, 624, 0.24],
+    [15000, 1536, 0.35],
+    [30000, 3706, 0.38],
+    [50000, 9406, 0.4],
+    [100000, 17406, 0.42],
+    [0, 38406, 0.45],
+  ];
+
+  useEffect(() => {
+    getMyData(userState.userId).then((resp) => {
+      // 월급 입력받은 값 넣어야함
+      const taxBaseMonth = 4000000;
+
+      // 과세표준 (1년)
+      const taxBaseYear = taxBaseMonth * 12;
+
+      let taxToPaid;
+      let taxRow;
+      for (let row of taxRate) {
+        if (taxBaseYear <= row[0] * 10000 || row[0] === 0) {
+          taxToPaid = row[1] * 10000 + taxBaseYear * row[2];
+          taxRow = row;
+          break;
+        }
+      }
+
+      let taxPaid;
+      let simpleTaxRow;
+      for (let row of simpleTaxRate) {
+        if (taxBaseYear <= row[0] * 10000 || row[0] === 0) {
+          taxPaid = taxBaseYear * row[1];
+          simpleTaxRow = row;
+          break;
+        }
+      }
+
+      console.log("세전 월급 :\n", taxBaseMonth.toLocaleString());
+      console.log(
+        `예상 납부 세금 :\n소득 * ${simpleTaxRow[1]}%\n(소득 ${simpleTaxRow[0]}만원 이하)`
+      );
+      console.log(
+        `납부해야하는 세금 :\n${taxRow[1]}만원 + 소득 * ${taxRow[2]}% \n(소득 ${taxRow[0]}만원 이하)`
+      );
+
+      if (taxToPaid > taxPaid) {
+        setIsReceive(false);
+        setResultReturn(`${(taxToPaid - taxPaid).toLocaleString()}`);
+      } else {
+        setResultReturn(`${(taxPaid - taxToPaid).toLocaleString()}`);
+      }
+
+      setTaxToPaidMessage(
+        `예상 납부 세금(1년) : ${taxPaid.toLocaleString()}원`
+      );
+      setTaxPaidMessage(`내야하는 세금 : ${taxToPaid.toLocaleString()}원`);
+    });
+  }, []);
 
   return (
     <div className="bg-white h-screen p-4">
@@ -24,7 +100,7 @@ export default function PreviewResult() {
         </div>
         <div className="text-center mt-5">
           <p className="h3 mt-4">{userState.nickname}님은</p>
-          <p className="text-xl font-extrabold mt-4">{price}원</p>
+          <p className="text-xl font-extrabold mt-4">{resultReturn}원</p>
           <p className="h3 mt-4">
             {isReceive ? "받을 수 있어요! 😊" : "더 내야 해요.. 😢"}
           </p>
@@ -36,23 +112,22 @@ export default function PreviewResult() {
               content={
                 isReceive ? (
                   <div className="text-right">
-                    이미 낸 세금 200,000원 <br />
-                    - 내야 하는 세금 100,000원 <br />
+                    {taxPaidMessage} <br />- {taxToPaidMessage} <br />
                     <hr
-                      style={{ borderWidth: "1.5px", color: "black" }}
+                      style={{ borderWidth: "1px", color: "black" }}
                       className="mt-1"
                     />
-                    돌려받는 돈 100,000원
+                    돌려받을 돈 : {resultReturn}원
                   </div>
                 ) : (
                   <div className="text-right">
-                    내야 하는 세금 200,000원 <br />
-                    - 이미 낸 세금 100,000원 <br />
+                    {taxToPaidMessage} <br />
+                    {taxPaidMessage} <br />
                     <hr
                       style={{ borderWidth: "1.5px", color: "black" }}
                       className="mt-1"
                     />
-                    더 내야 할 세금 100,000원
+                    더 내야하는 돈 : {resultReturn}원
                   </div>
                 )
               }

@@ -29,6 +29,7 @@ export default function Services() {
   const title3 = "펀드 추천";
   const firstOfSubTitle3 = "나에게 꼭 맞는";
   const secondOfSubTitle3 = "펀드 찾기!";
+  const link3 = "/fund/main";
 
   return (
     <div className="mt-6 mb-10 p-6">
@@ -67,6 +68,7 @@ export default function Services() {
             secondOfSubTitle={secondOfSubTitle3}
             imageSrc={moneyBagImg}
             icon={FcOnlineSupport}
+            link={link3}
           ></Button>
         </div>
       </div>
