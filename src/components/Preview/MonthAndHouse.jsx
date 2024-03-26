@@ -9,7 +9,7 @@ import {
 } from "flowbite-react";
 import houseImg from "~/assets/images/preview/house.png";
 
-const MonthAndHouse = ({ updateTotal }) => {
+const MonthAndHouse = ({ updateTotal, user, myData }) => {
   const [checkLoan, setCheckLoan] = useState(false);
   const [checkMonthly, setCheckMonthly] = useState(false); // 월세 체크
   const [checkYearly, setCheckYearly] = useState(false); // 전세 체크
@@ -18,8 +18,8 @@ const MonthAndHouse = ({ updateTotal }) => {
   const [housingDepositResult, setHousingDepositResult] = useState(0); // 청약 공제 금액
   const [loanResult, setLoanResult] = useState(0);
   const [houseTotalResult, setHouseTotalResult] = useState(0); // 주택 관련 총 공제 금액
-  const salary = 40000000; //총 급여
-  const loan = 10000000;
+  const salary = 10000; //총 급여
+  const loan = 8000000;
 
   const handleCheckLoanChange = (event) => {
     setCheckLoan(event.target.checked);
@@ -56,32 +56,24 @@ const MonthAndHouse = ({ updateTotal }) => {
   };
 
   const houseResultCalculate = () => {
-    let promise = 200000; // 주택 청약
-    if (promise > 3000000) {
-      //납입액 한도를 넘김 => 300만원이 최대
-      promise = 3000000;
-    }
-    let loanAmount = loan * 0.4;
-    let promiseAmount = promise * 12 * 0.4;
+    const MAX_PROMISE = 3000000;
+    const MAX_LOAN_AMOUNT = 4000000;
+    const LOAN_PERCENTAGE = 0.4;
+
+    let promise = Math.min(200000, MAX_PROMISE);
+    let loanAmount = loan * LOAN_PERCENTAGE;
+    let promiseAmount = promise * 12 * LOAN_PERCENTAGE;
     let result = 0;
-    if (salary <= 7000000) {
-      if (promiseAmount + loanAmount > 4000000) {
-        result = 4000000;
-        loanAmount = Math.abs(result - loanAmount);
-      } else {
-        result = promiseAmount + loanAmount;
-      }
+
+    if (salary <= 70000000) {
+      result = Math.min(promiseAmount + loanAmount, MAX_LOAN_AMOUNT);
       setHousingDepositResult(promiseAmount);
-      setLoanResult(loanAmount);
+      setLoanResult(Math.min(loanAmount, MAX_LOAN_AMOUNT));
     } else {
-      if (loanAmount > 4000000) {
-        result = 4000000;
-        setLoanResult(4000000);
-      } else {
-        result = loanAmount;
-        setLoanResult(loanAmount);
-      }
+      result = Math.min(loanAmount, MAX_LOAN_AMOUNT);
+      setLoanResult(Math.min(loanAmount, MAX_LOAN_AMOUNT));
     }
+
     setHouseTotalResult(result);
     updateTotal("house", result);
   };
