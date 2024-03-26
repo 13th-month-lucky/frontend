@@ -9,6 +9,9 @@ import riskIconImg4 from "~/assets/images/riskIcons/4.png";
 import riskIconImg5 from "~/assets/images/riskIcons/5.png";
 import riskIconImg6 from "~/assets/images/riskIcons/6.png";
 
+import redLikeImg from "~/assets/images/detail/redLikeIcon.png";
+import blankLikeImg from "~/assets/images/detail/blankLikeIcon.png";
+
 const ALLETF = ({ selectedDangerDegree, selectedType }) => {
   const [etf, setEtf] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +61,15 @@ const ALLETF = ({ selectedDangerDegree, selectedType }) => {
   return (
     <div>
       {etf.map((item) => (
-        <Card className="m-5" key={item.code}>
+        <Card
+          className="m-5"
+          key={item.code}
+          theme={{
+            root: {
+              children: "p-4",
+            },
+          }}
+        >
           <div className="flex flex-row">
             <div className="h-8 w-24">
               <MyResponsiveLine
@@ -81,6 +92,9 @@ const ALLETF = ({ selectedDangerDegree, selectedType }) => {
                 />
               </div>
               <div className="font-bold text-sm">{item.chart.hts_kor_isnm}</div>
+            </div>
+            <div className="">
+              <img className="h-8 w-8" src={blankLikeImg} />
             </div>
           </div>
         </Card>

@@ -62,40 +62,75 @@ const HotIssue = () => {
         <p className="font-bold mr-1 ml-2">{hotStock}</p> 포함 ETF
       </div>
       <ScrollMenu onWheel={onWheel} style={{ margin: "0 -1rem" }}>
-        <div className="flex flex-row">
-          {etf.map((item, index) => (
-            <Card
-              className="m-3 w-2/5"
-              theme={{
-                root: {
-                  children: "p-3",
-                },
-              }}
-              key={index}
-            >
-              <div className="flex flex-col">
-                <h5 className="font-bold text-gray-900 dark:text-white">
-                  {item.chart.hts_kor_isnm}
-                </h5>
-                <h6 className="font-bold text-red-600">
-                  {numberWithCommas(item.chart.chart[0].y)}
-                </h6>
-                <div className=" h-20 w-28">
-                  <MyResponsiveLine
-                    data={[
-                      {
-                        id: "stock",
-                        data: item.chart.chart.map((elem) => ({
-                          x: elem.x,
-                          y: elem.y,
-                        })),
-                      },
-                    ]}
-                  />
+        <div className="flex flex-row items-center justify-center">
+          {etf.length === 1 ? (
+            <div className="flex-grow items-center justify-center">
+              <Card
+                className="m-3"
+                theme={{
+                  root: {
+                    children: "p-3",
+                  },
+                }}
+              >
+                <div className="flex flex-col">
+                  <h5 className="font-bold text-gray-900 dark:text-white">
+                    {etf[0].chart.hts_kor_isnm}
+                  </h5>
+                  <h6 className="font-bold text-red-600">
+                    {numberWithCommas(etf[0].chart.chart[0].y)}
+                  </h6>
+                  <div className=" h-20 w-28">
+                    <MyResponsiveLine
+                      data={[
+                        {
+                          id: "stock",
+                          data: etf[0].chart.chart.map((elem) => ({
+                            x: elem.x,
+                            y: elem.y,
+                          })),
+                        },
+                      ]}
+                    />
+                  </div>
                 </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            </div>
+          ) : (
+            etf.map((item, index) => (
+              <Card
+                className="m-3 w-2/5"
+                theme={{
+                  root: {
+                    children: "p-3",
+                  },
+                }}
+                key={index}
+              >
+                <div className="flex flex-col">
+                  <h5 className="font-bold text-gray-900 dark:text-white">
+                    {item.chart.hts_kor_isnm}
+                  </h5>
+                  <h6 className="font-bold text-red-600">
+                    {numberWithCommas(item.chart.chart[0].y)}
+                  </h6>
+                  <div className=" h-20 w-28">
+                    <MyResponsiveLine
+                      data={[
+                        {
+                          id: "stock",
+                          data: item.chart.chart.map((elem) => ({
+                            x: elem.x,
+                            y: elem.y,
+                          })),
+                        },
+                      ]}
+                    />
+                  </div>
+                </div>
+              </Card>
+            ))
+          )}
         </div>
       </ScrollMenu>
     </>
