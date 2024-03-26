@@ -7,6 +7,7 @@ function SmallBusiness({ updateTotal, user, myData }) {
   const [smallBusinessSenior, setSmallBusinessSenior] = useState(false);
   const [tax, setTax] = useState(0);
   const [age, setAge] = useState(0);
+  const [result, setResult] = useState(0);
   useEffect(() => {
     if (myData.nationalTaxService) {
       setTax(myData.nationalTaxService.cash.amount); // 소득세 =>마이데이터에 추가하기
@@ -28,6 +29,7 @@ function SmallBusiness({ updateTotal, user, myData }) {
       price = 2000000;
     }
     updateTotal("business", price);
+    setResult(price);
   }, [smallBusinessJunior, smallBusinessSenior, myData, user]);
 
   const checkHandler = (option, optionHandler) => {
@@ -48,6 +50,12 @@ function SmallBusiness({ updateTotal, user, myData }) {
           </div>
         </Accordion.Title>
         <Accordion.Content className="bg-gray-100">
+          <div className="flex items-center ml-2 mb-2">
+            <p>
+              중소 기업 공제 신청 시, <br />
+              최대 {result}원 돌려 받을 수 있어요!
+            </p>
+          </div>
           {age > 34 ? (
             <Card>
               <div className="flex items-center justify-between mb-3">
