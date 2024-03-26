@@ -8,6 +8,7 @@ import {
   Card,
 } from "flowbite-react";
 import houseImg from "~/assets/images/preview/house.png";
+import HouseProgressBar from "./HouseProgressBar";
 
 const MonthAndHouse = ({ updateTotal, user, myData }) => {
   const [checkLoan, setCheckLoan] = useState(false);
@@ -16,16 +17,19 @@ const MonthAndHouse = ({ updateTotal, user, myData }) => {
   const [monthlyPay, setMonthlyPay] = useState(0); //월세 금액
   const [monthResult, setMonthResult] = useState(0); //월세 공제 금액
   const [housingDepositResult, setHousingDepositResult] = useState(0); // 청약 공제 금액
-  const [loanResult, setLoanResult] = useState(0);
+  const [loanResult, setLoanResult] = useState(0); // 전세 공제 금액
   const [houseTotalResult, setHouseTotalResult] = useState(0); // 주택 관련 총 공제 금액
-  const salary = 10000; //총 급여
-  const loan = 8000000;
+  const [salary, setSalary] = useState(0);
+  const [loan, setLoan] = useState(0);
+  const [housingDeposit, setHousingDeposit] = useState(0);
 
+  //월세 및 전세금 있는 지 여부 체크 버튼 핸들링
   const handleCheckLoanChange = (event) => {
     setCheckLoan(event.target.checked);
     console.log(event.target.checked);
   };
 
+  //월세/전세 두개중 하나 체크 버튼 핸들링
   const handleRadioChange = (event) => {
     if (event.target.value === "monthly") {
       setCheckMonthly(event.target.checked);
@@ -36,11 +40,13 @@ const MonthAndHouse = ({ updateTotal, user, myData }) => {
     }
   };
 
+  //월세 입력 핸들링
   const handleMonthlyPay = (event) => {
     const value = event.target.value;
     setMonthlyPay(value);
   };
 
+  // 월세 공제 결과 계산 함수
   const monthlyResultCalculate = () => {
     let result = 0;
     if (salary > 55000000 && salary <= 70000000) {
@@ -55,12 +61,13 @@ const MonthAndHouse = ({ updateTotal, user, myData }) => {
     updateTotal("house", result);
   };
 
+  //주택 공제 결과 계산 함수
   const houseResultCalculate = () => {
-    const MAX_PROMISE = 3000000;
+    const MAX_HOUSING_DEPOSIT = 3000000;
     const MAX_LOAN_AMOUNT = 4000000;
     const LOAN_PERCENTAGE = 0.4;
 
-    let promise = Math.min(200000, MAX_PROMISE);
+    let promise = Math.min(housingDeposit, MAX_HOUSING_DEPOSIT);
     let loanAmount = loan * LOAN_PERCENTAGE;
     let promiseAmount = promise * 12 * LOAN_PERCENTAGE;
     let result = 0;
@@ -79,12 +86,29 @@ const MonthAndHouse = ({ updateTotal, user, myData }) => {
   };
 
   useEffect(() => {
+    setSalary(user.salary);
+    if (myData.bank) {
+      if (myData.bank.hasHousingDept) {
+        setLoan(myData.bank.housingDeptRepayment);
+      }
+      if (myData.bank.hasHousingDeposit) {
+        setHousingDeposit(myData.bank.housingDeposit);
+      }
+    }
     if (checkMonthly) {
       monthlyResultCalculate();
     } else {
       houseResultCalculate();
     }
-  }, [monthlyPay, checkMonthly, checkYearly, housingDepositResult, loanResult]);
+  }, [
+    monthlyPay,
+    checkMonthly,
+    checkYearly,
+    housingDepositResult,
+    loanResult,
+    user,
+    myData,
+  ]);
 
   return (
     <>
@@ -103,20 +127,25 @@ const MonthAndHouse = ({ updateTotal, user, myData }) => {
             <Accordion.Content className="bg-gray-100">
               <div>
                 {checkMonthly && checkLoan ? (
-                  <div>
+                  <div className="flex items-center ml-2 mb-2">
                     <p>월세 공제 시, 약 {monthResult}원 돌려받을 수 있어요!</p>
                   </div>
                 ) : null}
                 {checkYearly && checkLoan ? (
-                  <div>
-                    <p>
-                      전세 대출 공제 시, 약 {houseTotalResult}원 돌려받을 수
-                      있어요!
-                      <br />
-                      주택청약: {housingDepositResult}
-                      임차차입금 : {loanResult}
-                    </p>
-                  </div>
+                  <>
+                    <div className="flex items-center ml-2 mb-2">
+                      <p>
+                        전세 대출 공제 시, <br /> 약 {houseTotalResult}원
+                        돌려받을 수 있어요!
+                      </p>
+                    </div>
+                    <div>
+                      <HouseProgressBar
+                        value1={housingDepositResult}
+                        value2={loanResult}
+                      />
+                    </div>
+                  </>
                 ) : null}
               </div>
               <Card>

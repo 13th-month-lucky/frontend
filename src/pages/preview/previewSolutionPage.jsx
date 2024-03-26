@@ -26,11 +26,11 @@ export default function PreviewSolutionPage() {
 
   useEffect(() => {
     findUserWithNickname(nickname).then((resp) => {
-      console.log(resp);
+      // console.log(resp);
       setUser(resp);
     });
     getMyData(userState.userId).then((resp) => {
-      console.log(resp);
+      // console.log(resp);
       setMydata(resp);
     });
   }, []);
