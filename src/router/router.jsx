@@ -30,6 +30,10 @@ export const mainRoutes = [
         element: <MainPage />,
       },
       {
+        path: "/main/:tab",
+        element: <MainPage />,
+      },
+      {
         path: "/preview/main",
         element: <PreviewMain></PreviewMain>,
       },
