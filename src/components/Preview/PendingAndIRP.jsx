@@ -1,25 +1,51 @@
 import { Accordion } from "flowbite-react";
 import moneyBagImg from "~/assets/images/preview/money-bag.png";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SavingsCalculator from "~/components/Preview/SavingsCalculator";
 
-export default function PendingAndIRP() {
+export default function PendingAndIRP({ updateTotal, user, myData }) {
   // 유저 데이터
-  const totalPay = 40000000; // 총 급여액
-  const remainPrice = 500000; // 남는 금액
-  const pendingPayment = 5000000; // 연금 저축 납입액
-  const irpPayment = 8000000; // irp 납입액
+  const [remainPrice, setRemainPrice] = useState(500000); // 남는 금액
+  const [totalPay, setTotalPay] = useState(0); // 총 급여액
+  const [pendingPayment, setPendingPayment] = useState(0); // 연금 저축 납입액
+  const [irpPayment, setIrpPayment] = useState(0); // irp 납입액
 
   // 세액 공제 기준 금액
   const totalPayThreshold = 550000000;
-  const rate = totalPay > totalPayThreshold ? 0.12 : 0.15; // 세액 공제율
   const irpLimitPrice = 9000000; // IRP 세액공제 한도
   const pendingLimitPrice = 6000000; // 연금저축 세액공제 한도
-  const remainPendingLimitPrice = Math.min(
-    // 연금저축 세액공제 남은 한도 (irp 납입액 차액)
-    pendingLimitPrice,
-    irpLimitPrice - irpPayment
-  );
+
+  const [rate, setRate] = useState(0); // 세액 공제율
+  const [remainPendingLimitPrice, setRemainPendingLimitPrice] = useState(0);
+
+  useEffect(() => {
+    if (user && user.salary) {
+      setTotalPay(user.salary);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    setRate(totalPay > totalPayThreshold ? 0.12 : 0.15);
+  }, [totalPay]);
+
+  useEffect(() => {
+    if (myData) {
+      if (myData.securities) {
+        setIrpPayment(myData.securities.IRPDeposit);
+        setPendingPayment(myData.securities.pensionDeposit);
+      }
+    }
+  }, [myData.securities]);
+
+  useEffect(() => {
+    setRemainPendingLimitPrice(
+      Math.min(
+        // 연금저축 세액공제 남은 한도 (irp 납입액 차액)
+        pendingLimitPrice,
+        irpLimitPrice - irpPayment
+      )
+    );
+  }, [irpPayment]);
 
   return (
     <Accordion collapseAll className="m-5">
@@ -39,6 +65,8 @@ export default function PendingAndIRP() {
           </p>
           <div className="flex flex-col gap-8 mt-4">
             <SavingsCalculator
+              updateTotal={updateTotal}
+              keyword="pending"
               title="연금저축"
               limitPrice={pendingLimitPrice}
               payment={pendingPayment}
@@ -46,6 +74,8 @@ export default function PendingAndIRP() {
               remainPendingLimitPrice={remainPendingLimitPrice}
             ></SavingsCalculator>
             <SavingsCalculator
+              updateTotal={updateTotal}
+              keyword="irp"
               title="IRP"
               limitPrice={irpLimitPrice}
               payment={irpPayment}

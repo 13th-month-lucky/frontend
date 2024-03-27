@@ -16,6 +16,8 @@ export default function PreviewSolutionPage() {
     person: 0,
     house: 0,
     business: 0,
+    pending: 0,
+    irp: 0,
   });
   const [result, setResult] = React.useState(0);
   const userState = useSelector((state) => state.user13th);
@@ -43,8 +45,11 @@ export default function PreviewSolutionPage() {
   }
 
   function calculateTotal() {
-    const temp = total.person + total.business + total.house;
-    setResult(temp);
+    let totalSum = 0;
+    for (const key in total) {
+      totalSum += total[key];
+    }
+    setResult(totalSum);
   }
 
   useEffect(() => {
@@ -55,8 +60,9 @@ export default function PreviewSolutionPage() {
   return (
     <>
       <div className="flex flex-col items-center">
-        <h1 className="text-xl font-bold mb-1 mt-6">
-          솔루션 이행시 최대 {result}원까지 아낄 수 있어요!
+        <h1 className="text-xl font-bold mb-1 mt-6 text-center">
+          솔루션 이행시 <br />
+          최대 {result.toLocaleString("ko-KR")}원까지 아낄 수 있어요!
         </h1>
         <div className="text-center">
           <p className="mediumGreyText mb-3 text-base">

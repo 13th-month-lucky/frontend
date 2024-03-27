@@ -6,6 +6,8 @@ import MoneyBagInHandImg from "~/assets/images/preview/moneybag-in-hand.png";
 
 export default function SavingsCalculator({
   title,
+  updateTotal,
+  keyword,
   payment,
   limitPrice,
   rate,
@@ -21,14 +23,23 @@ export default function SavingsCalculator({
   const [fullPrice, setFullPrice] = useState(0); // 남은 돈 다 넣었을 경우
 
   useEffect(() => {
-    setValue(payment / unit);
-    setFullPrice((payment + remainPrice) / unit);
     if (title === "IRP") {
       setLink("https://m.shinhansec.com/mweb/fnin/peni/fpeni1001");
     } else if (title === "연금저축") {
       setLink("https://m.shinhansec.com/mweb/fnin/pens/fpens1002?tab=0");
     }
   }, []);
+
+  useEffect(() => {
+    if (payment) {
+      setValue(payment / unit);
+      setFullPrice((payment + remainPrice) / unit);
+    }
+  }, [payment]);
+
+  useEffect(() => {
+    updateTotal(keyword, deductiblePrice);
+  }, [deductiblePrice]);
 
   useEffect(() => {
     // 가격에 만원 단위 곱하여 계산
@@ -44,7 +55,7 @@ export default function SavingsCalculator({
       setCurrLimitPrice(limitPrice - value * unit);
       setDeductiblePrice(value * unit * rate);
     }
-  }, [value]);
+  }, [value, remainPendingLimitPrice]);
 
   return (
     <Card>
@@ -73,11 +84,14 @@ export default function SavingsCalculator({
                 <b>{currLimitPrice.toLocaleString("ko-KR")}원</b> 남았어요!
               </p>
             )}
-
-            <p>
-              <b>{deductiblePrice.toLocaleString("ko-KR")}원</b> 공제받을 수
-              있어요.
-            </p>
+            {deductiblePrice <= 0 ? (
+              <p> 공제받을 수 있는 금액이 없어요. 😥</p>
+            ) : (
+              <p>
+                <b>{deductiblePrice.toLocaleString("ko-KR")}원</b> 공제받을 수
+                있어요.
+              </p>
+            )}
           </div>
           <div className="relative mb-6">
             <input
@@ -104,7 +118,7 @@ export default function SavingsCalculator({
               <div className={fullPrice < value ? "text-red-500" : ""}>
                 {value}
               </div>
-              <div>{limitPrice / unit}</div>
+              <div>{limitPrice / unit} (단위: 만원)</div>
             </div>
           </div>
         </>
