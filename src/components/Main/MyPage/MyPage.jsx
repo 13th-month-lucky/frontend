@@ -72,7 +72,7 @@ export default function MyPage() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center mt-10 text-center">
+    <div className="flex flex-col items-center justify-center mt-10 text-center mb-20">
       <div className="text-2xl font-bold mb-4">{nickname}님의 정보</div>
 
       <div className="flex items-center justify-center">

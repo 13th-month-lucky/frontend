@@ -12,8 +12,13 @@ import Community from "~/components/ETF/Detail/Community/Community";
 import { useParams } from "react-router";
 
 import { getEtfInfo, getEtfPriceData } from "~/lib/apis/etfDetail";
+import { useDispatch, useSelector } from "react-redux";
+import { pushEtfHistory } from "~/store/reducers/user";
 
 export default function etfDetailPage() {
+  const userState = useSelector((state) => state.user13th);
+  const dispatch = useDispatch();
+
   const [currentTab, setCurrentTab] = useState(0);
   const [stockInfo, setStockInfo] = useState();
   const [priceData, setPriceData] = useState([]);
@@ -31,6 +36,8 @@ export default function etfDetailPage() {
       setStockInfo(resp[0].data);
       setRatio(resp[0].data.ratio);
     });
+
+    dispatch(pushEtfHistory(code));
   }, []);
 
   const detailTabs = ["차트", "일별 시세", "종목 정보", "커뮤니티"];

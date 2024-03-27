@@ -12,8 +12,9 @@ export default function EntireMenu() {
         dispatch(removeUser());
         window.location.href = "/";
       }}
+      style={{ cursor: "pointer" }}
     >
-      EntireMenu
+      EntireMenu (click to logout)
     </div>
   );
 }

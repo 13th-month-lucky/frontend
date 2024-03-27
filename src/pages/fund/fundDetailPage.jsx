@@ -42,7 +42,6 @@ export default function fuindDetailPage() {
     });
 
     dispatch(pushFundHistory(code));
-    console.log("userState: ", userState);
   }, []);
 
   return (
