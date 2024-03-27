@@ -1,5 +1,5 @@
 import React from "react";
-
+import logoImg from "~/assets/images/logo.png";
 export default function Header(props) {
   const setCurrentTab = props.setCurrentTab;
 
@@ -9,7 +9,7 @@ export default function Header(props) {
       style={{ cursor: "pointer" }}
       onClick={() => setCurrentTab(2)}
     >
-      <img src="src/assets/images/logo.png" className="w-12 h-12 mr-2"></img>
+      <img src={logoImg} className="w-12 h-12 mr-2"></img>
       <p className="h2">13월</p>
     </div>
   );

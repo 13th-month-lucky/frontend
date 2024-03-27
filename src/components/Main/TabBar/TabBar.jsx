@@ -1,6 +1,23 @@
 import React from "react";
+import findOutImg from "~/assets/images/tabBarIcons/findOut.png";
+import findOutBlueImg from "~/assets/images/tabBarIcons/findOutBlue.png";
+import quizImg from "~/assets/images/tabBarIcons/quiz.png";
+import quizBlueImg from "~/assets/images/tabBarIcons/quizBlue.png";
+import homeImg from "~/assets/images/tabBarIcons/home.png";
+import homeBlueImg from "~/assets/images/tabBarIcons/homeBlue.png";
+import myPageImg from "~/assets/images/tabBarIcons/myPage.png";
+import myPageBlueImg from "~/assets/images/tabBarIcons/myPageBlue.png";
+import entireMenuImg from "~/assets/images/tabBarIcons/entireMenu.png";
+import entireMenuBlueImg from "~/assets/images/tabBarIcons/entireMenuBlue.png";
 
-const tabs = ["findOut", "quiz", "home", "myPage", "entireMenu"];
+const tabs = [findOutImg, quizImg, homeImg, myPageImg, entireMenuImg];
+const blueTabs = [
+  findOutBlueImg,
+  quizBlueImg,
+  homeBlueImg,
+  myPageBlueImg,
+  entireMenuBlueImg,
+];
 const tabNames = ["알아보기", "퀴즈", "홈", "마이페이지", "전체 메뉴"];
 
 export default function TabBar(props) {
@@ -14,13 +31,11 @@ export default function TabBar(props) {
       <div className="flex justify-between h-full rounded-tl-lg rounded-tr-lg shadow-inner w-full bg-white">
         {tabs.map((ele, idx) => {
           let textColor = "text-gray-500";
-
+          let src = ele;
           if (idx == currentTab) {
-            ele += "Blue";
+            src = blueTabs[idx];
             textColor = "text-blue-500";
           }
-
-          const src = "src/assets/images/tabBarIcons/" + ele + ".png";
 
           if (idx == 4) {
             tabClassName += " p-1";
