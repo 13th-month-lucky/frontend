@@ -24,7 +24,7 @@ const CardComponent = ({ updateTotal, user, myData }) => {
 
   useEffect(() => {
     if (user && user.salary) {
-      setTotalPay(user.salary * 12);
+      setTotalPay(user.salary);
     }
   }, [user]);
 
