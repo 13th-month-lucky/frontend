@@ -18,6 +18,7 @@ export default function PreviewSolutionPage() {
     business: 0,
     pending: 0,
     irp: 0,
+    card: 0,
   });
   const [result, setResult] = React.useState(0);
   const userState = useSelector((state) => state.user13th);

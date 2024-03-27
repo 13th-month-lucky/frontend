@@ -10,21 +10,49 @@ const CardComponent = ({ updateTotal, user, myData }) => {
   const [msg2, setMsg2] = useState("");
 
   // user data
-  const totalPay = 40000000; // 총급여
-  const creditAmount = 2000000; // 신용카드
-  const checkAmount = 30000; // 체크카드
-  const cashAmount = 0; // 현금영수증
-
-  const ratio = 0.25; // 25%
-  const minAmount = totalPay * ratio; // 최소 공제 기준 금액
+  const [totalPay, setTotalPay] = useState(40000000); // 총급여
+  const [creditAmount, setCreditAmount] = useState(0); // 신용카드
+  const [checkAmount, setCheckAmount] = useState(0); // 체크카드
+  const [cashAmount, setCashAmount] = useState(0); // 현금영수증
+  const [minAmount, setMinAmount] = useState(0); // 최소 공제 기준 금액
+  const [limit, setLimit] = useState(0); // 공제 한도
+  const [creditDeductionAmount, setCreditDeductionAmount] = useState(0); // 신용카드 공제액
+  const [cashDeductionAmount, setCashDeductionAmount] = useState(0); // 현금영수증, 직불, 선불카드 공제액
 
   const limitThreshold = 70000000; // 공제 한도 기준 급여액
-  const limit = totalPay <= limitThreshold ? 3000000 : 2500000; // 공제 한도
+  const unit = 10000; // 단위
 
-  const creditDeductionAmount = creditAmount * 0.15; // 신용카드 공제액
-  const cashDeductionAmount = (checkAmount + cashAmount) * 0.3; // 현금영수증, 직불, 선불카드 공제액
+  useEffect(() => {
+    if (user && user.salary) {
+      setTotalPay(user.salary * 12);
+    }
+  }, [user]);
 
-  const unit = 10000;
+  useEffect(() => {
+    setMinAmount(totalPay * 0.25); // 25%
+    setLimit(totalPay <= limitThreshold ? 3000000 : 2500000);
+  }, [totalPay]);
+
+  useEffect(() => {
+    if (myData) {
+      if (myData.card) {
+        setCheckAmount(myData.card.check.amount);
+        setCreditAmount(myData.card.credit.amount);
+        setCreditDeductionAmount(myData.card.credit.amount * 0.15);
+        setCashDeductionAmount((myData.card.check.amount + cashAmount) * 0.3);
+      }
+      if (myData.nationalTaxService) {
+        setCashAmount(myData.nationalTaxService.cash.amount);
+        setCashDeductionAmount(
+          (checkAmount + myData.nationalTaxService.cash.amount) * 0.3
+        );
+      }
+    }
+  }, [myData]);
+
+  useEffect(() => {
+    updateTotal("card", cashDeductionAmount + creditDeductionAmount);
+  }, [cashDeductionAmount, creditDeductionAmount]);
 
   useEffect(() => {
     if (cashAmount + checkAmount + creditAmount < minAmount) {
@@ -46,8 +74,7 @@ const CardComponent = ({ updateTotal, user, myData }) => {
         setMsg2(
           `혜택이 좋은 신용카드를 ${
             (minAmount - creditAmount) / unit
-          }만원 추가로 사용 후  
-          공제율이 높은 체크카드, 현금을 사용하세요!`
+          }만원 추가로 사용 후 공제율이 높은 체크카드, 현금을 사용하세요!`
         );
       } else {
         // 한도까지 체크카드 권유
@@ -64,7 +91,16 @@ const CardComponent = ({ updateTotal, user, myData }) => {
         }
       }
     }
-  }, []);
+  }, [
+    cashAmount,
+    checkAmount,
+    creditAmount,
+    minAmount,
+    cashDeductionAmount,
+    creditDeductionAmount,
+    limit,
+  ]);
+
   const handleButton = () => {
     const accordionBody = document.getElementById("accordion-color-body-1");
     if (isAnimationWork) {
@@ -145,12 +181,11 @@ const CardComponent = ({ updateTotal, user, myData }) => {
                     placement="top"
                     content={
                       <div>
+                        <p className="text-sm font-bold">💡 TIP</p>
                         <p className="text-xs">
-                          - 급여의 25%인 {minAmount / unit}만원 이상
-                          소비금액부터 카드 소득 공제 대상이에요.
-                        </p>
-                        <p className="text-xs">
-                          - 체크카드는 신용카드보다 공제율이 2배 높아요.
+                          {">"} 급여의 25%인 {minAmount / unit}만원 이상
+                          소비금액부터 카드 소득 공제 대상이에요. <br /> {">"}
+                          체크카드는 신용카드보다 공제율이 2배 높아요.
                         </p>
                       </div>
                     }

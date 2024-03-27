@@ -7,7 +7,7 @@ function ProgressBar({ amount, percentage, color, isAnimation, limit }) {
 
   useEffect(() => {
     setAdjustedPercentage(Math.min(currentPercentage, 100));
-  }, [currentPercentage]);
+  }, [currentPercentage, percentage]);
 
   useEffect(() => {
     if (isAnimation) {
@@ -23,7 +23,7 @@ function ProgressBar({ amount, percentage, color, isAnimation, limit }) {
 
       return () => clearInterval(interval);
     }
-  }, [currentPercentage, adjustedPercentage, isAnimation]);
+  }, [percentage, currentPercentage, adjustedPercentage, isAnimation]);
 
   const progressBarStyle = {
     width: `${adjustedPercentage}%`,
@@ -41,8 +41,8 @@ function ProgressBar({ amount, percentage, color, isAnimation, limit }) {
         {currentPercentage.toFixed()}%
       </div>
       <div className="absolute w-full flex justify-between text-xs text-gray-400 px-2 mt-1">
-        <div>{amount / unit}</div>
-        <div>{limit / unit} (만원)</div>
+        <div>{(amount / unit).toFixed(1)}</div>
+        <div>{(limit / unit).toFixed(1)} (만원)</div>
       </div>
     </div>
   );
