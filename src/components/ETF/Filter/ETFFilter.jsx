@@ -67,20 +67,18 @@ const ETFFilter = ({ onTypeSelect, onDangerDegreeChange }) => {
       <div className="m-1">
         <h1 className="text-center font-bold m-1 ">유형</h1>
       </div>
-      <div className="flex justify-center">
-        <ScrollMenu>
-          {types.map((type) => (
-            <Button
-              key={type.key}
-              color={selectedKey === type.key ? "blue" : "light"}
-              pill
-              className="mx-1 w-28"
-              onClick={() => handleItemClick(type.key)}
-            >
-              {type.text}
-            </Button>
-          ))}
-        </ScrollMenu>
+      <div className="flex justify-center overflow-x-auto">
+        {types.map((type) => (
+          <Button
+            key={type.key}
+            color={selectedKey === type.key ? "blue" : "light"}
+            pill
+            className="mx-1 w-28"
+            onClick={() => handleItemClick(type.key)}
+          >
+            {type.text}
+          </Button>
+        ))}
       </div>
 
       <div className="m-4">

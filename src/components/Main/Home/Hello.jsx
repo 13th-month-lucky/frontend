@@ -18,7 +18,7 @@ export default function Hello(props) {
           className="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
           role="alert"
         >
-          <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-cyan-500 dark:bg-cyan-800 dark:text-cyan-200">
+          <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-cyan-500 dark:bg-cyan-800 dark:text-cyan-200">
             <img
               className="h-8 w-8 rounded-full"
               src={userState.profileImageUrl}

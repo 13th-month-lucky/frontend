@@ -9,6 +9,8 @@ import redLikeIcon from "~/assets/images/detail/redLikeIcon.png";
 import {
   pushLikedEtf,
   pullLikedEtf,
+  pushLikedFund,
+  pullLikedFund,
   findUserWithNickname,
 } from "~/lib/apis/user";
 
@@ -17,6 +19,7 @@ export default function CommonInfo(props) {
   const code = props.code;
   const title = props.title;
   const riskDegree = props.riskDegree;
+  const isFund = props.isFund;
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -29,11 +32,28 @@ export default function CommonInfo(props) {
     findUserWithNickname(userState.nickname).then((resp) => {
       if (resp.likedEtf.includes(code)) {
         setIsLiked(true);
+        return;
+      }
+      if (isFund === true && resp.likedFund.includes(code)) {
+        setIsLiked(true);
+        return;
       }
     });
   }, []);
 
   const clickEtfLike = () => {
+    if (isFund === true) {
+      if (isLiked) {
+        setIsLiked(false);
+        pullLikedFund(userState.userId, code);
+        return;
+      }
+
+      setIsLiked(true);
+      pushLikedFund(userState.userId, code);
+      return;
+    }
+
     if (isLiked) {
       setIsLiked(false);
       pullLikedEtf(userState.userId, code);
@@ -46,11 +66,11 @@ export default function CommonInfo(props) {
 
   return (
     <div className="ml-2 mt-2 mb-8">
-      <Risk riskDegree={riskDegree} />
+      <Risk riskDegree={parseInt(riskDegree)} />
 
       <div className="flex justify-between">
         <div className="left-div mt-2">
-          <p className="text-3xl mr-3 font-bold">{title}</p>
+          <p className="text-3xl mr-3 font-bold w-80">{title}</p>
           <p className="text-md text-gray-500 font-medium mt-1">{code}</p>
         </div>
 

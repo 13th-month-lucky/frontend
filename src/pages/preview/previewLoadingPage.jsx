@@ -4,6 +4,9 @@ import LoadingComments from "~/components/Preview/LoadingComments";
 import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+import { createAndGetNewMydata } from "~/lib/apis/myData";
+import { useSelector } from "react-redux";
+
 const floatAnimation = keyframes`
   0% {
     transform: translateY(0);
@@ -24,6 +27,11 @@ const FloatingIcon = styled.img`
 
 const PreviewLoading = () => {
   const navigate = useNavigate();
+  const userState = useSelector((state) => state.user13th);
+
+  useEffect(() => {
+    createAndGetNewMydata(userState.userId);
+  }, []);
 
   const goToResultPage = () => {
     setTimeout(() => {

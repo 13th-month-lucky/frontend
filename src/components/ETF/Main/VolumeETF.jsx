@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "flowbite-react";
 import MyResponsiveLine from "~/components/ETF/Main/MyResponsiveLine";
 import axios from "axios";
-import riskIconImg1 from "~/assets/images/riskIcons/1.png";
-import riskIconImg2 from "~/assets/images/riskIcons/2.png";
-import riskIconImg3 from "~/assets/images/riskIcons/3.png";
-import riskIconImg4 from "~/assets/images/riskIcons/4.png";
-import riskIconImg5 from "~/assets/images/riskIcons/5.png";
-import riskIconImg6 from "~/assets/images/riskIcons/6.png";
+import { useSelector } from "react-redux";
+import Risk from "~/components/ETF/Risk/Risk";
+import { useNavigate } from "react-router";
+import blankLikeIcon from "~/assets/images/detail/blankLikeIcon.png";
+import redLikeIcon from "~/assets/images/detail/redLikeIcon.png";
 
 const VolumeETF = ({ selectedDangerDegree, selectedType }) => {
+  const [likedEtfCodes, setLikedEtfCodes] = useState([]);
+  const userState = useSelector((state) => state.user13th);
   const [etf, setEtf] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.post("http://localhost:3000/api/user/find", {
+        nickname: userState.nickname,
+      });
+      const likeETF = response.data.likedEtf;
+      setLikedEtfCodes(likeETF);
+    };
+
     const fetchData = async () => {
       try {
         const response = await axios.get(
           "http://localhost:3000/api/etf/overview"
         );
         const data = response.data;
-
         let filteredETF = data.sort(
           (a, b) => b.chart.hts_avls - a.chart.hts_avls
         );
 
         if (selectedDangerDegree) {
-          console.log(selectedDangerDegree);
-
           filteredETF = filteredETF.filter(
-            (item) => item.data.dangerDegree == selectedDangerDegree
+            (item) => item.data.dangerDegree === selectedDangerDegree
           );
-
-          console.log(filteredETF);
         }
 
         if (selectedType) {
@@ -40,10 +44,8 @@ const VolumeETF = ({ selectedDangerDegree, selectedType }) => {
             item.data.category.includes(selectedType)
           );
         }
-        // console.log(filteredETF);
-        // setEtf(filteredETF); // result
-        // console.log(etf);
-        return filteredETF;
+
+        setEtf(filteredETF);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -51,19 +53,51 @@ const VolumeETF = ({ selectedDangerDegree, selectedType }) => {
       }
     };
 
-    fetchData().then((data) => setEtf(data));
+    fetchData();
+    fetchUser();
+    console.log(likedEtfCodes);
   }, [selectedDangerDegree, selectedType]);
+
+  const toggleLike = (code) => {
+    if (likedEtfCodes.includes(code)) {
+      setLikedEtfCodes(likedEtfCodes.filter((c) => c !== code));
+      axios.put("http://localhost:3000/api/user/dislike/etf", {
+        userId: userState.userId,
+        code: code,
+      });
+    } else {
+      setLikedEtfCodes([...likedEtfCodes, code]);
+      axios.put("http://localhost:3000/api/user/like/etf", {
+        userId: userState.userId,
+        code: code,
+      });
+    }
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  const clickCard = (code) => {
+    navigate("/etf/detail/" + code);
+  };
 
   return (
     <div>
       {etf.map((item) => (
-        <Card className="m-5" key={item.code}>
-          <div className="flex flex-row">
-            <div className="h-8 w-24">
+        <div
+          key={item.code}
+          onClick={() => clickCard(item.code)}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="border-t pt-4 pb-3 flex justify-between">
+            <Risk riskDegree={item.data.dangerDegree} />
+            <p className="text-lg mt-2 font-semibold">
+              {item.chart.hts_kor_isnm}
+              {/* {item.code} */}
+            </p>
+          </div>
+          <div className="flex flex-row justify-between">
+            <div className=" h-20 w-52">
               <MyResponsiveLine
                 data={[
                   {
@@ -76,38 +110,36 @@ const VolumeETF = ({ selectedDangerDegree, selectedType }) => {
                 ]}
               />
             </div>
-            <div className="flex flex-col ml-3">
-              <div className="w-20 h-6">
-                <img
-                  src={getRiskIcon(item.data.dangerDegree)}
-                  alt={`Risk Icon ${item.data.dangerDegree}`}
-                />
-              </div>
-              <div className="font-bold text-sm">{item.chart.hts_kor_isnm}</div>
+            <div className="flex item-center justify-center gap-2">
+              <div className="font-xl font-bold text-red-500">수익률</div>
+              <p className="text-lg font-bold text-red-600">
+                {item.chart.profitPercentage}%
+              </p>
+              {likedEtfCodes.includes(item.code) ? (
+                <div>
+                  <img
+                    src={redLikeIcon}
+                    className="h-8"
+                    onClick={() => toggleLike(item.code)}
+                    alt="Dislike Button"
+                  />
+                </div>
+              ) : (
+                <div>
+                  <img
+                    src={blankLikeIcon}
+                    className="h-8"
+                    onClick={() => toggleLike(item.code)}
+                    alt="Like Button"
+                  />
+                </div>
+              )}
             </div>
           </div>
-        </Card>
+        </div>
       ))}
     </div>
   );
-};
-
-// Function to get the appropriate risk icon based on the risk degree
-const getRiskIcon = (dangerDegree) => {
-  switch (dangerDegree) {
-    case 1:
-      return riskIconImg1;
-    case 2:
-      return riskIconImg2;
-    case 3:
-      return riskIconImg3;
-    case 4:
-      return riskIconImg4;
-    case 5:
-      return riskIconImg5;
-    default:
-      return riskIconImg6;
-  }
 };
 
 export default VolumeETF;

@@ -4,15 +4,26 @@ import { ResponsivePie } from "@nivo/pie";
 
 export default function Prossesion(props) {
   const ratio = props.ratio;
+  const isFund = props.isFund;
 
-  const data = [];
+  let data = [];
 
   for (let i = 0; i < Math.min(10, ratio.length); i++) {
     const ele = ratio[i];
-    const formattedEle = {
-      id: ele.companyName,
-      value: parseFloat(ele.percentage.replace("%", "")),
-    };
+
+    let formattedEle;
+
+    if (isFund) {
+      formattedEle = {
+        id: ele[0],
+        value: parseFloat(ele[1]),
+      };
+    } else {
+      formattedEle = {
+        id: ele.companyName,
+        value: parseFloat(ele.percentage.replace("%", "")),
+      };
+    }
 
     data.push(formattedEle);
   }

@@ -2,7 +2,7 @@ import { Card } from "flowbite-react";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import BlueButton from "~/components/BlueButton/BlueButton";
+import BlueButton from "~/components/Button/BlueButton";
 
 const PreviewResultDetailPage = () => {
   const userState = useSelector((state) => state.user13th);
@@ -20,6 +20,7 @@ const PreviewResultDetailPage = () => {
       <div className="bg-white h-screen p-4">
         <div className="flex flex-col items-center mt-9">
           <div>
+            3
             <p className="h2 text-center mb-10">
               {userState.nickname}님의 연말정산 내역이 <br /> 새롭게 업데이트
               됐어요 ✨

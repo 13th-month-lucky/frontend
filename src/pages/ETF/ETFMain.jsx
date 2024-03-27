@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Card, Tabs } from "flowbite-react";
-import ETFDangerFilter from "../../components/ETF/Filter/ETFDangerFilter";
+import React, { useState } from "react";
+import { Tabs } from "flowbite-react";
 import ETFFilter from "../../components/ETF/Filter/ETFFilter";
 
 import ALLETF from "~/components/ETF/Main/ALLETF";
 import HotIssue from "~/components/ETF/Main/HotIssue";
 import VolumeETF from "~/components/ETF/Main/VolumeETF";
 import CapitalizationETF from "~/components/ETF/Main/CapitalizationETF";
+import LikedEtf from "~/components/ETF/Main/LikedETF";
 
 const ETFMain = () => {
   const [selectedDangerDegree, setSelectedDangerDegree] = useState(null);
@@ -73,7 +73,7 @@ const ETFMain = () => {
               onDangerDegreeChange={handleDangerDegreeChange}
             />
             <div className="mb-4">
-              <ALLETF
+              <LikedEtf
                 selectedDangerDegree={selectedDangerDegree}
                 selectedType={selectedType}
               />

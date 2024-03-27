@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import TopBackBar from "~/components/TopBackBar/TopBackBar";
-import DetailTabBar from "~/components/ETF/Detail/detailTabBar";
+import DetailTabBar from "~/components/ETF/Detail/DetailTabBar";
 
 import CommonInfo from "~/components/ETF/Detail/CommonInfo";
 
@@ -12,11 +12,18 @@ import Community from "~/components/ETF/Detail/Community/Community";
 import { useParams } from "react-router";
 
 import { getEtfInfo, getEtfPriceData } from "~/lib/apis/etfDetail";
+import { useDispatch, useSelector } from "react-redux";
+import { pushEtfHistory } from "~/store/reducers/user";
 
 export default function etfDetailPage() {
+  const userState = useSelector((state) => state.user13th);
+  const dispatch = useDispatch();
+
   const [currentTab, setCurrentTab] = useState(0);
   const [stockInfo, setStockInfo] = useState();
   const [priceData, setPriceData] = useState([]);
+  const [ratio, setRatio] = useState();
+
   const { code } = useParams();
 
   useEffect(() => {
@@ -27,14 +34,17 @@ export default function etfDetailPage() {
 
     getEtfInfo(code).then((resp) => {
       setStockInfo(resp[0].data);
+      setRatio(resp[0].data.ratio);
     });
+
+    dispatch(pushEtfHistory(code));
   }, []);
 
   const detailTabs = ["차트", "일별 시세", "종목 정보", "커뮤니티"];
   const detailComponents = [
     <Chart code={code} priceData={priceData} />,
     <DailyPrice code={code} priceData={priceData} />,
-    <StockInfo code={code} stockInfo={stockInfo} />,
+    <StockInfo code={code} stockInfo={stockInfo} ratio={ratio} />,
     <Community code={code} />,
   ];
 
