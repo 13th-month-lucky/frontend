@@ -19,6 +19,7 @@ export default function MyPage() {
   const userId = userState.userId;
   const nickname = userState.nickname;
   const profileImageUrl = userState.profileImageUrl;
+  const unit = 10000; // 단위
 
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
@@ -38,7 +39,7 @@ export default function MyPage() {
         userId: userId,
         email: editedUserInfo.email,
         birthday: editedUserInfo.birthday,
-        salary: editedUserInfo.salary,
+        salary: editedUserInfo.salary * unit,
         address: editedUserInfo.address,
         nickname: nickname,
       });
@@ -59,7 +60,7 @@ export default function MyPage() {
         setEditedUserInfo({
           birthday: data.birthday,
           email: data.email,
-          salary: data.salary,
+          salary: data.salary / unit,
           address: data.address,
         });
       } catch (error) {
@@ -83,78 +84,96 @@ export default function MyPage() {
         />
       </div>
 
-      <div className="mt-6">
-        <div className="font-bold">이름</div>
-        <div>{nickname}</div>
-      </div>
+      <div className="w-3/5 flex flex-col gap-5 mt-10">
+        <div className="flex justify-between">
+          <div className="font-bold">이름</div>
+          <div>{nickname}</div>
+        </div>
 
-      <div className="mt-4">
-        <div className="font-bold">생일</div>
+        <div className="flex justify-between">
+          <div className="font-bold">생일</div>
 
-        {isEditing ? (
-          <Datepicker
-            onSelectedDateChanged={(date) => {
-              setEditedUserInfo((prev) => ({
-                ...prev,
-                birthday: date.toLocaleDateString(),
-              }));
-            }}
-            language="kr"
-            className=" px-2 py-1"
-            weekStart={1}
-            // defaultValue={"2024-03-25"}
-            value={editedUserInfo.birthday}
-          />
-        ) : (
-          <div>{editedUserInfo.birthday}</div>
-        )}
-      </div>
+          {isEditing ? (
+            <Datepicker
+              onSelectedDateChanged={(date) => {
+                console.log(date);
+                setEditedUserInfo((prev) => ({
+                  ...prev,
+                  birthday: date.toLocaleDateString(),
+                }));
+              }}
+              language="kr"
+              weekStart={1}
+              // defaultValue={"2024-03-25"}
+              value={editedUserInfo.birthday}
+            />
+          ) : (
+            <div>
+              {editedUserInfo.birthday === null
+                ? "미입력"
+                : editedUserInfo.birthday}
+            </div>
+          )}
+        </div>
 
-      <div className="mt-4">
-        <div className="font-bold">이메일</div>
+        <div className="flex justify-between">
+          <div className="font-bold">이메일</div>
 
-        {isEditing ? (
-          <TextInput
-            type="email1"
-            name="email"
-            value={editedUserInfo.email}
-            placeholder="name@naver.com"
-            onChange={handleInputChange}
-            className="px-2 py-1"
-          />
-        ) : (
-          <div>{editedUserInfo.email}</div>
-        )}
-      </div>
+          {isEditing ? (
+            <TextInput
+              type="email1"
+              name="email"
+              value={editedUserInfo.email}
+              placeholder="name@naver.com"
+              onChange={handleInputChange}
+            />
+          ) : (
+            <div>
+              {editedUserInfo.email === null ? "미입력" : editedUserInfo.email}
+            </div>
+          )}
+        </div>
 
-      <div className="mt-4">
-        <div className="font-bold">총 급여</div>
-        {isEditing ? (
-          <TextInput
-            type="text"
-            name="salary"
-            value={editedUserInfo.salary}
-            onChange={handleInputChange}
-            className=" px-2 py-1"
-          />
-        ) : (
-          <div>{editedUserInfo.salary}</div>
-        )}
-      </div>
+        <div className="flex justify-between item-center">
+          <div className="font-bold">총 급여</div>
+          {isEditing ? (
+            <div className="flex items-center">
+              <TextInput
+                type="text"
+                name="salary"
+                value={editedUserInfo.salary}
+                onChange={handleInputChange}
+                placeholder="400(단위: 만원)"
+              />
+              <div className=""></div>
+            </div>
+          ) : (
+            <div>
+              {editedUserInfo.salary === null
+                ? "미입력"
+                : editedUserInfo.salary.toLocaleString("kr-Kr")}{" "}
+              만원
+            </div>
+          )}
+        </div>
 
-      <div className="mt-4">
-        <div className="font-bold">주소</div>
-        {isEditing ? (
-          <TextInput
-            type="text"
-            name="address"
-            value={editedUserInfo.address}
-            onChange={handleInputChange}
-            className=" px-2 py-1"
-          />
-        ) : (
-          <div>{editedUserInfo.address}</div>
-        )}
+        <div className="flex justify-between items-center">
+          <div className="font-bold whitespace-nowrap">주소</div>
+          {isEditing ? (
+            <TextInput
+              type="text"
+              name="address"
+              value={editedUserInfo.address}
+              onChange={handleInputChange}
+            />
+          ) : (
+            <div className="text-right">
+              {editedUserInfo.address === null
+                ? "미입력"
+                : editedUserInfo.address}
+            </div>
+          )}
+        </div>
       </div>
 
       <div>
