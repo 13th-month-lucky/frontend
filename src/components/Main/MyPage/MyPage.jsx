@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { Datepicker, TextInput } from "flowbite-react";
-import moment from "moment";
 import "moment/locale/ko";
+import Address from "~/components/Preview/Address";
 
 export default function MyPage() {
   const userState = useSelector((state) => state.user13th);
@@ -14,6 +13,7 @@ export default function MyPage() {
     email: "",
     salary: "",
     address: "",
+    addressDetail: "",
   });
 
   const userId = userState.userId;
@@ -41,6 +41,7 @@ export default function MyPage() {
         birthday: editedUserInfo.birthday,
         salary: editedUserInfo.salary * unit,
         address: editedUserInfo.address,
+        addressDetail: editedUserInfo.addressDetail,
         nickname: nickname,
       });
       setIsEditing(false); // Turn off edit mode
@@ -72,6 +73,13 @@ export default function MyPage() {
     fetchData();
   }, []);
 
+  const setAddressObj = (obj) => {
+    // Assuming obj.areaAddress contains address and addressDetail
+    setEditedUserInfo({
+      address: obj.areaAddress,
+    });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center mt-10 text-center mb-20">
       <div className="text-2xl font-bold mb-4">{nickname}님의 정보</div>
@@ -84,7 +92,7 @@ export default function MyPage() {
         />
       </div>
 
-      <div className="w-3/5 flex flex-col gap-5 mt-10">
+      <div className="w-3/4 flex flex-col gap-5 mt-10">
         <div className="flex justify-between">
           <div className="font-bold">이름</div>
           <div>{nickname}</div>
@@ -160,12 +168,34 @@ export default function MyPage() {
         <div className="flex justify-between items-center">
           <div className="font-bold whitespace-nowrap">주소</div>
           {isEditing ? (
-            <TextInput
-              type="text"
-              name="address"
-              value={editedUserInfo.address}
-              onChange={handleInputChange}
-            />
+            <div className="flex flex-col">
+              <div className="flex gap-2 items-center">
+                <TextInput
+                  id="address"
+                  type="text"
+                  name="address"
+                  placeholder="주소"
+                  className="mt-2"
+                  value={editedUserInfo.address}
+                  onChange={handleInputChange}
+                />
+                <Address
+                  className="items-end justify-end"
+                  setAddressObj={setAddressObj}
+                />
+              </div>
+              <div>
+                <TextInput
+                  name="addressDetail"
+                  id="addressDetail"
+                  type="text"
+                  value={editedUserInfo.addressDetail}
+                  placeholder="상세주소"
+                  className="mt-2 mb-2"
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
           ) : (
             <div className="text-right">
               {editedUserInfo.address === null
