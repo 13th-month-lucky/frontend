@@ -71,7 +71,7 @@ export default function PreviewSolutionPage() {
           </p>
         </div>
       </div>
-      <CardComponent />
+      <CardComponent updateTotal={updateTotal} user={user} myData={mydata} />
       <PersonComponent updateTotal={updateTotal} user={user} myData={mydata} />
       <MonthAndHouse updateTotal={updateTotal} user={user} myData={mydata} />
       <SmallBusiness updateTotal={updateTotal} user={user} myData={mydata} />

@@ -4,7 +4,7 @@ import cardImg from "~/assets/images/preview/card-dynamic-color.png";
 import ProgressBar from "~/components/Preview/ProgressBar";
 import { Card, Tooltip } from "flowbite-react";
 
-const CardComponent = () => {
+const CardComponent = ({ updateTotal, user, myData }) => {
   const [isAnimationWork, setIsAnimationWork] = useState(false);
   const [msg1, setMsg1] = useState("");
   const [msg2, setMsg2] = useState("");
@@ -25,8 +25,6 @@ const CardComponent = () => {
   const cashDeductionAmount = (checkAmount + cashAmount) * 0.3; // 현금영수증, 직불, 선불카드 공제액
 
   const unit = 10000;
-
-  console.log(limit, creditDeductionAmount, cashDeductionAmount);
 
   useEffect(() => {
     if (cashAmount + checkAmount + creditAmount < minAmount) {
@@ -66,8 +64,6 @@ const CardComponent = () => {
         }
       }
     }
-
-    console.log(msg1);
   }, []);
   const handleButton = () => {
     const accordionBody = document.getElementById("accordion-color-body-1");
@@ -80,7 +76,6 @@ const CardComponent = () => {
     }
   };
 
-  console.log((creditDeductionAmount * 100) / limit);
   return (
     <>
       <div
