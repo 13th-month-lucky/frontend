@@ -35,7 +35,7 @@ export default function MyPage() {
 
   const saveChanges = async () => {
     try {
-      await axios.put("http://localhost:3000/api/user/info", {
+      await axios.put("/api/user/info", {
         userId: userId,
         email: editedUserInfo.email,
         birthday: editedUserInfo.birthday,
@@ -54,7 +54,7 @@ export default function MyPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.post("http://localhost:3000/api/user/find", {
+        const res = await axios.post("/api/user/find", {
           nickname: nickname,
         });
         const data = res.data;

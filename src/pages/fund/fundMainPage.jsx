@@ -126,12 +126,13 @@ export default function fundMainPage() {
       });
     }
   }, [currentTab]);
+
   return (
     <div>
       <TopBackBar />
 
       {/* 핫이슈 목록 받기로 변경 */}
-      {rising.length > 0 ? (
+      {include.length > 0 ? (
         <HotFund rising={rising} include={include} />
       ) : (
         <></>

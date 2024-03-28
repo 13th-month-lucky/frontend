@@ -31,11 +31,11 @@ const ETFFilter = ({ onTypeSelect, onDangerDegreeChange }) => {
   };
 
   const buttons = [
-    { id: "1", text: "매우 낮은 위험", color: "blue" },
-    { id: "2", text: "낮은 위험" },
+    { id: "5", text: "매우 낮은 위험", color: "blue" },
+    { id: "4", text: "낮은 위험" },
     { id: "3", text: "보통위험", color: "success" },
-    { id: "4", text: "높은 위험", color: "warning" },
-    { id: "5", text: "매우 높은 위험", color: "failure" },
+    { id: "2", text: "높은 위험", color: "warning" },
+    { id: "1", text: "매우 높은 위험", color: "failure" },
   ];
 
   const types = [

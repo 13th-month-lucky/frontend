@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import Graph from "./Graph";
 import PeriodTabBar from "../PeriodTabBar";
+import Tip from "~/components/Tip/Tip";
+import Kospi from "~/components/Kospi/Kospi";
 
 export default function Chart(props) {
   const code = props.code;
@@ -23,6 +25,14 @@ export default function Chart(props) {
         currentPeriod={currentPeriod}
         setCurrentPeriod={setCurrentPeriod}
       />
+
+      <div>
+        <Kospi currentPeriod={currentPeriod} />
+      </div>
+
+      <div className="mt-12 mb-20">
+        <Tip />
+      </div>
     </div>
   );
 }

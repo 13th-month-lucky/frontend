@@ -16,14 +16,12 @@ const HotIssue = () => {
     const fetchData = async () => {
       try {
         // Fetch hot stock
-        const response = await axios.post("http://localhost:3000/api/rising/");
+        const response = await axios.post("/api/rising/");
         const risingStock = response.data[0].stbd_nm;
         setHotStock(risingStock);
 
         // Fetch ETFs based on the hot stock
-        const etfResponse = await axios.get(
-          "http://localhost:3000/api/etf/overview"
-        );
+        const etfResponse = await axios.get("/api/etf/overview");
         const etfData = etfResponse.data;
         const filteredETF = etfData.filter((item) => {
           return item.data.ratio.some(

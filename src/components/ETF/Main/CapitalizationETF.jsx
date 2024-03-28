@@ -16,7 +16,7 @@ const CapitalizationETF = ({ selectedDangerDegree, selectedType }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.post("http://localhost:3000/api/user/find", {
+      const response = await axios.post("/api/user/find", {
         nickname: userState.nickname,
       });
       const likeETF = response.data.likedEtf;
@@ -25,9 +25,7 @@ const CapitalizationETF = ({ selectedDangerDegree, selectedType }) => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/etf/overview"
-        );
+        const response = await axios.get("/api/etf/overview");
         const data = response.data;
 
         let filteredETF = data.sort(
@@ -62,13 +60,13 @@ const CapitalizationETF = ({ selectedDangerDegree, selectedType }) => {
   const toggleLike = (code) => {
     if (likedEtfCodes.includes(code)) {
       setLikedEtfCodes(likedEtfCodes.filter((c) => c !== code));
-      axios.put("http://localhost:3000/api/user/dislike/etf", {
+      axios.put("/api/user/dislike/etf", {
         userId: userState.userId,
         code: code,
       });
     } else {
       setLikedEtfCodes([...likedEtfCodes, code]);
-      axios.put("http://localhost:3000/api/user/like/etf", {
+      axios.put("/api/user/like/etf", {
         userId: userState.userId,
         code: code,
       });

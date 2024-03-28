@@ -39,10 +39,7 @@ export default function Writing(props) {
     currentClass = topBorderClass;
   }
 
-  console.log(moment().fromNow());
-
   const clickDeleteBtn = () => {
-    console.log("click");
     deleteComment(writing._id);
     getAndSetComment();
   };
