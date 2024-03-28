@@ -72,11 +72,11 @@ export default function PreviewSolutionPage() {
           </p>
         </div>
       </div>
-      <CardComponent updateTotal={updateTotal} user={user} myData={mydata} />
-      <PersonComponent updateTotal={updateTotal} user={user} myData={mydata} />
-      <MonthAndHouse updateTotal={updateTotal} user={user} myData={mydata} />
-      <SmallBusiness updateTotal={updateTotal} user={user} myData={mydata} />
-      <PendingAndIRP updateTotal={updateTotal} user={user} myData={mydata} />
+      <CardComponent updateTotal={updateTotal} myData={mydata} />
+      <PersonComponent updateTotal={updateTotal} myData={mydata} />
+      <MonthAndHouse updateTotal={updateTotal} myData={mydata} />
+      <SmallBusiness updateTotal={updateTotal} myData={mydata} />
+      <PendingAndIRP updateTotal={updateTotal} myData={mydata} />
       <div className="flex justify-center">
         <BlueButton text="결과 확인하기" destination="/preview/result/detail" />
       </div>
