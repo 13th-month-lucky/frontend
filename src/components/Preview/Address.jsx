@@ -21,13 +21,8 @@ function Address(props) {
   };
 
   return (
-    <Button
-      color="light"
-      className="items-end justify-end"
-      pill
-      onClick={handleClick}
-    >
-      주소 찾기
+    <Button size="sm" className="text-center" onClick={handleClick}>
+      찾기
     </Button>
   );
 }
