@@ -15,7 +15,6 @@ import PreviewResultDetailPage from "~/pages/preview/previewResultDetailPage";
 import InitialInfo from "~/components/Main/MyPage/InitialInfo";
 import FundDetailPage from "~/pages/fund/fundDetailPage";
 import FundMainPage from "~/pages/fund/fundMainPage";
-import QuizPreview from "~/pages/quiz/quizPreview";
 import QuizMain from "~/pages/quiz/quizMain";
 
 export const mainRoutes = [
