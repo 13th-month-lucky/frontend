@@ -9,8 +9,9 @@ import {
 } from "flowbite-react";
 import houseImg from "~/assets/images/preview/house.png";
 import HouseProgressBar from "./HouseProgressBar";
+import { useSelector } from "react-redux";
 
-const MonthAndHouse = ({ updateTotal, user, myData }) => {
+const MonthAndHouse = ({ updateTotal, myData }) => {
   const [checkLoan, setCheckLoan] = useState(false);
   const [checkMonthly, setCheckMonthly] = useState(false); // 월세 체크
   const [checkYearly, setCheckYearly] = useState(false); // 전세 체크
@@ -22,6 +23,7 @@ const MonthAndHouse = ({ updateTotal, user, myData }) => {
   const [salary, setSalary] = useState(0);
   const [loan, setLoan] = useState(0);
   const [housingDeposit, setHousingDeposit] = useState(0);
+  const user = useSelector((state) => state.user13th);
 
   //월세 및 전세금 있는 지 여부 체크 버튼 핸들링
   const handleCheckLoanChange = (event) => {
