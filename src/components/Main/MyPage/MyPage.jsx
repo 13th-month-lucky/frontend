@@ -27,10 +27,10 @@ export default function MyPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedUserInfo({
-      ...editedUserInfo,
+    setEditedUserInfo((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const saveChanges = async () => {
@@ -61,8 +61,9 @@ export default function MyPage() {
         setEditedUserInfo({
           birthday: data.birthday,
           email: data.email,
-          salary: data.salary / unit,
+          salary: data.salary ? data.salary / unit : null,
           address: data.address,
+          addressDetail: data.addressDetail,
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -75,9 +76,10 @@ export default function MyPage() {
 
   const setAddressObj = (obj) => {
     // Assuming obj.areaAddress contains address and addressDetail
-    setEditedUserInfo({
+    setEditedUserInfo((prev) => ({
+      ...prev,
       address: obj.areaAddress,
-    });
+    }));
   };
 
   return (
@@ -104,7 +106,6 @@ export default function MyPage() {
           {isEditing ? (
             <Datepicker
               onSelectedDateChanged={(date) => {
-                console.log(date);
                 setEditedUserInfo((prev) => ({
                   ...prev,
                   birthday: date.toLocaleDateString(),
@@ -129,7 +130,7 @@ export default function MyPage() {
 
           {isEditing ? (
             <TextInput
-              type="email1"
+              type="email"
               name="email"
               value={editedUserInfo.email}
               placeholder="name@naver.com"
@@ -159,8 +160,7 @@ export default function MyPage() {
             <div>
               {editedUserInfo.salary === null
                 ? "미입력"
-                : editedUserInfo.salary.toLocaleString("kr-Kr")}{" "}
-              만원
+                : editedUserInfo.salary.toLocaleString("kr-Kr") + "만원"}
             </div>
           )}
         </div>
@@ -198,9 +198,13 @@ export default function MyPage() {
             </div>
           ) : (
             <div className="text-right">
-              {editedUserInfo.address === null
-                ? "미입력"
-                : editedUserInfo.address}
+              {editedUserInfo.address === null ? (
+                "미입력"
+              ) : (
+                <>
+                  {editedUserInfo.address} <br /> {editedUserInfo.addressDetail}
+                </>
+              )}
             </div>
           )}
         </div>
@@ -209,20 +213,20 @@ export default function MyPage() {
       <div>
         {isEditing ? (
           <button
-            className="mt-8 mr-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
+            className="mt-8 mr-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[15px]"
             onClick={saveChanges}
           >
             저장
           </button>
         ) : (
           <button
-            className="mt-8 mr-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
+            className="mt-8 mr-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[15px]"
             onClick={toggleEditMode}
           >
             수정
           </button>
         )}
-        <button className="mt-8 ml-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+        <button className="mt-8 ml-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-[15px]">
           내 연말정산
         </button>
       </div>
