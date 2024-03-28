@@ -5,6 +5,21 @@ import { Datepicker, TextInput } from "flowbite-react";
 import "moment/locale/ko";
 import Address from "~/components/Preview/Address";
 
+// 생일 -> 만나이
+function calculateAge(birthDate) {
+  const today = new Date();
+  const birth = new Date(birthDate);
+
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+
+  return age;
+}
+
 export default function MyPage() {
   const userState = useSelector((state) => state.user13th);
   const [isEditing, setIsEditing] = useState(false);
@@ -12,25 +27,39 @@ export default function MyPage() {
     birthday: "",
     email: "",
     salary: "",
-    address: "",
-    addressDetail: "",
+    age: 0,
+    home: {
+      address: "",
+      addressDetail: "",
+      size: 4, // 규모 우선 4억으로 통일
+      monthlyRent: null,
+    },
   });
 
   const userId = userState.userId;
   const nickname = userState.nickname;
   const profileImageUrl = userState.profileImageUrl;
   const unit = 10000; // 단위
-
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedUserInfo((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    if (name === "address" || name === "addressDetail") {
+      setEditedUserInfo((prev) => ({
+        ...prev,
+        home: {
+          ...prev.home,
+          [name]: value,
+        },
+      }));
+    } else {
+      setEditedUserInfo((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const saveChanges = async () => {
@@ -40,9 +69,9 @@ export default function MyPage() {
         email: editedUserInfo.email,
         birthday: editedUserInfo.birthday,
         salary: editedUserInfo.salary * unit,
-        address: editedUserInfo.address,
-        addressDetail: editedUserInfo.addressDetail,
         nickname: nickname,
+        age: editedUserInfo.age,
+        home: editedUserInfo.home,
       });
       setIsEditing(false); // Turn off edit mode
     } catch (error) {
@@ -62,8 +91,7 @@ export default function MyPage() {
           birthday: data.birthday,
           email: data.email,
           salary: data.salary ? data.salary / unit : null,
-          address: data.address,
-          addressDetail: data.addressDetail,
+          home: data.home,
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -78,7 +106,10 @@ export default function MyPage() {
     // Assuming obj.areaAddress contains address and addressDetail
     setEditedUserInfo((prev) => ({
       ...prev,
-      address: obj.areaAddress,
+      home: {
+        ...prev.home,
+        address: obj.areaAddress,
+      },
     }));
   };
 
@@ -109,6 +140,7 @@ export default function MyPage() {
                 setEditedUserInfo((prev) => ({
                   ...prev,
                   birthday: date.toLocaleDateString(),
+                  age: calculateAge(date),
                 }));
               }}
               language="kr"
@@ -176,7 +208,7 @@ export default function MyPage() {
                   name="address"
                   placeholder="주소"
                   className="mt-2"
-                  value={editedUserInfo.address}
+                  value={editedUserInfo.home.address}
                   onChange={handleInputChange}
                 />
                 <Address
@@ -189,7 +221,7 @@ export default function MyPage() {
                   name="addressDetail"
                   id="addressDetail"
                   type="text"
-                  value={editedUserInfo.addressDetail}
+                  value={editedUserInfo.home.addressDetail}
                   placeholder="상세주소"
                   className="mt-2 mb-2"
                   onChange={handleInputChange}
@@ -198,11 +230,12 @@ export default function MyPage() {
             </div>
           ) : (
             <div className="text-right">
-              {editedUserInfo.address === null ? (
+              {editedUserInfo.home.address === null ? (
                 "미입력"
               ) : (
                 <>
-                  {editedUserInfo.address} <br /> {editedUserInfo.addressDetail}
+                  {editedUserInfo.home.address} <br />{" "}
+                  {editedUserInfo.home.addressDetail}
                 </>
               )}
             </div>
