@@ -74,12 +74,11 @@ const ETFMain = () => {
                 onTypeSelect={handleTypeSelect}
                 onDangerDegreeChange={handleDangerDegreeChange}
               />
-              <div className="mb-4">
-                <LikedEtf
-                  selectedDangerDegree={selectedDangerDegree}
-                  selectedType={selectedType}
-                />
-              </div>
+
+              <LikedEtf
+                selectedDangerDegree={selectedDangerDegree}
+                selectedType={selectedType}
+              />
             </Tabs.Item>
             <Tabs.Item title="최근">
               <ETFFilter

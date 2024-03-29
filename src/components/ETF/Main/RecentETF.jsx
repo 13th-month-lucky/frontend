@@ -87,20 +87,33 @@ const RecentETF = ({ selectedDangerDegree, selectedType }) => {
           const item = etf.find((etfItem) => etfItem.code === code);
           if (!item) return null;
 
+          const profit = item.chart.profitPercentage;
+
+          let profitStyle = "text-xl font-bold";
+
+          if (profit[0] === "-") {
+            profitStyle += " text-blue-500";
+          } else {
+            profitStyle += " text-red-500";
+          }
+
           return (
-            <div
-              key={item.code}
-              onClick={() => clickCard(item.code)}
-              style={{ cursor: "pointer" }}
-            >
-              <div className="border-t pt-4 pb-3 flex justify-between">
+            <div key={item.code} style={{ cursor: "pointer" }} className="pb-2">
+              <div
+                className="border-t pt-4 pb-3 flex justify-between gap-4"
+                onClick={() => clickCard(item.code)}
+              >
                 <Risk riskDegree={item.data.dangerDegree} />
-                <p className="text-lg mt-2 font-semibold">
+                <p className="text-lg font-semibold">
                   {item.chart.hts_kor_isnm}
+                  {/* {item.code} */}
                 </p>
               </div>
               <div className="flex flex-row justify-between">
-                <div className=" h-20 w-52">
+                <div
+                  className=" h-16 w-40"
+                  onClick={() => clickCard(item.code)}
+                >
                   <MyResponsiveLine
                     data={[
                       {
@@ -113,13 +126,26 @@ const RecentETF = ({ selectedDangerDegree, selectedType }) => {
                     ]}
                   />
                 </div>
-                <div className="flex item-center justify-center gap-2">
-                  <div className="font-xl font-bold text-red-500">수익률</div>
-                  <p className="text-lg font-bold text-red-500">
-                    {item.chart.profitPercentage}%
-                  </p>
+
+                <div className="flex-col justify-end">
+                  <div className="flex gap-1">
+                    <div
+                      className="text-gray-500 text-sm mt-1"
+                      onClick={() => clickCard(item.code)}
+                    >
+                      6개월
+                    </div>
+
+                    <p
+                      className={profitStyle}
+                      onClick={() => clickCard(item.code)}
+                    >
+                      {item.chart.profitPercentage}%
+                    </p>
+                  </div>
+
                   {likedEtfCodes.includes(item.code) ? (
-                    <div>
+                    <div className="mt-4 flex justify-end">
                       <img
                         src={redLikeIcon}
                         className="h-8"
@@ -128,7 +154,7 @@ const RecentETF = ({ selectedDangerDegree, selectedType }) => {
                       />
                     </div>
                   ) : (
-                    <div>
+                    <div className="mt-4 flex justify-end">
                       <img
                         src={blankLikeIcon}
                         className="h-8"
