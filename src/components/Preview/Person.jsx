@@ -17,7 +17,6 @@ function PersonComponent({ updateTotal }) {
     // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
     const result = calculatePrice();
     setResult(result);
-    console.log(result);
     updateTotal("person", result);
     addResult(yearTax.resultId, { 가족공제: result });
   }, [totalPeopleNum]);
@@ -61,11 +60,10 @@ function PersonComponent({ updateTotal }) {
         prevValue = 0;
         return prevValue;
       } else {
+        setTotalPeopleNum((prevTotal) => prevTotal - 1);
         return prevValue - 1;
       }
     });
-
-    setTotalPeopleNum((prevTotal) => prevTotal - 1);
   };
 
   const MinusButton = useMemo(() => {
