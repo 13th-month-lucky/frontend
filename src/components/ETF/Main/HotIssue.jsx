@@ -86,7 +86,7 @@ const HotIssue = () => {
                   <h6 className="font-bold text-red-600">
                     {numberWithCommas(etf[0].chart.chart[0].y)}
                   </h6>
-                  <div className=" h-20 w-28">
+                  <div className=" h-20 w-44">
                     <MyResponsiveLine
                       data={[
                         {
@@ -105,7 +105,7 @@ const HotIssue = () => {
           ) : (
             etf.map((item, index) => (
               <Card
-                className="m-3 w-2/5"
+                className="m-3 h-40 w-60"
                 theme={{
                   root: {
                     children: "p-3",
@@ -117,13 +117,15 @@ const HotIssue = () => {
                   className="flex flex-col "
                   onClick={() => clickCard(etf[0].code)}
                 >
-                  <h5 className="font-bold text-gray-900 dark:text-white">
-                    {item.chart.hts_kor_isnm}
-                  </h5>
+                  <div className="text-pretty h-12">
+                    <h5 className="font-bold text-gray-900 dark:text-white">
+                      {item.chart.hts_kor_isnm}
+                    </h5>
+                  </div>
                   <h6 className="font-bold text-red-600">
                     {numberWithCommas(item.chart.chart[0].y)}
                   </h6>
-                  <div className=" h-20 w-28">
+                  <div className="h-16 w-48 pb-2">
                     <MyResponsiveLine
                       data={[
                         {
