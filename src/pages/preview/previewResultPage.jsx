@@ -40,7 +40,7 @@ export default function PreviewResult() {
   const [resultReturn, setResultReturn] = useState();
 
   const yearTaxState = useSelector((state) => state.yearTax);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // 유저 정보 기반으로 연말정산에 필요한 데이터 redux에 저장
@@ -52,11 +52,11 @@ export default function PreviewResult() {
         home: resp.home,
       };
       let action = setData(data);
-      dispath(action);
+      dispatch(action);
 
       //
       action = setEarnedIncome(resp.earnedIncome);
-      dispath(action);
+      dispatch(action);
     });
   }, []);
 
