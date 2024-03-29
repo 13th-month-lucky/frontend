@@ -5,9 +5,23 @@ import { Link } from "react-router-dom";
 import BlueButton from "~/components/Button/BlueButton";
 
 import TopBackBar from "~/components/TopBackBar/TopBackBar";
+import { setResultId } from "~/store/reducers/yearTax";
+import { useDispatch, useSelector } from "react-redux";
+import { addResult } from "~/lib/apis/result";
 
 const PreviewMain = () => {
   const imgStyle = style.img3 + " w-44";
+  const dispatch = useDispatch();
+  const userState = useSelector((state) => state.user13th);
+  const userId = userState.userId;
+
+  function onClickAction() {
+    // result DB 생성
+    addResult(userId, {}).then((resp) => {
+      const action = setResultId(resp._id);
+      dispatch(action);
+    });
+  }
 
   return (
     <div>
@@ -43,6 +57,7 @@ const PreviewMain = () => {
             <BlueButton
               text="연말정산 계산하기"
               destination="/preview/loading"
+              onClickAction={onClickAction}
             />
             <BlueButton text="이전결과 확인하기" destination="/preview/prev" />
           </div>
