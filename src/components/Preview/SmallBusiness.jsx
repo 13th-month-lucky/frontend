@@ -1,24 +1,24 @@
 import { React, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Accordion, Card, Checkbox } from "flowbite-react";
 import businessBagImg from "~/assets/images/preview/travel-dynamic-color.png";
+import { calculateTaxAmount } from "./Calculator/cacluatedTaxAmount";
 function SmallBusiness({ updateTotal }) {
   const [smallBusinessJunior, setSmallBusinessJunior] = useState(false);
   const [smallBusinessSenior, setSmallBusinessSenior] = useState(false);
-
+  const user = useSelector((state) => state.user13th);
   useEffect(() => {
-    const tax = 800000; // 소득세 80만원
-    const age = 28;
-    let price = 0;
+    let result = 0;
     // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
-    if ((age <= 35 || age >= 16) && smallBusinessJunior) {
-      price = tax * 0.9;
-    } else if (age >= 60 && smallBusinessSenior) {
-      price = tax * 0.7;
+    if ((user.age <= 35 || user.age >= 16) && smallBusinessJunior) {
+      result = calculateTaxAmount() * 0.9;
+    } else if (user.age >= 60 && smallBusinessSenior) {
+      result = calculateTaxAmount() * 0.7;
     }
-    if (price >= 2000000) {
-      price = 2000000;
+    if (result >= 2000000) {
+      result = 2000000;
     }
-    updateTotal("business", price);
+    updateTotal("business", result);
   }, [smallBusinessJunior, smallBusinessSenior]);
 
   const checkHandler = (option, optionHandler) => {
