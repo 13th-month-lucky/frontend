@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CardComponent from "~/components/Preview/Card";
-import HousingFundLoan from "~/components/Preview/HousingFundLoan";
 import PersonComponent from "~/components/Preview/Person";
 import SmallBusiness from "~/components/Preview/SmallBusiness";
-import MonthlyRental from "~/components/Preview/MonthlyRental";
 import PendingAndIRP from "~/components/Preview/PendingAndIRP";
 import MonthAndHouse from "~/components/Preview/MonthAndHouse";
 import BlueButton from "~/components/Button/BlueButton";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getMyData } from "~/lib/apis/myData";
 import { updateResult } from "~/lib/apis/result";
 
@@ -53,6 +51,7 @@ export default function PreviewSolutionPage() {
   }
 
   const updateResultData = () => {
+    console.log("tttt");
     const data = {
       종합소득공제: {
         카드공제: total.card,
@@ -97,6 +96,7 @@ export default function PreviewSolutionPage() {
           text="결과 확인하기"
           destination="/preview/result/detail"
           onClick={() => {
+            console.log("con");
             updateResultData();
           }}
         />
@@ -104,8 +104,3 @@ export default function PreviewSolutionPage() {
     </>
   );
 }
-
-// updateResult(yearTax.resultId, { 월세공제: 0 });
-// updateResult(yearTax.resultId, { 월세공제: result });
-// updateResult(yearTax.resultId, { 주택공제: result });
-// updateResult(yearTax.resultId, { 중소기업감면: result });
