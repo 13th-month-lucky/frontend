@@ -16,6 +16,7 @@ import InitialInfo from "~/components/Main/MyPage/InitialInfo";
 import FundDetailPage from "~/pages/fund/fundDetailPage";
 import FundMainPage from "~/pages/fund/fundMainPage";
 import QuizMain from "~/pages/quiz/quizMain";
+import PrevPreviewPage from "~/pages/preview/prevPreviewPage";
 
 export const mainRoutes = [
   {
@@ -61,6 +62,10 @@ export const mainRoutes = [
       {
         path: "/preview/solution",
         element: <PreviewSolutionPage />,
+      },
+      {
+        path: "/preview/prev",
+        element: <PrevPreviewPage />,
       },
       {
         path: "/etf/main",

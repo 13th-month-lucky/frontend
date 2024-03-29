@@ -36,7 +36,7 @@ const PreviewMain = () => {
               text="연말정산 계산하기"
               destination="/preview/loading"
             />
-            <BlueButton text="이전결과 확인하기" destination="#" />
+            <BlueButton text="이전결과 확인하기" destination="/preview/prev" />
           </div>
         </div>
       </div>

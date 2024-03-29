@@ -24,14 +24,6 @@ export default function Kospi(props) {
         100
       ).toFixed(2);
 
-      console.log(
-        "kos: ",
-        kospi[0].closePrice,
-        kospi[currentPeriod + 1].closePrice,
-        kospiChange
-      );
-
-      console.log("kospi[0]: ", kospiChange[0]);
       if (kospiChange[0] === "-") {
         console.log("minus : ", kospiChange.substring(1));
         setMessage(kospiChange.substring(1) + "% 하락");
