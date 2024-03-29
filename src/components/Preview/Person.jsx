@@ -1,6 +1,8 @@
 import { React, useState, useEffect, useMemo } from "react";
 import { Accordion, Card } from "flowbite-react";
 import peopleImg from "~/assets/images/preview/Group 43.png";
+import { addResult } from "~/lib/apis/result";
+import { useSelector } from "react-redux";
 function PersonComponent({ updateTotal }) {
   const [spouseNum, setSpouseNum] = useState(0); //배우자 수
   const [babyNum, setBabyNum] = useState(0); // 자녀 수
@@ -8,12 +10,14 @@ function PersonComponent({ updateTotal }) {
   const [youngParentNum, setYoungParentNum] = useState(0); //60-70세 미만의 부모님
   const [oldParentNum, setOldParentNum] = useState(0); // 70세 이상의 부모님
   const [totalPeopleNum, setTotalPeopleNum] = useState(0);
+  const user = useSelector((state) => state.user13th);
 
   useEffect(() => {
     // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
-    const price = calculatePrice();
-    console.log(price);
-    updateTotal("person", price);
+    const result = calculatePrice();
+    console.log(result);
+    updateTotal("person", result);
+    addResult(user.userId, { 가족공제: result });
   }, [totalPeopleNum]);
 
   const calculatePrice = () => {

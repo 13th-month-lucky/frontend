@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Accordion, Card, Checkbox } from "flowbite-react";
 import businessBagImg from "~/assets/images/preview/travel-dynamic-color.png";
 import { calculateTaxAmount } from "./Calculator/cacluatedTaxAmount";
+import { addResult } from "~/lib/apis/result";
 function SmallBusiness({ updateTotal }) {
   const [smallBusinessJunior, setSmallBusinessJunior] = useState(false);
   const [smallBusinessSenior, setSmallBusinessSenior] = useState(false);
@@ -22,6 +23,7 @@ function SmallBusiness({ updateTotal }) {
     }
     setResult(result);
     updateTotal("business", result);
+    addResult(user.userId, { 중소기업감면: result });
   }, [smallBusinessJunior, smallBusinessSenior]);
 
   const checkHandler = (option, optionHandler) => {

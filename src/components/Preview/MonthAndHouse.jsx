@@ -10,6 +10,7 @@ import {
 import houseImg from "~/assets/images/preview/house.png";
 import HouseProgressBar from "./HouseProgressBar";
 import { useSelector } from "react-redux";
+import { addResult } from "~/lib/apis/result";
 
 const MonthAndHouse = ({ updateTotal, myData }) => {
   const [checkLoan, setCheckLoan] = useState(false);
@@ -61,6 +62,7 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
     }
     setMonthResult(result);
     updateTotal("house", result);
+    addResult(user.userId, { 월세공제: result });
   };
 
   //주택 공제 결과 계산 함수
@@ -85,6 +87,7 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
 
     setHouseTotalResult(result);
     updateTotal("house", result);
+    addResult(user.userId, { 주택공제: result });
   };
 
   useEffect(() => {
