@@ -3,14 +3,16 @@ import "./Accordion-custom.css";
 import cardImg from "~/assets/images/preview/card-dynamic-color.png";
 import ProgressBar from "~/components/Preview/ProgressBar";
 import { Card, Tooltip } from "flowbite-react";
+import { useSelector } from "react-redux";
 
-const CardComponent = ({ updateTotal, user, myData }) => {
+const CardComponent = ({ updateTotal, myData }) => {
+  const yearTaxState = useSelector((state) => state.yearTax);
   const [isAnimationWork, setIsAnimationWork] = useState(false);
   const [msg1, setMsg1] = useState("");
   const [msg2, setMsg2] = useState("");
 
   // user data
-  const [totalPay, setTotalPay] = useState(40000000); // 총급여
+  const [salary, setSalary] = useState(0);
   const [creditAmount, setCreditAmount] = useState(0); // 신용카드
   const [checkAmount, setCheckAmount] = useState(0); // 체크카드
   const [cashAmount, setCashAmount] = useState(0); // 현금영수증
@@ -19,32 +21,29 @@ const CardComponent = ({ updateTotal, user, myData }) => {
   const [creditDeductionAmount, setCreditDeductionAmount] = useState(0); // 신용카드 공제액
   const [cashDeductionAmount, setCashDeductionAmount] = useState(0); // 현금영수증, 직불, 선불카드 공제액
 
+  const [flag, setFlag] = useState(true);
+
   const limitThreshold = 70000000; // 공제 한도 기준 급여액
   const unit = 10000; // 단위
 
   useEffect(() => {
-    if (user && user.salary) {
-      setTotalPay(user.salary);
-    }
-  }, [user]);
+    setMinAmount(salary * 0.25); // 25%
+    setLimit(salary <= limitThreshold ? 3000000 : 2500000);
+  }, [salary]);
 
   useEffect(() => {
-    setMinAmount(totalPay * 0.25); // 25%
-    setLimit(totalPay <= limitThreshold ? 3000000 : 2500000);
-  }, [totalPay]);
+    setSalary(yearTaxState.data.salary);
+  }, [yearTaxState.salary]);
 
   useEffect(() => {
     if (myData) {
-      if (myData.card) {
-        setCheckAmount(myData.card.check.amount);
-        setCreditAmount(myData.card.credit.amount);
-        setCreditDeductionAmount(myData.card.credit.amount * 0.15);
-        setCashDeductionAmount((myData.card.check.amount + cashAmount) * 0.3);
-      }
-      if (myData.nationalTaxService) {
-        setCashAmount(myData.nationalTaxService.cash.amount);
+      if (myData.카드) {
+        setCheckAmount(myData.카드.체크카드);
+        setCreditAmount(myData.카드.신용카드);
+        setCreditDeductionAmount(myData.카드.신용카드 * 0.15);
+        setCashAmount(myData.카드.현금영수증);
         setCashDeductionAmount(
-          (checkAmount + myData.nationalTaxService.cash.amount) * 0.3
+          (myData.카드.체크카드 + myData.카드.현금영수증) * 0.3
         );
       }
     }
@@ -62,6 +61,7 @@ const CardComponent = ({ updateTotal, user, myData }) => {
         `앞으로 지출은 ${minAmount / unit}만원까지 신용카드,
         그 이상은 체크카드를 써보아요!\n`
       );
+      setFlag(false);
     } else if (cashDeductionAmount + creditDeductionAmount >= limit) {
       // 공제 한도를 모두 채웠을 경우
       setMsg1("소비금액이 많아 카드 소득공제를 최대로 받을 수 있어요!");
@@ -219,9 +219,9 @@ const CardComponent = ({ updateTotal, user, myData }) => {
                 <ProgressBar
                   amount={creditAmount}
                   color={"#8DB4FF"}
-                  percentage={(creditAmount * 100) / totalPay}
+                  percentage={(creditAmount * 100) / salary}
                   isAnimation={isAnimationWork}
-                  limit={totalPay}
+                  limit={salary}
                 />
 
                 <div className="flex items-center justify-center gap-1">
@@ -233,10 +233,10 @@ const CardComponent = ({ updateTotal, user, myData }) => {
               <div className="flex flex-col gap-5 items-start">
                 <ProgressBar
                   amount={cashAmount + checkAmount}
-                  percentage={((cashAmount + checkAmount) * 100) / totalPay}
+                  percentage={((cashAmount + checkAmount) * 100) / salary}
                   color={"#FEA6FA"}
                   isAnimation={isAnimationWork}
-                  limit={totalPay}
+                  limit={salary}
                 />
 
                 <div className="flex items-center justify-center gap-1">
@@ -247,10 +247,14 @@ const CardComponent = ({ updateTotal, user, myData }) => {
 
               <div className="flex flex-col gap-5 items-start">
                 <ProgressBar
-                  amount={cashDeductionAmount + creditDeductionAmount}
+                  amount={
+                    flag ? cashDeductionAmount + creditDeductionAmount : 0
+                  }
                   percentage={
-                    ((cashDeductionAmount + creditDeductionAmount) * 100) /
-                    limit
+                    flag
+                      ? ((cashDeductionAmount + creditDeductionAmount) * 100) /
+                        limit
+                      : 0
                   }
                   color={"#FFDB97"}
                   isAnimation={isAnimationWork}
