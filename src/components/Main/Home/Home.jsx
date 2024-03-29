@@ -8,7 +8,7 @@ export default function TaxAdjustment(props) {
   const setCurrentTab = props.setCurrentTab;
 
   return (
-    <div className="mb-28">
+    <div className="mb-12">
       <Hello setCurrentTab={setCurrentTab} />
       <Services />
       <Tip />

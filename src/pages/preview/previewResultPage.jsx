@@ -4,47 +4,65 @@ import cloudImg from "~/assets/images/preview/cloud.png";
 import styled, { keyframes } from "styled-components";
 import { Tooltip } from "flowbite-react";
 import BlueButton from "~/components/Button/BlueButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getMyData } from "~/lib/apis/myData";
+import { findUserWithNickname } from "~/lib/apis/user";
+import { setData, setEarnedIncome } from "~/store/reducers/yearTax";
+
+const simpleTaxRate = [
+  [1200, 0.06],
+  [4600, 0.15],
+  [8800, 0.24],
+  [15000, 0.35],
+  [30000, 0.38],
+  [50000, 0.4],
+  [0, 0.42],
+];
+
+const taxRate = [
+  [1400, 0, 0],
+  [5000, 84, 0.06],
+  [8800, 624, 0.24],
+  [15000, 1536, 0.35],
+  [30000, 3706, 0.38],
+  [50000, 9406, 0.4],
+  [100000, 17406, 0.42],
+  [0, 38406, 0.45],
+];
 
 export default function PreviewResult() {
   const userState = useSelector((state) => state.user13th);
-
+  const nickname = userState.nickname;
   const [isReceive, setIsReceive] = useState(true);
-
   const [taxToPaidMessage, setTaxToPaidMessage] = useState("");
   const [taxPaidMessage, setTaxPaidMessage] = useState("");
   const [resultReturn, setResultReturn] = useState();
 
-  const simpleTaxRate = [
-    [1200, 0.06],
-    [4600, 0.15],
-    [8800, 0.24],
-    [15000, 0.35],
-    [30000, 0.38],
-    [50000, 0.4],
-    [0, 0.42],
-  ];
+  const yearTaxState = useSelector((state) => state.yearTax);
+  const dispath = useDispatch();
 
-  const taxRate = [
-    [1400, 0, 0],
-    [5000, 84, 0.06],
-    [8800, 624, 0.24],
-    [15000, 1536, 0.35],
-    [30000, 3706, 0.38],
-    [50000, 9406, 0.4],
-    [100000, 17406, 0.42],
-    [0, 38406, 0.45],
-  ];
+  useEffect(() => {
+    // 유저 정보 기반으로 연말정산에 필요한 데이터 redux에 저장
+    findUserWithNickname(nickname).then((resp) => {
+      console.log(resp);
+      const data = {
+        age: resp.age,
+        salary: resp.salary,
+        home: resp.home,
+      };
+      let action = setData(data);
+      dispath(action);
+
+      //
+      action = setEarnedIncome(resp.earnedIncome);
+      dispath(action);
+    });
+  }, []);
 
   useEffect(() => {
     getMyData(userState.userId).then((resp) => {
-      // 월급 입력받은 값 넣어야함
-      const taxBaseMonth = 4000000;
-
-      // 과세표준 (1년)
-      const taxBaseYear = taxBaseMonth * 12;
+      const taxBaseYear = yearTaxState.data.salary; // 총급여
 
       let taxToPaid;
       let taxRow;
@@ -66,7 +84,6 @@ export default function PreviewResult() {
         }
       }
 
-      console.log("세전 월급 :\n", taxBaseMonth.toLocaleString());
       console.log(
         `예상 납부 세금 :\n소득 * ${simpleTaxRow[1]}%\n(소득 ${simpleTaxRow[0]}만원 이하)`
       );
@@ -86,7 +103,7 @@ export default function PreviewResult() {
       );
       setTaxPaidMessage(`내야하는 세금 : ${taxToPaid.toLocaleString()}원`);
     });
-  }, []);
+  }, [yearTaxState]);
 
   return (
     <div className="bg-white h-screen p-4">

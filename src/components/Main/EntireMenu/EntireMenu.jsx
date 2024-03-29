@@ -66,7 +66,7 @@ export default function EntireMenu(props) {
   ];
 
   return (
-    <div className="mt-8">
+    <div className="mt-4">
       {menus.map((ele, idx) => (
         <div
           key={ele.title}
@@ -97,7 +97,7 @@ export default function EntireMenu(props) {
         <p className={parStyle}>로그아웃</p>
       </div>
 
-      <div className="mt-12">
+      <div className="mt-8 mb-16">
         <Tip />
       </div>
     </div>

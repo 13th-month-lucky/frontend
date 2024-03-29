@@ -81,6 +81,7 @@ export default function MyPage() {
         const data = res.data;
         setEditedUserInfo({
           birthday: data.birthday,
+          age: data.age,
           email: data.email,
           salary: data.salary ? data.salary / unit : null,
           home: data.home,

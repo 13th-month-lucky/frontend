@@ -20,8 +20,7 @@ const PreviewResultDetailPage = () => {
       <div className="bg-white h-screen p-4">
         <div className="flex flex-col items-center mt-9">
           <div>
-            3
-            <p className="h2 text-center mb-10">
+            <p className="h2 text-center mb-8">
               {userState.nickname}님의 연말정산 내역이 <br /> 새롭게 업데이트
               됐어요 ✨
             </p>
@@ -188,7 +187,7 @@ const PreviewResultDetailPage = () => {
           </div>
 
           <div className="flex justify-center mt-10 w-full">
-            <BlueButton text="돌아가기" destination="/main" />
+            <BlueButton text="메인으로" destination="/main" />
           </div>
         </div>
       </div>

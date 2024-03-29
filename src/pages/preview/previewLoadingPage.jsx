@@ -45,19 +45,17 @@ const PreviewLoading = () => {
 
   return (
     <div className="bg-white p-4">
-      <div className="flex flex-col items-center mt-32">
+      <div className="flex flex-col items-center mt-24">
         <div>
-          <p className="text-center text-4xl font-bold">
-            마이데이터를
-            <br /> 불러오는 중
-          </p>
+          <p className="text-center text-2xl font-bold">마이데이터</p>
+          <p className="text-center text-2xl font-semibold">불러오는 중</p>
         </div>
 
         <div className="mt-16">
           <FloatingIcon src={dollarImg} alt="Floating Icon" />
         </div>
-        <div className="text-center mt-5">
-          <p className="text-xl font-semibold mt-4">
+        <div className="text-center mt-12">
+          <p className="text-lg mt-4 text-gray-500 font-semibold">
             <LoadingComments />
           </p>
         </div>

@@ -36,7 +36,7 @@ export default function Tip() {
         mousewheel={true}
         modules={[Autoplay, Mousewheel]}
         className="mySwiper"
-        style={{ height: "100px" }}
+        style={{ height: "120px" }}
         loop={true}
         spaceBetween={30}
         autoplay={{

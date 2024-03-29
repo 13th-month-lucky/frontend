@@ -7,14 +7,6 @@ const initialState = {
   profileImageUrl: "",
   etfHistory: [],
   fundHistory: [],
-  age: 0, // 나이
-  totalIncome: 0, // 총급여
-  home: {
-    address: "", // 주소
-    size: 0, // 집 크기
-  },
-  earnedIncome: 0, // 근로소득금액,
-  resultId: null,
 };
 
 const userSlice = createSlice({
@@ -43,21 +35,6 @@ const userSlice = createSlice({
     pushFundHistory(state, action) {
       state.fundHistory.push(action.payload);
     },
-    setAge(state, action) {
-      state.age = action.payload;
-    },
-    setTotalIncome(state, action) {
-      state.totalIncome = action.payload;
-    },
-    setHome(state, action) {
-      state.home = action.payload;
-    },
-    setEarnedIncome(state, action) {
-      state.earnedIncome = action.payload;
-    },
-    setResultId(state, action) {
-      state.resultId = action.payload;
-    },
   },
 });
 
@@ -69,11 +46,6 @@ export const {
   removeUser,
   pushEtfHistory,
   pushFundHistory,
-  setAge,
-  setTotalIncome,
-  setHome,
-  setEarnedIncome,
-  setResultId,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,7 +7,7 @@ export default function Hello(props) {
   const setCurrentTab = props.setCurrentTab;
 
   return (
-    <div className="flex mt-4">
+    <div className="flex mt-2">
       <div
         className="mr-6 ml-auto flex items-center justify-start gap-2"
         style={{ cursor: "pointer" }}

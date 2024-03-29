@@ -60,13 +60,17 @@ export default function PreviewSolutionPage() {
   return (
     <>
       <div className="flex flex-col items-center">
-        <h1 className="text-xl font-bold mb-1 mt-6 text-center">
-          솔루션 이행시 <br />
-          최대 {result.toLocaleString("ko-KR")}원까지 아낄 수 있어요!
+        <h1 className="text-xl font-semibold mb-1 mt-4 text-center">
+          솔루션 이행 시, <br />
+          최대{" "}
+          <span className="font-bold">
+            {result.toLocaleString("ko-KR")}원
+          </span>{" "}
+          아낄 수 있어요!
         </h1>
-        <div className="text-center">
-          <p className="mediumGreyText mb-3 text-base">
-            아래 공제를 추가해보세요. <br />
+        <div className="text-center mt-2">
+          <p className="mediumGreyText mb-1 text-base">
+            공제를 추가해보세요. <br />
             추가할 때마다 아낄 수 있는 돈이 늘어나요.
           </p>
         </div>

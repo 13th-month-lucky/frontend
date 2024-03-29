@@ -32,7 +32,7 @@ export default function Services() {
   const link3 = "/fund/main";
 
   return (
-    <div className="mb-3 p-6">
+    <div className="mb-2 p-6">
       <div className="flex items-center justify-start gap-2 mb-2 ml-1">
         <p className="h2">돈 버는 서비스</p>
         <FcMoneyTransfer size="40" />
