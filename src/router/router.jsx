@@ -15,11 +15,8 @@ import PreviewResultDetailPage from "~/pages/preview/previewResultDetailPage";
 import InitialInfo from "~/components/Main/MyPage/InitialInfo";
 import FundDetailPage from "~/pages/fund/fundDetailPage";
 import FundMainPage from "~/pages/fund/fundMainPage";
-<<<<<<< Updated upstream
-=======
-import QuizMain from "~/pages/quiz/quizMain";
+// import QuizMain from "~/pages/quiz/quizMain";
 import FindOut from "~/pages/findout/findout";
->>>>>>> Stashed changes
 
 export const mainRoutes = [
   {
@@ -82,17 +79,14 @@ export const mainRoutes = [
         path: "/fund/main",
         element: <FundMainPage />,
       },
-<<<<<<< Updated upstream
-=======
-      {
-        path: "/quiz",
-        element: <QuizMain />,
-      },
+      // {
+      //   path: "/quiz",
+      //   element: <QuizMain />,
+      // },
       {
         path: "/findout",
         element: <FindOut />,
       },
->>>>>>> Stashed changes
     ],
   },
 ];
