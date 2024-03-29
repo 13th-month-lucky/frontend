@@ -40,7 +40,12 @@ export default function Button(props) {
       onClick={() => {
         if (link == "/preview/main") {
           if (user) {
-            if (user.address && user.birthday && user.salary) {
+            if (
+              user.home.address &&
+              user.home.size &&
+              user.age &&
+              user.salary
+            ) {
               navigate(link);
             } else {
               const a = confirm(
