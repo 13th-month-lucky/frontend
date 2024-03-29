@@ -51,7 +51,6 @@ export default function PreviewSolutionPage() {
   }
 
   const updateResultData = () => {
-    console.log("tttt");
     const data = {
       종합소득공제: {
         카드공제: total.card,
@@ -95,10 +94,7 @@ export default function PreviewSolutionPage() {
         <BlueButton
           text="결과 확인하기"
           destination="/preview/result/detail"
-          onClick={() => {
-            console.log("con");
-            updateResultData();
-          }}
+          onClickAction={updateResultData}
         />
       </div>
     </>
