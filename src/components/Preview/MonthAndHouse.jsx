@@ -3,7 +3,6 @@ import { Accordion, Checkbox, Label, Radio, Card } from "flowbite-react";
 import houseImg from "~/assets/images/preview/house.png";
 import HouseProgressBar from "./HouseProgressBar";
 import { useSelector } from "react-redux";
-import { updateResult } from "~/lib/apis/result";
 
 const MonthAndHouse = ({ updateTotal, myData }) => {
   const [checkLoan, setCheckLoan] = useState(false);
@@ -26,18 +25,9 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
       setMonthResult(0);
       setHouseTotalResult(0);
       updateTotal("house", 0);
-      updateResult(yearTax.resultId, { 월세공제: 0 });
+      updateTotal("month", 0);
     } else {
       setCheckLoan(true);
-    }
-  };
-
-  const checkHandler = (option, optionHandler) => {
-    console.log(option);
-    if (option) {
-      optionHandler(false);
-    } else {
-      optionHandler(true);
     }
   };
 
@@ -70,8 +60,7 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
       result = monthlyPay * 10000 * 12 * 0.15;
     }
     setMonthResult(result);
-    updateTotal("house", result);
-    updateResult(yearTax.resultId, { 월세공제: result });
+    updateTotal("month", result);
   };
 
   //주택 공제 결과 계산 함수
@@ -96,7 +85,6 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
 
     setHouseTotalResult(result);
     updateTotal("house", result);
-    updateResult(yearTax.resultId, { 주택공제: result });
   };
 
   useEffect(() => {
@@ -141,7 +129,10 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
               <div>
                 {checkMonthly && checkLoan ? (
                   <div className="flex items-center ml-2 mb-2">
-                    <p>월세 공제 시, 약 {monthResult}원 돌려받을 수 있어요!</p>
+                    <p>
+                      월세 공제 시,
+                      <br /> 약 {monthResult}원 돌려받을 수 있어요!
+                    </p>
                   </div>
                 ) : null}
                 {checkYearly && checkLoan ? (

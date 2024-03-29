@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Accordion, Card, Checkbox } from "flowbite-react";
 import businessBagImg from "~/assets/images/preview/travel-dynamic-color.png";
 import { calculateTaxAmount } from "./Calculator/cacluatedTaxAmount";
-import { updateResult } from "~/lib/apis/result";
 function SmallBusiness({ updateTotal }) {
   const [smallBusinessJunior, setSmallBusinessJunior] = useState(false);
   const [smallBusinessSenior, setSmallBusinessSenior] = useState(false);
@@ -28,9 +27,9 @@ function SmallBusiness({ updateTotal }) {
     if (result >= 2000000) {
       result = 2000000;
     }
+
     setResult(result);
     updateTotal("business", result);
-    updateResult(yearTax.resultId, { 중소기업감면: result });
   }, [smallBusinessJunior, smallBusinessSenior]);
 
   const checkHandler = (option, optionHandler) => {
@@ -41,6 +40,7 @@ function SmallBusiness({ updateTotal }) {
       optionHandler(true);
     }
   };
+
   return (
     <Accordion collapseAll className="m-5">
       <Accordion.Panel>
@@ -51,12 +51,17 @@ function SmallBusiness({ updateTotal }) {
           </div>
         </Accordion.Title>
         <Accordion.Content className="bg-gray-100">
-          {smallBusinessJunior || smallBusinessSenior ? (
+          {(smallBusinessJunior || smallBusinessSenior) && result > 0 ? (
             <div className="flex items-center ml-2 mb-2">
               <p>
                 중소기업 소득세 감면 신청시,
                 <br /> 약 {result}원 돌려받을 수 있어요!
               </p>
+            </div>
+          ) : null}
+          {(smallBusinessJunior || smallBusinessSenior) && result < 0 ? (
+            <div className="flex items-center ml-2 mb-2">
+              <p>중소기업 소득세 감면 신청시</p>
             </div>
           ) : null}
           {yearTax.data.age > 34 ? (

@@ -15,7 +15,9 @@ function PersonComponent({ updateTotal }) {
 
   useEffect(() => {
     // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
-    calculatePrice();
+    const result = calculatePrice();
+    setResult(result);
+    console.log(result);
     updateTotal("person", result);
     addResult(yearTax.resultId, { 가족공제: result });
   }, [totalPeopleNum]);
@@ -23,7 +25,6 @@ function PersonComponent({ updateTotal }) {
   const calculatePrice = () => {
     const pricePerPerson = 1500000; // 각 인원당 가격
     const calculatedPrice = totalPeopleNum * pricePerPerson;
-    setResult(calculatePrice);
     return calculatedPrice;
   };
 
@@ -96,9 +97,15 @@ function PersonComponent({ updateTotal }) {
           </div>
         </Accordion.Title>
         <Accordion.Content className="bg-gray-100">
-          <div className="flex items-center ml-2 mb-2">
-            <p>월세 공제 시, 약 {result}원 돌려받을 수 있어요!</p>
-          </div>
+          {result > 0 ? (
+            <div className="flex items-center ml-2 mb-2">
+              <p>
+                인적 공제 시,
+                <br /> 약 {result}원 돌려받을 수 있어요!
+              </p>
+            </div>
+          ) : null}
+
           <Card>
             <>
               <div className="flex items-center justify-between mb-3">
