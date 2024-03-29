@@ -14,28 +14,26 @@ export default function Graph(props) {
 
   let formattedData = [];
 
-  for (
-    let i = Math.max(chartData.length - size, 0);
-    i < chartData.length;
-    i++
-  ) {
-    const ele = chartData[i];
+  if (chartData.length > 0) {
+    for (let i = Math.min(chartData.length - 1, size - 1); i >= 0; i--) {
+      const ele = chartData[i];
 
-    if (isFund) {
-      const parsedY = parseFloat(ele.기준가.replace(",", ""));
+      if (isFund) {
+        const parsedY = parseFloat(ele.기준가.replace(",", ""));
+
+        formattedData.push({
+          x: ele.기준일,
+          y: parsedY,
+        });
+
+        continue;
+      }
 
       formattedData.push({
-        x: ele.기준일,
-        y: parsedY,
+        x: ele.stck_bsop_date,
+        y: ele.stck_clpr,
       });
-
-      continue;
     }
-
-    formattedData.push({
-      x: ele.stck_bsop_date,
-      y: ele.stck_clpr,
-    });
   }
 
   const data = [

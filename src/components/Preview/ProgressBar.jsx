@@ -41,8 +41,8 @@ function ProgressBar({ amount, percentage, color, isAnimation, limit }) {
         {currentPercentage.toFixed()}%
       </div>
       <div className="absolute w-full flex justify-between text-xs text-gray-400 px-2 mt-1">
-        <div>{(amount / unit).toFixed(1)}</div>
-        <div>{(limit / unit).toFixed(1)} (만원)</div>
+        <div>{(amount / unit).toFixed()}</div>
+        <div>{(limit / unit).toFixed()} (만원)</div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ const ALLETF = ({ selectedDangerDegree, selectedType }) => {
   console.log(likedEtfCodes);
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.post("http://localhost:3000/api/user/find", {
+      const response = await axios.post("/api/user/find", {
         nickname: userState.nickname,
       });
       const likeETF = response.data.likedEtf;
@@ -26,17 +26,16 @@ const ALLETF = ({ selectedDangerDegree, selectedType }) => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/etf/overview"
-        );
+        const response = await axios.get("/api/etf/overview");
         const data = response.data;
         let filteredETF = data;
 
         if (selectedDangerDegree) {
           filteredETF = filteredETF.filter(
-            (item) => item.data.dangerDegree === selectedDangerDegree
+            (item) => item.data.dangerDegree == selectedDangerDegree
           );
         }
+        // console.log(filteredETF);
 
         if (selectedType) {
           filteredETF = filteredETF.filter((item) =>
@@ -59,13 +58,13 @@ const ALLETF = ({ selectedDangerDegree, selectedType }) => {
   const toggleLike = (code) => {
     if (likedEtfCodes.includes(code)) {
       setLikedEtfCodes(likedEtfCodes.filter((c) => c !== code));
-      axios.put("http://localhost:3000/api/user/dislike/etf", {
+      axios.put("/api/user/dislike/etf", {
         userId: userState.userId,
         code: code,
       });
     } else {
       setLikedEtfCodes([...likedEtfCodes, code]);
-      axios.put("http://localhost:3000/api/user/like/etf", {
+      axios.put("/api/user/like/etf", {
         userId: userState.userId,
         code: code,
       });
@@ -81,61 +80,85 @@ const ALLETF = ({ selectedDangerDegree, selectedType }) => {
 
   return (
     <div>
-      {etf.map((item) => (
-        <div
-          key={item.code}
-          onClick={() => clickCard(item.code)}
-          style={{ cursor: "pointer" }}
-        >
-          <div className="border-t pt-4 pb-3 flex justify-between">
-            <Risk riskDegree={item.data.dangerDegree} />
-            <p className="text-lg mt-2 font-semibold">
-              {item.chart.hts_kor_isnm}
-              {/* {item.code} */}
-            </p>
-          </div>
-          <div className="flex flex-row justify-between">
-            <div className=" h-20 w-52">
-              <MyResponsiveLine
-                data={[
-                  {
-                    id: "stock",
-                    data: item.chart.chart.map((elem) => ({
-                      x: elem.x,
-                      y: elem.y,
-                    })),
-                  },
-                ]}
-              />
-            </div>
-            <div className="flex item-center justify-center gap-2">
-              <div className="font-xl font-bold text-red-500">수익률</div>
-              <p className="text-lg font-bold text-red-500">
-                {item.chart.profitPercentage}%
+      {etf.map((item) => {
+        const profit = item.chart.profitPercentage;
+
+        let profitStyle = "text-xl font-bold";
+
+        if (profit[0] === "-") {
+          profitStyle += " text-blue-500";
+        } else {
+          profitStyle += " text-red-500";
+        }
+
+        return (
+          <div key={item.code} style={{ cursor: "pointer" }} className="pb-2">
+            <div
+              className="border-t pt-4 pb-3 flex justify-between gap-4"
+              onClick={() => clickCard(item.code)}
+            >
+              <Risk riskDegree={item.data.dangerDegree} />
+              <p className="text-lg font-semibold">
+                {item.chart.hts_kor_isnm}
+                {/* {item.code} */}
               </p>
-              {likedEtfCodes.includes(item.code) ? (
-                <div>
-                  <img
-                    src={redLikeIcon}
-                    className="h-8"
-                    onClick={() => toggleLike(item.code)}
-                    alt="Dislike Button"
-                  />
+            </div>
+            <div className="flex flex-row justify-between">
+              <div className=" h-16 w-40" onClick={() => clickCard(item.code)}>
+                <MyResponsiveLine
+                  data={[
+                    {
+                      id: "stock",
+                      data: item.chart.chart.map((elem) => ({
+                        x: elem.x,
+                        y: elem.y,
+                      })),
+                    },
+                  ]}
+                />
+              </div>
+
+              <div className="flex-col justify-end">
+                <div className="flex gap-1">
+                  <div
+                    className="text-gray-500 text-sm mt-1"
+                    onClick={() => clickCard(item.code)}
+                  >
+                    6개월
+                  </div>
+
+                  <p
+                    className={profitStyle}
+                    onClick={() => clickCard(item.code)}
+                  >
+                    {item.chart.profitPercentage}%
+                  </p>
                 </div>
-              ) : (
-                <div>
-                  <img
-                    src={blankLikeIcon}
-                    className="h-8"
-                    onClick={() => toggleLike(item.code)}
-                    alt="Like Button"
-                  />
-                </div>
-              )}
+
+                {likedEtfCodes.includes(item.code) ? (
+                  <div className="mt-4 flex justify-end">
+                    <img
+                      src={redLikeIcon}
+                      className="h-8"
+                      onClick={() => toggleLike(item.code)}
+                      alt="Dislike Button"
+                    />
+                  </div>
+                ) : (
+                  <div className="mt-4 flex justify-end">
+                    <img
+                      src={blankLikeIcon}
+                      className="h-8"
+                      onClick={() => toggleLike(item.code)}
+                      alt="Like Button"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

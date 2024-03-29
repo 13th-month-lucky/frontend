@@ -16,14 +16,12 @@ const HotIssue = () => {
     const fetchData = async () => {
       try {
         // Fetch hot stock
-        const response = await axios.post("http://localhost:3000/api/rising/");
+        const response = await axios.post("/api/rising/");
         const risingStock = response.data[0].stbd_nm;
         setHotStock(risingStock);
 
         // Fetch ETFs based on the hot stock
-        const etfResponse = await axios.get(
-          "http://localhost:3000/api/etf/overview"
-        );
+        const etfResponse = await axios.get("/api/etf/overview");
         const etfData = etfResponse.data;
         const filteredETF = etfData.filter((item) => {
           return item.data.ratio.some(
@@ -58,15 +56,14 @@ const HotIssue = () => {
           }
         `}
       </style>
-      <div className="flex flex-row mt-3 mb-3 font-medium text-lg">
-        <p className="font-bold mr-1 ml-2">{hotStock}</p> 포함 ETF
+      <div className="flex flex-row mt-1 font-medium text-lg pt-4 pl-4">
+        <p className="font-bold mr-1">{hotStock}</p> 포함 ETF
       </div>
       <ScrollMenu onWheel={onWheel} style={{ margin: "0 -1rem" }}>
         <div className="flex flex-row items-center justify-center">
           {etf.length === 1 ? (
             <div className="flex-grow items-center justify-center">
               <Card
-                className="m-3"
                 theme={{
                   root: {
                     children: "p-3",

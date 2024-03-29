@@ -65,11 +65,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="mt-20 mb-10" style={{ width: "50%" }}>
-        <img src={logoImg} style={{ cursor: "pointer" }}></img>
-      </div>
-
-      <div className="h3 text-center">
+      <div className="text-2xl font-bold text-center mt-28">
         <p>
           13월에도
           <br />
@@ -77,11 +73,15 @@ export default function LoginPage() {
         </p>
       </div>
 
+      <div className="mt-16">
+        <img src={logoImg} className="w-44"></img>
+      </div>
+
       <img
-        className="h-10 mt-40"
+        className="h-10 mt-36"
         src={loginImg}
         onClick={() => clickLoginBtn()}
-      ></img>
+      />
     </div>
   );
 }
