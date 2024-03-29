@@ -22,7 +22,6 @@ export default function PreviewSolutionPage() {
   });
   const [result, setResult] = React.useState(0);
   const userState = useSelector((state) => state.user13th);
-  const [user, setUser] = useState({});
   const [mydata, setMydata] = useState({});
 
   const nickname = userState.nickname;
