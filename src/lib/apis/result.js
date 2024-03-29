@@ -15,7 +15,7 @@ export const getAllResult = async (userId) => {
 //user의 연말정산 결과 추가
 export const addResult = async (userId, data) => {
   try {
-    const url = "/api/" + userId;
+    const url = "/api/result/" + userId;
     const body = { data };
 
     const resp = await axios.post(url, body);

@@ -25,3 +25,49 @@ export function getEITC(salary) {
     return 1200 * unit + (salary - 4500 * unit) * 0.05;
   else return 1475 * unit + (salary - 10000 * unit) * 0.02;
 }
+
+export function getTax(salary) {
+  const simpleTaxRate = [
+    [1200, 0.06],
+    [4600, 0.15],
+    [8800, 0.24],
+    [15000, 0.35],
+    [30000, 0.38],
+    [50000, 0.4],
+    [0, 0.42],
+  ];
+
+  const taxRate = [
+    [1400, 0, 0],
+    [5000, 84, 0.06],
+    [8800, 624, 0.24],
+    [15000, 1536, 0.35],
+    [30000, 3706, 0.38],
+    [50000, 9406, 0.4],
+    [100000, 17406, 0.42],
+    [0, 38406, 0.45],
+  ];
+
+  let taxToPaid;
+  let taxRow;
+
+  for (let row of taxRate) {
+    if (salary <= row[0] * 10000 || row[0] === 0) {
+      taxToPaid = row[1] * 10000 + salary * row[2];
+      taxRow = row;
+      break;
+    }
+  }
+
+  let taxPaid;
+  let simpleTaxRow;
+  for (let row of simpleTaxRate) {
+    if (salary <= row[0] * 10000 || row[0] === 0) {
+      taxPaid = salary * row[1];
+      simpleTaxRow = row;
+      break;
+    }
+  }
+
+  return { taxPaid, taxToPaid };
+}

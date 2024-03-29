@@ -6,104 +6,61 @@ import { Tooltip } from "flowbite-react";
 import BlueButton from "~/components/Button/BlueButton";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getMyData } from "~/lib/apis/myData";
 import { findUserWithNickname } from "~/lib/apis/user";
-import { setData, setEarnedIncome } from "~/store/reducers/yearTax";
-
-const simpleTaxRate = [
-  [1200, 0.06],
-  [4600, 0.15],
-  [8800, 0.24],
-  [15000, 0.35],
-  [30000, 0.38],
-  [50000, 0.4],
-  [0, 0.42],
-];
-
-const taxRate = [
-  [1400, 0, 0],
-  [5000, 84, 0.06],
-  [8800, 624, 0.24],
-  [15000, 1536, 0.35],
-  [30000, 3706, 0.38],
-  [50000, 9406, 0.4],
-  [100000, 17406, 0.42],
-  [0, 38406, 0.45],
-];
+import {
+  setData,
+  setEarnedIncome,
+  setResultId,
+} from "~/store/reducers/yearTax";
+import { getTax } from "~/lib/utils/calculator";
+import { addResult, updateResult } from "~/lib/apis/result";
 
 export default function PreviewResult() {
   const userState = useSelector((state) => state.user13th);
   const nickname = userState.nickname;
+
   const [isReceive, setIsReceive] = useState(true);
   const [taxToPaidMessage, setTaxToPaidMessage] = useState("");
   const [taxPaidMessage, setTaxPaidMessage] = useState("");
   const [resultReturn, setResultReturn] = useState();
-
   const yearTaxState = useSelector((state) => state.yearTax);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // 유저 정보 기반으로 연말정산에 필요한 데이터 redux에 저장
     findUserWithNickname(nickname).then((resp) => {
-      console.log(resp);
       const data = {
         age: resp.age,
         salary: resp.salary,
         home: resp.home,
       };
       let action = setData(data);
-      dispath(action);
+      dispatch(action);
 
-      //
+      // 근로소득금액 redux에 저장
       action = setEarnedIncome(resp.earnedIncome);
-      dispath(action);
+      dispatch(action);
     });
   }, []);
 
   useEffect(() => {
-    getMyData(userState.userId).then((resp) => {
-      const taxBaseYear = yearTaxState.data.salary; // 총급여
+    const salary = yearTaxState.data.salary; // 총급여
+    const { taxPaid, taxToPaid } = getTax(salary); // 예상 납부 세금(낸세금), 내야 하는 세금
 
-      let taxToPaid;
-      let taxRow;
-      for (let row of taxRate) {
-        if (taxBaseYear <= row[0] * 10000 || row[0] === 0) {
-          taxToPaid = row[1] * 10000 + taxBaseYear * row[2];
-          taxRow = row;
-          break;
-        }
-      }
+    if (taxToPaid > taxPaid) {
+      setIsReceive(false);
+      setResultReturn(`${(taxToPaid - taxPaid).toLocaleString()}`);
+    } else {
+      setResultReturn(`${(taxPaid - taxToPaid).toLocaleString()}`);
+    }
+    setTaxToPaidMessage(`예상 납부 세금(1년) : ${taxPaid.toLocaleString()}원`);
+    setTaxPaidMessage(`내야하는 세금 : ${taxToPaid.toLocaleString()}원`);
 
-      let taxPaid;
-      let simpleTaxRow;
-      for (let row of simpleTaxRate) {
-        if (taxBaseYear <= row[0] * 10000 || row[0] === 0) {
-          taxPaid = taxBaseYear * row[1];
-          simpleTaxRow = row;
-          break;
-        }
-      }
-
-      console.log(
-        `예상 납부 세금 :\n소득 * ${simpleTaxRow[1]}%\n(소득 ${simpleTaxRow[0]}만원 이하)`
-      );
-      console.log(
-        `납부해야하는 세금 :\n${taxRow[1]}만원 + 소득 * ${taxRow[2]}% \n(소득 ${taxRow[0]}만원 이하)`
-      );
-
-      if (taxToPaid > taxPaid) {
-        setIsReceive(false);
-        setResultReturn(`${(taxToPaid - taxPaid).toLocaleString()}`);
-      } else {
-        setResultReturn(`${(taxPaid - taxToPaid).toLocaleString()}`);
-      }
-
-      setTaxToPaidMessage(
-        `예상 납부 세금(1년) : ${taxPaid.toLocaleString()}원`
-      );
-      setTaxPaidMessage(`내야하는 세금 : ${taxToPaid.toLocaleString()}원`);
+    // result에 저장
+    updateResult(yearTaxState.resultId, {
+      낸세금: taxPaid,
     });
-  }, [yearTaxState]);
+  }, [yearTaxState.salary]);
 
   return (
     <div className="bg-white h-screen p-4">

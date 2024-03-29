@@ -7,6 +7,7 @@ import HotIssue from "~/components/ETF/Main/HotIssue";
 import VolumeETF from "~/components/ETF/Main/VolumeETF";
 import CapitalizationETF from "~/components/ETF/Main/CapitalizationETF";
 import LikedEtf from "~/components/ETF/Main/LikedETF";
+import RecentETF from "~/components/ETF/Main/RecentETF";
 import TopBackBar from "~/components/TopBackBar/TopBackBar";
 
 const ETFMain = () => {
@@ -14,12 +15,12 @@ const ETFMain = () => {
 
   const handleDangerDegreeChange = (dangerDegree) => {
     setSelectedDangerDegree(dangerDegree);
-    console.log(dangerDegree);
+    // console.log(dangerDegree);
   };
   const [selectedType, setSelectedType] = useState(null);
 
   const handleTypeSelect = (type) => {
-    console.log(type);
+    // console.log(type);
     setSelectedType(type);
   };
 
@@ -27,14 +28,10 @@ const ETFMain = () => {
     <div>
       <TopBackBar />
 
-      <div className="bg-blue-100">
-        <div className="bg-white mt-2  mb-2 text-3xl font-extrabold">
-          <p className="ml-1">인기 종목 포함 ETF</p>
-        </div>
-
+      <div className="bg-blue-100 rounded-xl">
         <HotIssue />
 
-        <div className="bg-white">
+        <div className="bg-white mt-2">
           <Tabs aria-label="Default tabs" style="default">
             <Tabs.Item active title="전체" className="bg-blue-100">
               <ETFFilter
@@ -77,12 +74,11 @@ const ETFMain = () => {
                 onTypeSelect={handleTypeSelect}
                 onDangerDegreeChange={handleDangerDegreeChange}
               />
-              <div className="mb-4">
-                <LikedEtf
-                  selectedDangerDegree={selectedDangerDegree}
-                  selectedType={selectedType}
-                />
-              </div>
+
+              <LikedEtf
+                selectedDangerDegree={selectedDangerDegree}
+                selectedType={selectedType}
+              />
             </Tabs.Item>
             <Tabs.Item title="최근">
               <ETFFilter
@@ -90,7 +86,7 @@ const ETFMain = () => {
                 onDangerDegreeChange={handleDangerDegreeChange}
               />
               <div className="mb-4">
-                <ALLETF
+                <RecentETF
                   selectedDangerDegree={selectedDangerDegree}
                   selectedType={selectedType}
                 />

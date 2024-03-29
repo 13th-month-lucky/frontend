@@ -51,7 +51,7 @@ export default function Problem() {
 
   return (
     <>
-      <div className="ml-2 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 items-center mt-10">
+      <div className="ml-2 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 items-center mt-8">
         <div className="p-5">
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center tracking-normal">
             {currentQuiz.problem}
@@ -81,9 +81,9 @@ export default function Problem() {
         <p className="text-lg text-gray-900 dark:text-white">{description}</p>
       </div>
       {message ? (
-        <div className=" flex items-center justify-center mb-10 mt-3">
+        <div className=" flex items-center justify-center mb-8 mt-3">
           <Button
-            className=" bg-blue-500 text-white text-lg font-semibold rounded-2xl shadow-md w-9/12 h-12 focus:ring-blue-200 enabled:hover:bg-blue-100  ml-1 mr-1 tracking-tight"
+            className=" bg-blue-500 text-white text-lg font-semibold rounded-2xl shadow-md w-9/12 h-12 focus:ring-blue-200 enabled:hover:bg-blue-400  ml-1 mr-1 tracking-tight"
             onClick={handleNext}
           >
             <span className="text-xl"> 다음 문제로</span>

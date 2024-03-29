@@ -15,6 +15,7 @@ import PreviewResultDetailPage from "~/pages/preview/previewResultDetailPage";
 import InitialInfo from "~/components/Main/MyPage/InitialInfo";
 import FundDetailPage from "~/pages/fund/fundDetailPage";
 import FundMainPage from "~/pages/fund/fundMainPage";
+import FindOut from "~/pages/findout/findout";
 import QuizMain from "~/pages/quiz/quizMain";
 import PrevPreviewPage from "~/pages/preview/prevPreviewPage";
 
@@ -90,6 +91,11 @@ export const mainRoutes = [
       {
         path: "/quiz",
         element: <QuizMain />,
+      },
+
+      {
+        path: "/findout",
+        element: <FindOut />,
       },
     ],
   },

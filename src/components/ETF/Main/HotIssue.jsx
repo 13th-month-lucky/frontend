@@ -4,6 +4,7 @@ import { Card } from "flowbite-react";
 import MyResponsiveLine from "~/components/ETF/Main/MyResponsiveLine";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import "react-horizontal-scrolling-menu/dist/styles.css";
+import { useNavigate } from "react-router";
 
 const HotIssue = () => {
   const [hotStock, setHotStock] = useState("");
@@ -11,6 +12,11 @@ const HotIssue = () => {
   const [isLoading, setIsLoading] = useState(true);
   const numberWithCommas = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+  const navigate = useNavigate();
+
+  const clickCard = (code) => {
+    navigate("/etf/detail/" + code);
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -56,22 +62,24 @@ const HotIssue = () => {
           }
         `}
       </style>
-      <div className="flex flex-row mt-3 mb-3 font-medium text-lg">
-        <p className="font-bold mr-1 ml-2">{hotStock}</p> 포함 ETF
+      <div className="flex flex-row mt-1 font-medium text-lg pt-4 pl-4">
+        <p className="font-bold mr-1">{hotStock}</p> 포함 ETF
       </div>
       <ScrollMenu onWheel={onWheel} style={{ margin: "0 -1rem" }}>
         <div className="flex flex-row items-center justify-center">
           {etf.length === 1 ? (
             <div className="flex-grow items-center justify-center">
               <Card
-                className="m-3"
                 theme={{
                   root: {
                     children: "p-3",
                   },
                 }}
               >
-                <div className="flex flex-col">
+                <div
+                  className="flex flex-col"
+                  onClick={() => clickCard(etf[0].code)}
+                >
                   <h5 className="font-bold text-gray-900 dark:text-white">
                     {etf[0].chart.hts_kor_isnm}
                   </h5>
@@ -105,7 +113,10 @@ const HotIssue = () => {
                 }}
                 key={index}
               >
-                <div className="flex flex-col">
+                <div
+                  className="flex flex-col "
+                  onClick={() => clickCard(etf[0].code)}
+                >
                   <h5 className="font-bold text-gray-900 dark:text-white">
                     {item.chart.hts_kor_isnm}
                   </h5>

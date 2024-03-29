@@ -17,18 +17,16 @@ export default function Quiz() {
           열심히 풀다보면 나도 금잘알!
         </p>
 
-        <div className="flex justify-center mt-14 mb-28">
+        <div className="flex justify-center mt-14">
           <img className="rounded-t-lg mb-5 w-40" src={businessBagImg} alt="" />
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-20">
           <Button
-            className="bg-blue-200 text-black font-semibold rounded-lg shadow-md h-14 w-72 focus:ring-blue-300 enabled:hover:bg-blue-300"
+            className=" bg-blue-500 text-white text-lg font-semibold rounded-2xl shadow-md w-9/12 h-12 focus:ring-blue-200 enabled:hover:bg-blue-100 tracking-tight"
             onClick={() => navigate("/quiz")}
           >
-            <span className="absolute inset-0 flex items-center justify-center w-full text-xl">
-              퀴즈 풀러 가기
-            </span>
+            <span className="text-xl"> 퀴즈 풀러 가기</span>
           </Button>
         </div>
       </div>
