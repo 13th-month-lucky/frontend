@@ -4,21 +4,7 @@ import axios from "axios";
 import { Datepicker, TextInput } from "flowbite-react";
 import "moment/locale/ko";
 import Address from "~/components/Preview/Address";
-
-// 생일 -> 만나이
-function calculateAge(birthDate) {
-  const today = new Date();
-  const birth = new Date(birthDate);
-
-  let age = today.getFullYear() - birth.getFullYear();
-  const monthDiff = today.getMonth() - birth.getMonth();
-
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-    age--;
-  }
-
-  return age;
-}
+import { getAge, getEITC } from "~/lib/utils/calculator";
 
 export default function MyPage() {
   const userState = useSelector((state) => state.user13th);
@@ -64,11 +50,14 @@ export default function MyPage() {
 
   const saveChanges = async () => {
     try {
+      const salary = editedUserInfo.salary * unit;
+      const earnedIncome = salary - getEITC(salary); // 근로소득금액 = 총급여 - 근로소득공제액
       await axios.put("/api/user/info", {
         userId: userId,
         email: editedUserInfo.email,
         birthday: editedUserInfo.birthday,
-        salary: editedUserInfo.salary * unit,
+        salary: salary,
+        earnedIncome: earnedIncome,
         nickname: nickname,
         age: editedUserInfo.age,
         home: editedUserInfo.home,
@@ -140,7 +129,7 @@ export default function MyPage() {
                 setEditedUserInfo((prev) => ({
                   ...prev,
                   birthday: date.toLocaleDateString(),
-                  age: calculateAge(date),
+                  age: getAge(date),
                 }));
               }}
               language="kr"
