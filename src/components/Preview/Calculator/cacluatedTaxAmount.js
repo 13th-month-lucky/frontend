@@ -1,9 +1,5 @@
-import { useSelector } from "react-redux";
-const user = useSelector((state) => state.user13th);
-
 //산출 세액 계산하기
-export const calculateTaxAmount = () => {
-  const taxBase = user.earnedIncome;
+export const calculateTaxAmount = (taxBase) => {
   let result = 0;
 
   if (taxBase <= 14000000) {
