@@ -3,27 +3,34 @@ import { useSelector } from "react-redux";
 import { Accordion, Card, Checkbox } from "flowbite-react";
 import businessBagImg from "~/assets/images/preview/travel-dynamic-color.png";
 import { calculateTaxAmount } from "./Calculator/cacluatedTaxAmount";
-import { addResult } from "~/lib/apis/result";
+import { updateResult } from "~/lib/apis/result";
 function SmallBusiness({ updateTotal }) {
   const [smallBusinessJunior, setSmallBusinessJunior] = useState(false);
   const [smallBusinessSenior, setSmallBusinessSenior] = useState(false);
   const [result, setResult] = useState(0);
-  const user = useSelector((state) => state.user13th);
+  const yearTax = useSelector((state) => state.yearTax);
+
   useEffect(() => {
-    const taxBase = user.earnedIncome;
+    const taxBase = yearTax.earnedIncome;
     let result = 0;
     // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
-    if ((user.age <= 35 || user.age >= 16) && smallBusinessJunior) {
+    if (
+      (yearTax.data.age <= 35 || yearTax.data.age >= 16) &&
+      smallBusinessJunior
+    ) {
       result = calculateTaxAmount(taxBase) * 0.9; // 과세표준 금액 * 0.9
-    } else if (user.age >= 60 && smallBusinessSenior) {
+    } else if (yearTax.data.age >= 60 && smallBusinessSenior) {
       result = calculateTaxAmount(taxBase) * 0.7; //
+    } else if (smallBusinessJunior === false && smallBusinessSenior === false) {
+      //체크가다시 풀린경우
+      result = 0;
     }
     if (result >= 2000000) {
       result = 2000000;
     }
     setResult(result);
     updateTotal("business", result);
-    addResult(user.userId, { 중소기업감면: result });
+    updateResult(yearTax.resultId, { 중소기업감면: result });
   }, [smallBusinessJunior, smallBusinessSenior]);
 
   const checkHandler = (option, optionHandler) => {
@@ -52,7 +59,7 @@ function SmallBusiness({ updateTotal }) {
               </p>
             </div>
           ) : null}
-          {user.age > 34 ? (
+          {yearTax.data.age > 34 ? (
             <Card>
               <div className="flex items-center justify-between mb-3">
                 <p className=" text-black dark:text-black-400 text-base mt-3">
@@ -69,7 +76,7 @@ function SmallBusiness({ updateTotal }) {
               </div>
             </Card>
           ) : null}
-          {user.age <= 34 ? (
+          {yearTax.data.age <= 34 ? (
             <Card>
               <div className="flex items-center justify-between mb-3">
                 <p className=" text-black dark:text-black-400 text-base mt-3">

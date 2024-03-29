@@ -10,14 +10,14 @@ function PersonComponent({ updateTotal }) {
   const [youngParentNum, setYoungParentNum] = useState(0); //60-70세 미만의 부모님
   const [oldParentNum, setOldParentNum] = useState(0); // 70세 이상의 부모님
   const [totalPeopleNum, setTotalPeopleNum] = useState(0);
-  const user = useSelector((state) => state.user13th);
+  const yearTax = useSelector((state) => state.yearTax);
 
   useEffect(() => {
     // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
     const result = calculatePrice();
     console.log(result);
     updateTotal("person", result);
-    addResult(user.userId, { 가족공제: result });
+    addResult(yearTax.resultId, { 가족공제: result });
   }, [totalPeopleNum]);
 
   const calculatePrice = () => {
