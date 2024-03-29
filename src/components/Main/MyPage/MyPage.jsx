@@ -4,45 +4,66 @@ import axios from "axios";
 import { Datepicker, TextInput } from "flowbite-react";
 import "moment/locale/ko";
 import Address from "~/components/Preview/Address";
+import { getAge, getEITC } from "~/lib/utils/calculator";
+import { useNavigate } from "react-router";
 
 export default function MyPage() {
   const userState = useSelector((state) => state.user13th);
+  const navigate = useNavigate();
+
   const [isEditing, setIsEditing] = useState(false);
   const [editedUserInfo, setEditedUserInfo] = useState({
     birthday: "",
     email: "",
     salary: "",
-    address: "",
-    addressDetail: "",
+    age: 0,
+    home: {
+      address: "",
+      addressDetail: "",
+      size: 4, // 규모 우선 4억으로 통일
+      monthlyRent: null,
+    },
   });
 
   const userId = userState.userId;
   const nickname = userState.nickname;
   const profileImageUrl = userState.profileImageUrl;
   const unit = 10000; // 단위
-
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedUserInfo((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    if (name === "address" || name === "addressDetail") {
+      setEditedUserInfo((prev) => ({
+        ...prev,
+        home: {
+          ...prev.home,
+          [name]: value,
+        },
+      }));
+    } else {
+      setEditedUserInfo((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const saveChanges = async () => {
     try {
+      const salary = editedUserInfo.salary * unit;
+      const earnedIncome = salary - getEITC(salary); // 근로소득금액 = 총급여 - 근로소득공제액
       await axios.put("/api/user/info", {
         userId: userId,
         email: editedUserInfo.email,
         birthday: editedUserInfo.birthday,
-        salary: editedUserInfo.salary * unit,
-        address: editedUserInfo.address,
-        addressDetail: editedUserInfo.addressDetail,
+        salary: salary,
+        earnedIncome: earnedIncome,
         nickname: nickname,
+        age: editedUserInfo.age,
+        home: editedUserInfo.home,
       });
       setIsEditing(false); // Turn off edit mode
     } catch (error) {
@@ -62,8 +83,7 @@ export default function MyPage() {
           birthday: data.birthday,
           email: data.email,
           salary: data.salary ? data.salary / unit : null,
-          address: data.address,
-          addressDetail: data.addressDetail,
+          home: data.home,
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -78,7 +98,10 @@ export default function MyPage() {
     // Assuming obj.areaAddress contains address and addressDetail
     setEditedUserInfo((prev) => ({
       ...prev,
-      address: obj.areaAddress,
+      home: {
+        ...prev.home,
+        address: obj.areaAddress,
+      },
     }));
   };
 
@@ -109,6 +132,7 @@ export default function MyPage() {
                 setEditedUserInfo((prev) => ({
                   ...prev,
                   birthday: date.toLocaleDateString(),
+                  age: getAge(date),
                 }));
               }}
               language="kr"
@@ -176,7 +200,7 @@ export default function MyPage() {
                   name="address"
                   placeholder="주소"
                   className="mt-2"
-                  value={editedUserInfo.address}
+                  value={editedUserInfo.home.address}
                   onChange={handleInputChange}
                 />
                 <Address
@@ -189,7 +213,7 @@ export default function MyPage() {
                   name="addressDetail"
                   id="addressDetail"
                   type="text"
-                  value={editedUserInfo.addressDetail}
+                  value={editedUserInfo.home.addressDetail}
                   placeholder="상세주소"
                   className="mt-2 mb-2"
                   onChange={handleInputChange}
@@ -198,11 +222,12 @@ export default function MyPage() {
             </div>
           ) : (
             <div className="text-right">
-              {editedUserInfo.address === null ? (
+              {editedUserInfo.home.address === null ? (
                 "미입력"
               ) : (
                 <>
-                  {editedUserInfo.address} <br /> {editedUserInfo.addressDetail}
+                  {editedUserInfo.home.address} <br />{" "}
+                  {editedUserInfo.home.addressDetail}
                 </>
               )}
             </div>
@@ -226,7 +251,10 @@ export default function MyPage() {
             수정
           </button>
         )}
-        <button className="mt-8 ml-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-[15px]">
+        <button
+          className="mt-8 ml-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-[15px]"
+          onClick={() => navigate("/preview/prev")}
+        >
           내 연말정산
         </button>
       </div>

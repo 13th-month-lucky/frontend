@@ -19,7 +19,7 @@ export default function MainPage() {
     <Quiz />,
     <Home setCurrentTab={setCurrentTab} />,
     <MyPage />,
-    <EntireMenu />,
+    <EntireMenu setCurrentTab={setCurrentTab} />,
   ];
 
   useEffect(() => {

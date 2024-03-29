@@ -13,7 +13,8 @@ const initialState = {
     address: "", // 주소
     size: 0, // 집 크기
   },
-  earnedIncome: 0, // 근로소득금액
+  earnedIncome: 0, // 근로소득금액,
+  resultId: null,
 };
 
 const userSlice = createSlice({
@@ -54,6 +55,9 @@ const userSlice = createSlice({
     setEarnedIncome(state, action) {
       state.earnedIncome = action.payload;
     },
+    setResultId(state, action) {
+      state.resultId = action.payload;
+    },
   },
 });
 
@@ -69,6 +73,7 @@ export const {
   setTotalIncome,
   setHome,
   setEarnedIncome,
+  setResultId,
 } = userSlice.actions;
 
 export default userSlice.reducer;
