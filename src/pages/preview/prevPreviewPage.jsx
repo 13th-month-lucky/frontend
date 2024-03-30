@@ -8,6 +8,7 @@ import { getAllResult } from "~/lib/apis/result";
 import YeartaxResultBlock from "~/components/YearTax/YeartaxResultBlock";
 import YeartaxResultChart from "~/components/YearTax/YeartaxResultChart";
 import DetailTabBar from "~/components/ETF/Detail/DetailTabBar";
+import YeartaxResultTable from "~/components/YearTax/YeartaxResultTable";
 
 export default function prevPreviewPage() {
   const userState = useSelector((state) => state.user13th);
@@ -21,7 +22,7 @@ export default function prevPreviewPage() {
     getAllResult(userState.userId).then((resp) => {
       const formattedResultList = resp.map((result) => {
         return {
-          resultId: result._id,
+          id: result._id,
           createdDate: result.createdDate,
           돌려받은돈: (result.data.돌려받는돈 / unit).toFixed(),
           총급여: (result.data.총급여 / unit).toFixed(),
@@ -51,6 +52,7 @@ export default function prevPreviewPage() {
       )}
 
       {currentTab == 1 && <YeartaxResultChart data={resultList} />}
+      {currentTab == 2 && <YeartaxResultTable data={resultList} />}
 
       <div className="mt-5">
         <Tip />
