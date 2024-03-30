@@ -34,9 +34,9 @@ export default function YeartaxResultChart({ data }) {
   };
 
   return (
-    <>
+    <div className="my-10 flex flex-col gap-10">
       <BarChart data={transformedData} />
       <LineChart data={transformedData} />
-    </>
+    </div>
   );
 }
