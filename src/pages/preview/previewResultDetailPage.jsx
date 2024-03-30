@@ -1,6 +1,7 @@
 import { Card } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 
 import BlueButton from "~/components/Button/BlueButton";
 import { getResult } from "~/lib/apis/result";
@@ -11,11 +12,18 @@ const PreviewResultDetailPage = () => {
 
   const yearTaxState = useSelector((state) => state.yearTax);
   const [result, setResult] = useState({});
+  const { resultId } = useParams();
 
   useEffect(() => {
-    getResult(yearTaxState.resultId).then((resp) => {
-      setResult(resp.data);
-    });
+    if (resultId) {
+      getResult(resultId).then((resp) => {
+        setResult(resp.data);
+      });
+    } else {
+      getResult(yearTaxState.resultId).then((resp) => {
+        setResult(resp.data);
+      });
+    }
   }, []);
 
   useEffect(() => {
