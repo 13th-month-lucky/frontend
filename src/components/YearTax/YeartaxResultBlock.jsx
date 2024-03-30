@@ -2,32 +2,13 @@ import { Card } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { FaChevronRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-
-function dateFormat(date) {
-  let day = ["일", "월", "화", "수", "목", "금", "토"];
-
-  let dateFormat1 =
-    date.getFullYear() +
-    ". " +
-    (date.getMonth() < 9 ? "0" : "") +
-    +(date.getMonth() + 1) +
-    ". " +
-    date.getDate() +
-    " (" +
-    day[date.getDay()] +
-    ") " +
-    date.getHours() +
-    ":" +
-    date.getMinutes();
-
-  return dateFormat1;
-}
+import { formatDateWithDayOfWeek } from "~/lib/utils/dateFormat";
 
 export default function YeartaxResultBlock({ result }) {
   const [date, setDate] = useState("");
 
   useEffect(() => {
-    setDate(dateFormat(new Date(result.createdDate)));
+    setDate(formatDateWithDayOfWeek(new Date(result.createdDate)));
   }, result.createdDate);
   return (
     <Card>
