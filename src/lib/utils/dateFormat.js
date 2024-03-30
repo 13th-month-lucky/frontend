@@ -19,6 +19,7 @@ export function formatDateWithDayOfWeek(date) {
 }
 
 export function formatDateTime(date) {
+  date = new Date(date);
   let dateFormat1 =
     date.getFullYear() +
     "." +
@@ -35,6 +36,7 @@ export function formatDateTime(date) {
 }
 
 export function formatDateTimeArray(date) {
+  date = new Date(date);
   let dateFormat1 = [
     date.getFullYear() +
       "." +

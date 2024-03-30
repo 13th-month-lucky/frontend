@@ -47,7 +47,7 @@ export const options = {
 
 export default function LineChart({ data }) {
   const transformedData = {
-    labels: data.map((item) => formatDateTimeArray(new Date(item.createdDate))),
+    labels: data.map((item) => formatDateTimeArray(item.createdDate)),
     datasets: [
       {
         label: "돌려받은 돈",

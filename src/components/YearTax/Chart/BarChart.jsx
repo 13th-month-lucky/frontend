@@ -36,7 +36,7 @@ export const options = {
 
 export function BarChart({ data }) {
   const transformedData = {
-    labels: data.map((item) => formatDateTime(new Date(item.createdDate))),
+    labels: data.map((item) => formatDateTime(item.createdDate)),
     datasets: [
       {
         label: "돌려받은 돈",
