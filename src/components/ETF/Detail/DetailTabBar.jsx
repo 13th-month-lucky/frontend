@@ -1,13 +1,13 @@
 import { current } from "@reduxjs/toolkit";
 import React from "react";
 
-export default function detailTabBar(props) {
+export default function DetailTabBar(props) {
   const detailTabs = props.detailTabs;
   const currentTab = props.currentTab;
   const setCurrentTab = props.setCurrentTab;
 
   return (
-    <div className="mt-3 flex">
+    <div className="mt-3 flex border-b-[1px]">
       {detailTabs.map((ele, idx) => {
         let tabClass = "mr-6 text-medium";
 
@@ -18,16 +18,18 @@ export default function detailTabBar(props) {
         }
 
         return (
-          <div
-            key={ele}
-            className={tabClass}
-            onClick={() => {
-              setCurrentTab(idx);
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            {ele}
-          </div>
+          <>
+            <div
+              key={ele}
+              className={tabClass}
+              onClick={() => {
+                setCurrentTab(idx);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              {ele}
+            </div>
+          </>
         );
       })}
     </div>
