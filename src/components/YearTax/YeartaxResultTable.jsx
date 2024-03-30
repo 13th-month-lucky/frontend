@@ -48,7 +48,7 @@ export default function YeartaxResultTable({ data }) {
     // wrapping container with theme & size
     <div
       className="ag-theme-quartz" // applying the grid theme
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100%", height: "50%" }}
     >
       <AgGridReact rowData={formattedData} columnDefs={columns} />
     </div>
