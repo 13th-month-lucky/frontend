@@ -2,13 +2,15 @@ import { BarChart } from "./Chart/BarChart";
 import LineChart from "./Chart/LineChart";
 
 function dateFormat(date) {
-  let dateFormat1 =
+  let dateFormat1 = [
     date.getFullYear() +
-    "." +
-    (date.getMonth() < 9 ? "0" : "") +
-    +(date.getMonth() + 1) +
-    "." +
-    date.getDate();
+      "." +
+      (date.getMonth() < 9 ? "0" : "") +
+      +(date.getMonth() + 1) +
+      "." +
+      date.getDate(),
+    date.getHours() + ":" + date.getMinutes(),
+  ];
   return dateFormat1;
 }
 
