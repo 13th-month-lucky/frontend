@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { formatDateTimeArray } from "~/lib/utils/dateFormat";
 
 ChartJS.register(
   CategoryScale,
@@ -45,5 +46,25 @@ export const options = {
 };
 
 export default function LineChart({ data }) {
-  return <Line options={options} data={data} />;
+  const transformedData = {
+    labels: data.map((item) => formatDateTimeArray(new Date(item.createdDate))),
+    datasets: [
+      {
+        label: "돌려받은 돈",
+        data: data.map((item) => item.돌려받은돈),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        yAxisID: "y",
+      },
+      {
+        label: "총급여",
+        data: data.map((item) => item.총급여),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        yAxisID: "y",
+      },
+    ],
+  };
+
+  return <Line options={options} data={transformedData} />;
 }
