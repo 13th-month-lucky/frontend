@@ -17,6 +17,7 @@
     "@nivo/line": "^0.85.1",
     "@nivo/pie": "^0.85.1",
     "@reduxjs/toolkit": "^2.2.1",
+    "ag-grid-react": "^31.2.0",
     "apexcharts": "^3.48.0",
     "axios": "^1.6.7",
     "chart.js": "^4.4.2",
