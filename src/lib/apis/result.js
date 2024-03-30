@@ -33,7 +33,17 @@ export const updateResult = async (resultId, newData) => {
       data: newData,
     };
     const resp = await axios.put(url, body);
-    console.log(resp);
+    return resp.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// 연말정산 결과 조회하기
+export const getResult = async (resultId) => {
+  try {
+    const url = "/api/result/" + resultId;
+    const resp = await axios.get(url);
     return resp.data;
   } catch (err) {
     console.log(err);
