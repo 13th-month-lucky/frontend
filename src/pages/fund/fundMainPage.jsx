@@ -134,7 +134,7 @@ export default function fundMainPage() {
 
   return (
     <div>
-      <TopBackBar />
+      <TopBackBar title="펀드 추천" />
 
       {include.length > 0 ? (
         <HotFund rising={rising} include={include} />

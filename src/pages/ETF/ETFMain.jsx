@@ -26,7 +26,7 @@ const ETFMain = () => {
 
   return (
     <div>
-      <TopBackBar />
+      <TopBackBar title="ETF 추천" />
 
       <div className="bg-blue-100 rounded-xl">
         <HotIssue />
