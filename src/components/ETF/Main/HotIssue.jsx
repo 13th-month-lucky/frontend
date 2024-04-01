@@ -62,7 +62,7 @@ const HotIssue = () => {
           }
         `}
       </style>
-      <div className="flex flex-row mt-1 font-medium text-lg pt-4 pl-4">
+      <div className="flex flex-row mt-1 font-medium text-lg py-4 pl-4">
         <p className="font-bold mr-1">{hotStock}</p> 포함 ETF
       </div>
       <ScrollMenu onWheel={onWheel} style={{ margin: "0 -1rem" }}>
