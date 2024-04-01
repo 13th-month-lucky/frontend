@@ -2,16 +2,27 @@ import { Accordion } from "flowbite-react";
 import moneyBagImg from "~/assets/images/preview/money-bag.png";
 import React, { useEffect, useState } from "react";
 import SavingsCalculator from "~/components/Preview/SavingsCalculator";
+import { useSelector } from "react-redux";
 
-export default function PendingAndIRP({ updateTotal, user, myData }) {
+export default function PendingAndIRP({ updateTotal, myData }) {
+  const yearTaxState = useSelector((state) => state.yearTax);
+
   // 유저 데이터
-  const [remainPrice, setRemainPrice] = useState(500000); // 남는 금액
-  const [totalPay, setTotalPay] = useState(0); // 총 급여액
-  const [pendingPayment, setPendingPayment] = useState(0); // 연금 저축 납입액
-  const [irpPayment, setIrpPayment] = useState(0); // irp 납입액
+  const [remainPrice, setRemainPrice] = useState(300000); // 남는 금액
+  const [salary, setSalary] = useState(0); // 총급여액
+
+  const [pending, setPending] = useState({
+    계좌유무: false,
+    납입액: 0,
+  });
+
+  const [irp, setIRP] = useState({
+    계좌유무: false,
+    납입액: 0,
+  });
 
   // 세액 공제 기준 금액
-  const totalPayThreshold = 550000000;
+  const salaryThreshold = 550000000;
   const irpLimitPrice = 9000000; // IRP 세액공제 한도
   const pendingLimitPrice = 6000000; // 연금저축 세액공제 한도
 
@@ -19,33 +30,37 @@ export default function PendingAndIRP({ updateTotal, user, myData }) {
   const [remainPendingLimitPrice, setRemainPendingLimitPrice] = useState(0);
 
   useEffect(() => {
-    if (user && user.salary) {
-      setTotalPay(user.salary);
-    }
-  }, [user]);
+    setSalary(yearTaxState.data.salary);
+  }, [yearTaxState.data.salary]);
 
   useEffect(() => {
-    setRate(totalPay > totalPayThreshold ? 0.12 : 0.15);
-  }, [totalPay]);
+    setRate(salary > salaryThreshold ? 0.12 : 0.15);
+  }, [salary]);
 
   useEffect(() => {
     if (myData) {
-      if (myData.securities) {
-        setIrpPayment(myData.securities.IRPDeposit);
-        setPendingPayment(myData.securities.pensionDeposit);
+      if (myData.IRP) {
+        setIRP(myData["IRP"]);
+      }
+      if (myData["연금저축"]) {
+        setPending(myData["연금저축"]);
+      }
+
+      if (myData["남은돈"]) {
+        setRemainPrice(myData["남은돈"]);
       }
     }
-  }, [myData.securities]);
+  }, [myData]);
 
   useEffect(() => {
     setRemainPendingLimitPrice(
       Math.min(
         // 연금저축 세액공제 남은 한도 (irp 납입액 차액)
         pendingLimitPrice,
-        irpLimitPrice - irpPayment
+        irpLimitPrice - irp["납입액"]
       )
     );
-  }, [irpPayment]);
+  }, [irp]);
 
   return (
     <Accordion collapseAll className="m-5">
@@ -69,7 +84,7 @@ export default function PendingAndIRP({ updateTotal, user, myData }) {
               keyword="pending"
               title="연금저축"
               limitPrice={pendingLimitPrice}
-              payment={pendingPayment}
+              data={pending}
               rate={rate}
               remainPendingLimitPrice={remainPendingLimitPrice}
             ></SavingsCalculator>
@@ -78,7 +93,7 @@ export default function PendingAndIRP({ updateTotal, user, myData }) {
               keyword="irp"
               title="IRP"
               limitPrice={irpLimitPrice}
-              payment={irpPayment}
+              data={irp}
               rate={rate}
             ></SavingsCalculator>
           </div>

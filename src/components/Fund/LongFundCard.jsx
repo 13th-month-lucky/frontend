@@ -73,7 +73,7 @@ export default function LongFundCard(props) {
   };
 
   return (
-    <div className="border-t pt-3 pb-3 flex justify-between">
+    <div className="border-b pt-3 pb-3 flex justify-between">
       <div onClick={() => clickCard()} style={{ cursor: "pointer" }}>
         <Risk riskDegree={riskDegree} />
         <p className="text-lg mt-2 font-semibold">{title}</p>

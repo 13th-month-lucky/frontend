@@ -25,8 +25,6 @@ export default function fuindDetailPage() {
 
   const dispatch = useDispatch();
 
-  console.log("code: ", code);
-
   const detailTabs = ["차트", "일별 시세", "종목 정보", "커뮤니티"];
   const detailComponents = [
     <Chart code={code} priceData={priceData} isFund={true} />,

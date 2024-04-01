@@ -5,12 +5,8 @@ import Tip from "~/components/Tip/Tip";
 
 export default function FindOut() {
   return (
-    <div className="">
+    <div className="mb-20">
       <FindOutPage />
-
-      <div className="mt-10 mb-8">
-        <Tip />
-      </div>
     </div>
   );
 }

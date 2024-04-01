@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import SmallFundCard from "./SmallFundCard";
 
@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Autoplay, Mousewheel } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 
 export default function HotFund(props) {
   const rising = props.rising;
@@ -17,12 +17,11 @@ export default function HotFund(props) {
       <div>
         <Swiper
           direction={"vertical"}
-          modules={[Autoplay, Mousewheel]}
+          modules={[Autoplay]}
           className="mySwiper"
           style={{ height: "200px" }}
           loop={true}
           spaceBetween={30}
-          mousewheel={true}
           autoplay={{
             delay: 6000,
             disableOnInteraction: false,

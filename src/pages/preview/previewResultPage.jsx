@@ -56,11 +56,12 @@ export default function PreviewResult() {
     setTaxToPaidMessage(`예상 납부 세금(1년) : ${taxPaid.toLocaleString()}원`);
     setTaxPaidMessage(`내야하는 세금 : ${taxToPaid.toLocaleString()}원`);
 
+    console.log("textpaid: ", taxPaid, yearTaxState);
     // result에 저장
     updateResult(yearTaxState.resultId, {
       낸세금: taxPaid,
     });
-  }, [yearTaxState.salary]);
+  }, [yearTaxState.data.salary]);
 
   return (
     <div className="bg-white h-screen p-4">

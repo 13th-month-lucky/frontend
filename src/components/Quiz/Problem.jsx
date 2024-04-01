@@ -62,14 +62,14 @@ export default function Problem() {
               value={"O"}
               onClick={handleOnClick}
             >
-              O
+              <p className="text-2xl text-bold">O</p>
             </Button>
             <Button
               className="bg-white text-black font-semibold rounded-lg shadow-md w-full h-20 focus:ring-red-300 enabled:hover:bg-red-400 ml-2"
               value={"X"}
               onClick={handleOnClick}
             >
-              X
+              <p className="text-2xl text-bold">X</p>
             </Button>
           </div>
         </div>

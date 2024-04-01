@@ -1,7 +1,17 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function MainLayout() {
+  const userState = useSelector((state) => state.user13th);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userState.userId === "") {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <div
       className="font-['YOON-Gothic-normal'] tracking-wide"

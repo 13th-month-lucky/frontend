@@ -41,10 +41,10 @@ export default function Button(props) {
         if (link == "/preview/main") {
           if (user) {
             if (
-              user.home.address &&
-              user.home.size &&
-              user.age &&
-              user.salary
+              user.home.address !== null &&
+              user.home.size !== null &&
+              user.age !== null &&
+              user.salary !== null
             ) {
               navigate(link);
             } else {

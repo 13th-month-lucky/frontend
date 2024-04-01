@@ -9,14 +9,16 @@ import { FcMusic } from "react-icons/fc";
 export default function QuizMain() {
   return (
     <>
-      <TopBackBar />
+      <TopBackBar
+        title={
+          <div className="flex items-center justify-center">
+            <p className="h2">연말정산 퀴즈</p>
+            <FcMusic size="28" className="mb-1" />
+          </div>
+        }
+      />
 
-      <div className="flex items-center justify-start ml-1 mt-4 mb-2">
-        <p className="h2">연말정산 퀴즈</p>
-        <FcMusic size="28" className="mb-1" />
-      </div>
-
-      <div className="w-full border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 items-center bg-blue-100">
+      <div className="mt-3 w-full border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 items-center bg-blue-100">
         <Problem />
       </div>
     </>

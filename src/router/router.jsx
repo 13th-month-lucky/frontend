@@ -57,6 +57,10 @@ export const mainRoutes = [
         element: <PreviewResultDetailPage />,
       },
       {
+        path: "/preview/result/detail/:resultId",
+        element: <PreviewResultDetailPage />,
+      },
+      {
         path: "/preview/loading",
         element: <PreviewLoading />,
       },
