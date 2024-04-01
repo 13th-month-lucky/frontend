@@ -103,7 +103,7 @@ export default function PreviewSolutionPage() {
   return (
     <>
       <div className="flex flex-col items-center">
-        <h1 className="text-xl font-semibold mb-1 mt-4 text-center">
+        <h1 className="text-xl font-semibold pb-1 pt-4 text-center fixed top-0 bg-white w-full z-10">
           솔루션 이행 시, <br />
           최대{" "}
           <span className="font-bold">
@@ -111,7 +111,8 @@ export default function PreviewSolutionPage() {
           </span>{" "}
           아낄 수 있어요!
         </h1>
-        <div className="text-center mt-2">
+
+        <div className="text-center mt-20">
           <p className="mediumGreyText mb-1 text-base">
             공제를 추가해보세요. <br />
             추가할 때마다 아낄 수 있는 돈이 늘어나요.

@@ -46,7 +46,7 @@ const HotIssue = () => {
   }, []);
 
   return (
-    <>
+    <div className="bg-sky-100 pt-4 pb-4 rounded-xl">
       <style>
         {`
           .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
@@ -62,7 +62,7 @@ const HotIssue = () => {
           }
         `}
       </style>
-      <div className="flex flex-row mt-1 font-medium text-lg pt-4 pl-4">
+      <div className="flex flex-row mt-1 font-medium text-lg pl-4">
         <p className="font-bold mr-1">{hotStock}</p> 포함 ETF
       </div>
       <ScrollMenu onWheel={onWheel} style={{ margin: "0 -1rem" }}>
@@ -80,9 +80,9 @@ const HotIssue = () => {
                   className="flex flex-col"
                   onClick={() => clickCard(etf[0].code)}
                 >
-                  <h5 className="font-bold text-gray-900 dark:text-white">
+                  <p className="text-gray-900 dark:text-white">
                     {etf[0].chart.hts_kor_isnm}
-                  </h5>
+                  </p>
                   <h6 className="font-bold text-red-600">
                     {numberWithCommas(etf[0].chart.chart[0].y)}
                   </h6>
@@ -111,21 +111,26 @@ const HotIssue = () => {
                     children: "p-3",
                   },
                 }}
+                style={{ cursor: "pointer" }}
                 key={index}
               >
                 <div
-                  className="flex flex-col "
-                  onClick={() => clickCard(etf[0].code)}
+                  className="flex flex-col gap-1"
+                  onClick={() => clickCard(item.code)}
                 >
-                  <div className="text-pretty h-12">
-                    <h5 className="font-bold text-gray-900 dark:text-white">
-                      {item.chart.hts_kor_isnm}
-                    </h5>
+
+                  <div className="flex flex-col ">
+                    <div className="text-pretty">
+                      <p className="text-gray-900 dark:text-white truncate">
+                        {item.chart.hts_kor_isnm}
+                      </p>
+                    </div>
+
+                    <h6 className="text-lg font-bold text-red-500">
+                      {numberWithCommas(item.chart.chart[0].y)}원
+                    </h6>
                   </div>
 
-                  <h6 className="font-bold text-red-600">
-                    {numberWithCommas(item.chart.chart[0].y)}
-                  </h6>
                   <div className="h-16 w-48 pb-2">
                     <MyResponsiveLine
                       data={[
@@ -145,7 +150,7 @@ const HotIssue = () => {
           )}
         </div>
       </ScrollMenu>
-    </>
+    </div>
   );
 };
 export default HotIssue;

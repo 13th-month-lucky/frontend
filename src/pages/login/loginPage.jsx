@@ -39,28 +39,29 @@ export default function LoginPage() {
 
   const infos = [
     {
-      title1: "테스트1",
-      title2: "테스트2",
-      subTitle: "서브 테스트",
+      title1: "연말정산",
+      title2: "미리미리 준비하세요",
+      subTitle: "",
       img: previewCapture,
     },
     {
-      title1: "테스트1",
-      title2: "테스트2",
-      subTitle: "서브 테스트",
+      title1: "13월의 월급을 위한",
+      title2: "솔루션 제공",
+      subTitle: "",
+      img: previewCapture,
+    },
+
+    {
+      title1: "나랑 꼭 맞는",
+      title2: "ETF, 펀드 추천",
+      subTitle: "",
       img: recommendCapture,
     },
     {
-      title1: "테스트1",
-      title2: "테스트2",
-      subTitle: "서브 테스트",
+      title1: "재미있게 공부하는",
+      title2: "연말정산",
+      subTitle: "",
       img: quizCapture,
-    },
-    {
-      title1: "테스트1",
-      title2: "테스트2",
-      subTitle: "서브 테스트",
-      img: previewCapture,
     },
   ];
 
@@ -110,7 +111,7 @@ export default function LoginPage() {
         }}
         modules={[Pagination, Autoplay, Mousewheel]}
         className=""
-        style={{ height: "580px" }}
+        style={{ height: "540px" }}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -136,7 +137,7 @@ export default function LoginPage() {
         </SwiperSlide>
       </Swiper>
 
-      <div className="flex justify-center mt-16" style={{ cursor: "pointer" }}>
+      <div className="flex justify-center mt-14" style={{ cursor: "pointer" }}>
         <img
           className="h-10"
           src={loginImg}

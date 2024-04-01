@@ -6,6 +6,7 @@ import Risk from "~/components/ETF/Risk/Risk";
 import { useNavigate } from "react-router";
 import blankLikeIcon from "~/assets/images/detail/blankLikeIcon.png";
 import redLikeIcon from "~/assets/images/detail/redLikeIcon.png";
+import Empty from "~/components/Fund/Empty";
 
 const LikedEtf = ({ selectedDangerDegree, selectedType }) => {
   const [likedEtfCodes, setLikedEtfCodes] = useState([]);
@@ -76,7 +77,9 @@ const LikedEtf = ({ selectedDangerDegree, selectedType }) => {
     navigate("/etf/detail/" + code);
   };
 
-  return (
+  return likedEtfCodes.length === 0 ? (
+    <Empty currentTab={3} />
+  ) : (
     <div>
       {etf.map((item) => {
         const profit = item.chart.profitPercentage;
@@ -89,7 +92,7 @@ const LikedEtf = ({ selectedDangerDegree, selectedType }) => {
           profitStyle += " text-red-500";
         }
 
-        return (
+        return likedEtfCodes.includes(item.code) ? (
           <div key={item.code} style={{ cursor: "pointer" }} className="pb-2">
             <div
               className="border-t pt-4 pb-3 flex justify-between gap-4"
@@ -133,29 +136,18 @@ const LikedEtf = ({ selectedDangerDegree, selectedType }) => {
                   </p>
                 </div>
 
-                {likedEtfCodes.includes(item.code) ? (
-                  <div className="mt-4 flex justify-end">
-                    <img
-                      src={redLikeIcon}
-                      className="h-8"
-                      onClick={() => toggleLike(item.code)}
-                      alt="Dislike Button"
-                    />
-                  </div>
-                ) : (
-                  <div className="mt-4 flex justify-end">
-                    <img
-                      src={blankLikeIcon}
-                      className="h-8"
-                      onClick={() => toggleLike(item.code)}
-                      alt="Like Button"
-                    />
-                  </div>
-                )}
+                <div className="mt-4 flex justify-end">
+                  <img
+                    src={redLikeIcon}
+                    className="h-8"
+                    onClick={() => toggleLike(item.code)}
+                    alt="Dislike Button"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        );
+        ) : null;
       })}
     </div>
   );
