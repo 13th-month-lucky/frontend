@@ -65,24 +65,29 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
 
   //주택 공제 결과 계산 함수
   const houseResultCalculate = () => {
-    const MAX_HOUSING_DEPOSIT = 3000000;
+    const MAX_HOUSING_DEPOSIT = 2400000; // 주택청약공제
     const MAX_LOAN_AMOUNT = 4000000;
     const LOAN_PERCENTAGE = 0.4;
 
-    let promise = Math.min(housingDeposit, MAX_HOUSING_DEPOSIT);
-    let loanAmount = loan * LOAN_PERCENTAGE;
-    let promiseAmount = promise * 12 * LOAN_PERCENTAGE;
+    let promiseAmount = Math.min(
+      housingDeposit * 12 * LOAN_PERCENTAGE,
+      MAX_HOUSING_DEPOSIT
+    ); //주택청약 공제금 => 공제한도 240만원이랑, 실제 공제금이랑 비교해서 작4은거 리턴
+    let loanAmount = Math.min(
+      loan * LOAN_PERCENTAGE,
+      MAX_LOAN_AMOUNT - promiseAmount
+    ); //대출 공제금 => 400만원-주택청약 공제금 vs 대출공제금 중에 작은걸로 리턴
     let result = 0;
 
     if (yearTax.data.salary <= 70000000) {
       result = Math.min(promiseAmount + loanAmount, MAX_LOAN_AMOUNT);
       setHousingDepositResult(promiseAmount);
+      console.log("house", housingDepositResult);
       setLoanResult(Math.min(loanAmount, MAX_LOAN_AMOUNT));
     } else {
       result = Math.min(loanAmount, MAX_LOAN_AMOUNT);
       setLoanResult(Math.min(loanAmount, MAX_LOAN_AMOUNT));
     }
-
     setHouseTotalResult(result);
     updateTotal("house", result);
   };
@@ -135,7 +140,9 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
                     </p>
                   </div>
                 ) : null}
-                {checkYearly && checkLoan ? (
+                {checkYearly &&
+                checkLoan &&
+                (housingDepositResult !== 0 || loanResult !== 0) ? (
                   <>
                     <div className="flex items-center ml-2 mb-2">
                       <p>
@@ -145,9 +152,22 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
                     </div>
                     <div>
                       <HouseProgressBar
-                        value1={housingDepositResult}
-                        value2={loanResult}
+                        housingDeposit={housingDepositResult}
+                        loanResult={loanResult}
                       />
+                    </div>
+                  </>
+                ) : null}
+                {checkYearly &&
+                checkLoan &&
+                housingDepositResult === 0 &&
+                loanResult === 0 ? (
+                  <>
+                    <div className="flex items-center ml-2 mb-2">
+                      <p>
+                        주택청약금과 전세대출금이 없어서 <br />
+                        공제 금액이 없어요 🧐
+                      </p>
                     </div>
                   </>
                 ) : null}

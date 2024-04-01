@@ -4,6 +4,7 @@ import TopBackBar from "~/components/TopBackBar/TopBackBar";
 import HotFund from "~/components/Fund/HotFund";
 import DetailTabBar from "~/components/ETF/Detail/DetailTabBar";
 import Funds from "~/components/Fund/Funds";
+import Empty from "~/components/Fund/Empty";
 
 import { getAllFund } from "~/lib/apis/fund";
 import { useSelector } from "react-redux";
@@ -142,16 +143,18 @@ export default function fundMainPage() {
         <></>
       )}
 
-      <DetailTabBar
-        detailTabs={detailTabs}
-        currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
-      />
+      <div className="mt-4">
+        <DetailTabBar
+          detailTabs={detailTabs}
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
+        />
+      </div>
 
-      {funds ? (
+      {funds[currentTab].length > 0 ? (
         <Funds funds={funds[currentTab]} currentTab={currentTab} />
       ) : (
-        <></>
+        <Empty currentTab={currentTab} />
       )}
     </div>
   );
