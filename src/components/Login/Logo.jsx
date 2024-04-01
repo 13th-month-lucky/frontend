@@ -5,7 +5,7 @@ import logoImg from "~/assets/images/logo.png";
 export default function Logo() {
   return (
     <div className="flex flex-col items-center">
-      <div className="text-2xl font-bold text-center mt-32">
+      <div className="text-2xl font-bold text-center mt-24">
         <p>
           13월에도
           <br />

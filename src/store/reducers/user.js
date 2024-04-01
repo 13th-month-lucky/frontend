@@ -30,7 +30,9 @@ const userSlice = createSlice({
       return initialState;
     },
     pushEtfHistory(state, action) {
-      state.etfHistory.push(action.payload);
+      if (!state.etfHistory.includes(action.payload)) {
+        state.etfHistory.unshift(action.payload);
+      }
     },
     pushFundHistory(state, action) {
       state.fundHistory.push(action.payload);

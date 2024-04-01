@@ -6,6 +6,7 @@ import MyResponsiveLine from "~/components/ETF/Main/MyResponsiveLine";
 import Risk from "~/components/ETF/Risk/Risk";
 import blankLikeIcon from "~/assets/images/detail/blankLikeIcon.png";
 import redLikeIcon from "~/assets/images/detail/redLikeIcon.png";
+import Empty from "~/components/Fund/Empty";
 
 const RecentETF = ({ selectedDangerDegree, selectedType }) => {
   const [likedEtfCodes, setLikedEtfCodes] = useState([]);
@@ -80,7 +81,9 @@ const RecentETF = ({ selectedDangerDegree, selectedType }) => {
 
   return (
     <div>
-      {userState.etfHistory &&
+      {userState.etfHistory && userState.etfHistory.length === 0 ? (
+        <Empty currentTab={4} />
+      ) : (
         userState.etfHistory.map((code) => {
           const item = etf.find((etfItem) => etfItem.code === code);
           if (!item) return null;
@@ -165,7 +168,8 @@ const RecentETF = ({ selectedDangerDegree, selectedType }) => {
               </div>
             </div>
           );
-        })}
+        })
+      )}
     </div>
   );
 };
