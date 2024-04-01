@@ -89,7 +89,7 @@ const LikedEtf = ({ selectedDangerDegree, selectedType }) => {
           profitStyle += " text-red-500";
         }
 
-        return (
+        return likedEtfCodes.includes(item.code) ? (
           <div key={item.code} style={{ cursor: "pointer" }} className="pb-2">
             <div
               className="border-t pt-4 pb-3 flex justify-between gap-4"
@@ -133,29 +133,18 @@ const LikedEtf = ({ selectedDangerDegree, selectedType }) => {
                   </p>
                 </div>
 
-                {likedEtfCodes.includes(item.code) ? (
-                  <div className="mt-4 flex justify-end">
-                    <img
-                      src={redLikeIcon}
-                      className="h-8"
-                      onClick={() => toggleLike(item.code)}
-                      alt="Dislike Button"
-                    />
-                  </div>
-                ) : (
-                  <div className="mt-4 flex justify-end">
-                    <img
-                      src={blankLikeIcon}
-                      className="h-8"
-                      onClick={() => toggleLike(item.code)}
-                      alt="Like Button"
-                    />
-                  </div>
-                )}
+                <div className="mt-4 flex justify-end">
+                  <img
+                    src={redLikeIcon}
+                    className="h-8"
+                    onClick={() => toggleLike(item.code)}
+                    alt="Dislike Button"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        );
+        ) : null;
       })}
     </div>
   );
