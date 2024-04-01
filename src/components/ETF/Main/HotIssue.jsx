@@ -116,7 +116,7 @@ const HotIssue = () => {
               >
                 <div
                   className="flex flex-col gap-1"
-                  onClick={() => clickCard(etf[0].code)}
+                  onClick={() => clickCard(item.code)}
                 >
                   <div className="flex flex-col ">
                     <div className="text-pretty">
