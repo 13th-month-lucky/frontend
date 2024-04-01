@@ -1,0 +1,8 @@
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* 화면 전체 너비에 맞게 설정 */
+  background-color: white; /* 배경색을 원하는 색으로 설정 */
+  z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+}

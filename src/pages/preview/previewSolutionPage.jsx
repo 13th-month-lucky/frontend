@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { getMyData } from "~/lib/apis/myData";
 import { updateResult } from "~/lib/apis/result";
 import { getEITC, getTax, getTotalValue } from "~/lib/utils/calculator";
+import "./previewSolution.css";
 
 export default function PreviewSolutionPage() {
   const [eitc, setEITC] = useState(0); // 근로소득공제
@@ -102,8 +103,8 @@ export default function PreviewSolutionPage() {
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        <h1 className="text-xl font-semibold pb-1 pt-4 text-center fixed top-0 bg-white w-full z-10">
+      <div className="flex flex-col items-center fixed-header">
+        <h1 className="text-xl font-semibold mb-1 mt-4 text-center">
           솔루션 이행 시, <br />
           최대{" "}
           <span className="font-bold">
@@ -119,11 +120,13 @@ export default function PreviewSolutionPage() {
           </p>
         </div>
       </div>
-      <CardComponent updateTotal={updateTotal} myData={mydata} />
-      <PersonComponent updateTotal={updateTotal} myData={mydata} />
-      <MonthAndHouse updateTotal={updateTotal} myData={mydata} />
-      <SmallBusiness updateTotal={updateTotal} myData={mydata} />
-      <PendingAndIRP updateTotal={updateTotal} myData={mydata} />
+      <div style={{ marginTop: "9.5rem" }}>
+        <CardComponent updateTotal={updateTotal} myData={mydata} />
+        <PersonComponent updateTotal={updateTotal} myData={mydata} />
+        <MonthAndHouse updateTotal={updateTotal} myData={mydata} />
+        <SmallBusiness updateTotal={updateTotal} myData={mydata} />
+        <PendingAndIRP updateTotal={updateTotal} myData={mydata} />
+      </div>
       <div className="flex justify-center">
         <BlueButton
           text="결과 확인하기"

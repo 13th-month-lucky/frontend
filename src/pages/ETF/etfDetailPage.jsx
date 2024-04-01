@@ -9,6 +9,7 @@ import Chart from "~/components/ETF/Detail/Chart/Chart";
 import DailyPrice from "~/components/ETF/Detail/DailyPrice/DailyPrice";
 import StockInfo from "~/components/ETF/Detail/StockInfo/StockInfo";
 import Community from "~/components/ETF/Detail/Community/Community";
+import News from "~/components/ETF/Detail/News";
 import { useParams } from "react-router";
 
 import { getEtfInfo, getEtfPriceData } from "~/lib/apis/etfDetail";
@@ -40,11 +41,12 @@ export default function etfDetailPage() {
     dispatch(pushEtfHistory(code));
   }, []);
 
-  const detailTabs = ["차트", "일별 시세", "종목 정보", "커뮤니티"];
+  const detailTabs = ["차트", "일별 시세", "종목 정보", "뉴스", "커뮤니티"];
   const detailComponents = [
     <Chart code={code} priceData={priceData} />,
     <DailyPrice code={code} priceData={priceData} />,
     <StockInfo code={code} stockInfo={stockInfo} ratio={ratio} />,
+    <News code={code} />,
     <Community code={code} />,
   ];
 

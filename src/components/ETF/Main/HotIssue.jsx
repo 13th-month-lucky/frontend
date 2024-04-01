@@ -118,6 +118,7 @@ const HotIssue = () => {
                   className="flex flex-col gap-1"
                   onClick={() => clickCard(item.code)}
                 >
+
                   <div className="flex flex-col ">
                     <div className="text-pretty">
                       <p className="text-gray-900 dark:text-white truncate">
