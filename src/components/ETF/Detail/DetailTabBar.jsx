@@ -20,7 +20,7 @@ export default function DetailTabBar(props) {
         return (
           <>
             <div
-              key={ele}
+              key={idx}
               className={tabClass}
               onClick={() => {
                 setCurrentTab(idx);

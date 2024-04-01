@@ -33,7 +33,7 @@ const CardComponent = ({ updateTotal, myData }) => {
 
   useEffect(() => {
     setSalary(yearTaxState.data.salary);
-  }, [yearTaxState.salary]);
+  }, [yearTaxState.data.salary]);
 
   useEffect(() => {
     if (myData) {

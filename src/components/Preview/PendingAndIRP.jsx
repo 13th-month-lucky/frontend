@@ -31,7 +31,7 @@ export default function PendingAndIRP({ updateTotal, myData }) {
 
   useEffect(() => {
     setSalary(yearTaxState.data.salary);
-  }, [yearTaxState.salary]);
+  }, [yearTaxState.data.salary]);
 
   useEffect(() => {
     setRate(salary > salaryThreshold ? 0.12 : 0.15);

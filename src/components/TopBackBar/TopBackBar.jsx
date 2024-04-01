@@ -15,7 +15,7 @@ export default function TopBackBar({ title = null }) {
         style={{ cursor: "pointer" }}
       ></img>
 
-      {title && <p className="h2 flex-grow text-center">{title}</p>}
+      {title && <p className="h3 flex-grow text-center">{title}</p>}
     </div>
   );
 }

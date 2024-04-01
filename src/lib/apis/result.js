@@ -33,6 +33,7 @@ export const updateResult = async (resultId, newData) => {
       data: newData,
     };
     const resp = await axios.put(url, body);
+    console.log(resp);
     return resp.data;
   } catch (err) {
     console.log(err);

@@ -78,8 +78,6 @@ const RecentETF = ({ selectedDangerDegree, selectedType }) => {
     navigate("/etf/detail/" + code);
   };
 
-  console.log(userState.etfHistory);
-
   return (
     <div>
       {userState.etfHistory &&
