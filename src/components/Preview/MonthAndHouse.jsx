@@ -136,7 +136,8 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
                   <div className="flex items-center ml-2 mb-2">
                     <p>
                       월세 공제 시,
-                      <br /> 약 {monthResult}원 돌려받을 수 있어요!
+                      <br /> 약 {monthResult.toLocaleString()}원 돌려받을 수
+                      있어요!
                     </p>
                   </div>
                 ) : null}
@@ -146,8 +147,9 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
                   <>
                     <div className="flex items-center ml-2 mb-2">
                       <p>
-                        전세 대출 공제 시, <br /> 약 {houseTotalResult}원
-                        돌려받을 수 있어요!
+                        전세 대출 공제 시, <br /> 약{" "}
+                        {houseTotalResult.toLocaleString()}원 돌려받을 수
+                        있어요!
                       </p>
                     </div>
                     <div>

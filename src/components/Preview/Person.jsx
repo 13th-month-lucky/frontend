@@ -96,7 +96,7 @@ function PersonComponent({ updateTotal }) {
             <div className="flex items-center ml-2 mb-2">
               <p>
                 인적 공제 시,
-                <br /> 약 {result}원 돌려받을 수 있어요!
+                <br /> 약 {result.toLocaleString()}원 돌려받을 수 있어요!
               </p>
             </div>
           ) : null}
