@@ -92,7 +92,7 @@ export default function LongFundCard(props) {
         </div>
 
         <div onClick={() => clickCard()} style={{ cursor: "pointer" }}>
-          <p className="text-sm text-right">{optionTitle}</p>
+          <p className="text-sm text-right text-gray-500">{optionTitle}</p>
           <p className={optionStyle}>{optionValue}</p>
         </div>
       </div>

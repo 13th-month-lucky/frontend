@@ -112,7 +112,8 @@ export default function PreviewSolutionPage() {
           </span>{" "}
           아낄 수 있어요!
         </h1>
-        <div className="text-center mt-2">
+
+        <div className="text-center mt-20">
           <p className="mediumGreyText mb-1 text-base">
             공제를 추가해보세요. <br />
             추가할 때마다 아낄 수 있는 돈이 늘어나요.
