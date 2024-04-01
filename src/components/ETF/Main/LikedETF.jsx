@@ -6,6 +6,7 @@ import Risk from "~/components/ETF/Risk/Risk";
 import { useNavigate } from "react-router";
 import blankLikeIcon from "~/assets/images/detail/blankLikeIcon.png";
 import redLikeIcon from "~/assets/images/detail/redLikeIcon.png";
+import Empty from "~/components/Fund/Empty";
 
 const LikedEtf = ({ selectedDangerDegree, selectedType }) => {
   const [likedEtfCodes, setLikedEtfCodes] = useState([]);
@@ -76,7 +77,9 @@ const LikedEtf = ({ selectedDangerDegree, selectedType }) => {
     navigate("/etf/detail/" + code);
   };
 
-  return (
+  return likedEtfCodes.length === 0 ? (
+    <Empty currentTab={3} />
+  ) : (
     <div>
       {etf.map((item) => {
         const profit = item.chart.profitPercentage;
