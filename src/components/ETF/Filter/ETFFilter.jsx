@@ -88,7 +88,7 @@ const ETFFilter = ({ onTypeSelect, onDangerDegreeChange }) => {
           {buttons.map((button) => (
             <Button
               key={button.id}
-              className={`text-sm font-light mx-1 w-32 disenabled:hover:bg-light-200 ${
+              className={`mx-1 w-32 disenabled:hover:bg-light-200 ${
                 selected === button.id ? "" : "bg-light-200"
               }`}
               color={selected === button.id ? button.color : "light"}
