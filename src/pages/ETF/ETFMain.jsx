@@ -42,12 +42,10 @@ const ETFMain = () => {
         {/* 전체 */}
         {currentTab === 0 && (
           <>
-            <div className="py-1">
-              <ETFFilter
-                onTypeSelect={handleTypeSelect}
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-            </div>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
 
             <div className="mb-4">
               <ALLETF

@@ -47,7 +47,7 @@ const ETFFilter = ({ onTypeSelect, onDangerDegreeChange }) => {
   ];
 
   return (
-    <>
+    <div className="py-1">
       <style>
         {`
           .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
@@ -100,7 +100,7 @@ const ETFFilter = ({ onTypeSelect, onDangerDegreeChange }) => {
           ))}
         </ScrollMenu>
       </div>
-    </>
+    </div>
   );
 };
 
