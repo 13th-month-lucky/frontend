@@ -31,9 +31,8 @@ const ETFMain = () => {
     <div>
       <TopBackBar title="ETF 추천" />
 
-      <div className="bg-sky-100 rounded-xl">
-        <HotIssue />
-      </div>
+      <HotIssue />
+
       <div className="bg-white mt-2">
         <DetailTabBar
           detailTabs={detailTabs}
@@ -43,10 +42,13 @@ const ETFMain = () => {
         {/* 전체 */}
         {currentTab === 0 && (
           <>
-            <ETFFilter
-              onTypeSelect={handleTypeSelect}
-              onDangerDegreeChange={handleDangerDegreeChange}
-            />
+            <div className="py-1">
+              <ETFFilter
+                onTypeSelect={handleTypeSelect}
+                onDangerDegreeChange={handleDangerDegreeChange}
+              />
+            </div>
+
             <div className="mb-4">
               <ALLETF
                 selectedDangerDegree={selectedDangerDegree}
