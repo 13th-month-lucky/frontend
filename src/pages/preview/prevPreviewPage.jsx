@@ -20,6 +20,13 @@ export default function prevPreviewPage() {
 
   useEffect(() => {
     getAllResult(userState.userId).then((resp) => {
+      resp = resp.filter(
+        (result) =>
+          result.data.돌려받는돈 !== undefined &&
+          result.data.총급여 !== undefined &&
+          result.data.돌려받는돈 !== null &&
+          result.data.총급여 !== null
+      );
       const formattedResultList = resp.map((result) => {
         return {
           id: result._id,
