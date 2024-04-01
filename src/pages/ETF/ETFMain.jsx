@@ -31,91 +31,90 @@ const ETFMain = () => {
     <div>
       <TopBackBar title="ETF 추천" />
 
-      <div className="bg-blue-100 rounded-xl">
+      <div className="bg-sky-100 rounded-xl">
         <HotIssue />
-
-        <div className="bg-white mt-2">
-          <DetailTabBar
-            detailTabs={detailTabs}
-            currentTab={currentTab}
-            setCurrentTab={setCurrentTab}
-          />
-          {/* 전체 */}
-          {currentTab === 0 && (
-            <>
-              <ETFFilter
-                onTypeSelect={handleTypeSelect}
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-              <div className="mb-4">
-                <ALLETF
-                  selectedDangerDegree={selectedDangerDegree}
-                  selectedType={selectedType}
-                />
-              </div>
-            </>
-          )}
-          {/* 거래량 */}
-          {currentTab === 1 && (
-            <>
-              <ETFFilter
-                onTypeSelect={handleTypeSelect}
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-              <div className="mb-4">
-                <VolumeETF
-                  selectedDangerDegree={selectedDangerDegree}
-                  selectedType={selectedType}
-                />
-              </div>
-            </>
-          )}
-          {/* 시가총액 */}
-          {currentTab === 2 && (
-            <>
-              <ETFFilter
-                onTypeSelect={handleTypeSelect}
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-              <div className="mb-4">
-                <CapitalizationETF
-                  selectedDangerDegree={selectedDangerDegree}
-                  selectedType={selectedType}
-                />
-              </div>
-            </>
-          )}
-          {/* 관심 */}
-          {currentTab === 3 && (
-            <>
-              <ETFFilter
-                onTypeSelect={handleTypeSelect}
-                onDangerDegreeChange={handleDangerDegreeChange}
-              />
-
-              <LikedEtf
+      </div>
+      <div className="bg-white mt-2">
+        <DetailTabBar
+          detailTabs={detailTabs}
+          currentTab={currentTab}
+          setCurrentTab={setCurrentTab}
+        />
+        {/* 전체 */}
+        {currentTab === 0 && (
+          <>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
+            <div className="mb-4">
+              <ALLETF
                 selectedDangerDegree={selectedDangerDegree}
                 selectedType={selectedType}
               />
-            </>
-          )}
-
-          {/* 최근 */}
-          {currentTab === 4 && (
-            <>
-              <ETFFilter
-                onTypeSelect={handleTypeSelect}
-                onDangerDegreeChange={handleDangerDegreeChange}
+            </div>
+          </>
+        )}
+        {/* 거래량 */}
+        {currentTab === 1 && (
+          <>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
+            <div className="mb-4">
+              <VolumeETF
+                selectedDangerDegree={selectedDangerDegree}
+                selectedType={selectedType}
               />
-              <div className="mb-4">
-                <RecentETF
-                  selectedDangerDegree={selectedDangerDegree}
-                  selectedType={selectedType}
-                />
-              </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
+        {/* 시가총액 */}
+        {currentTab === 2 && (
+          <>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
+            <div className="mb-4">
+              <CapitalizationETF
+                selectedDangerDegree={selectedDangerDegree}
+                selectedType={selectedType}
+              />
+            </div>
+          </>
+        )}
+        {/* 관심 */}
+        {currentTab === 3 && (
+          <>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
+
+            <LikedEtf
+              selectedDangerDegree={selectedDangerDegree}
+              selectedType={selectedType}
+            />
+          </>
+        )}
+
+        {/* 최근 */}
+        {currentTab === 4 && (
+          <>
+            <ETFFilter
+              onTypeSelect={handleTypeSelect}
+              onDangerDegreeChange={handleDangerDegreeChange}
+            />
+            <div className="mb-4">
+              <RecentETF
+                selectedDangerDegree={selectedDangerDegree}
+                selectedType={selectedType}
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
