@@ -6,6 +6,8 @@ import "moment/locale/ko";
 import Address from "~/components/Preview/Address";
 import { getAge, getEITC } from "~/lib/utils/calculator";
 import { useNavigate } from "react-router";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function MyPage() {
   const userState = useSelector((state) => state.user13th);
@@ -126,20 +128,20 @@ export default function MyPage() {
 
         <div className="flex justify-between">
           <div className="font-bold">생일</div>
-
           {isEditing ? (
-            <Datepicker
-              onSelectedDateChanged={(date) => {
+            <DatePicker
+              selected={
+                editedUserInfo.birthday
+                  ? new Date(editedUserInfo.birthday)
+                  : null
+              }
+              onChange={(date) => {
                 setEditedUserInfo((prev) => ({
                   ...prev,
-                  birthday: date.toLocaleDateString(),
-                  age: getAge(date),
+                  birthday: date ? date.toLocaleDateString() : "",
+                  age: date ? getAge(date) : 0,
                 }));
               }}
-              language="kr"
-              weekStart={1}
-              // defaultValue={"2024-03-25"}
-              value={editedUserInfo.birthday}
             />
           ) : (
             <div>
@@ -149,7 +151,6 @@ export default function MyPage() {
             </div>
           )}
         </div>
-
         <div className="flex justify-between">
           <div className="font-bold">이메일</div>
 
