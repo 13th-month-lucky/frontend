@@ -111,21 +111,25 @@ const HotIssue = () => {
                     children: "p-3",
                   },
                 }}
+                style={{ cursor: "pointer" }}
                 key={index}
               >
                 <div
-                  className="flex flex-col "
+                  className="flex flex-col gap-1"
                   onClick={() => clickCard(etf[0].code)}
                 >
-                  <div className="text-pretty h-12">
-                    <h5 className="font-bold text-gray-900 dark:text-white">
-                      {item.chart.hts_kor_isnm}
-                    </h5>
+                  <div className="flex flex-col ">
+                    <div className="text-pretty">
+                      <p className="text-gray-900 dark:text-white truncate">
+                        {item.chart.hts_kor_isnm}
+                      </p>
+                    </div>
+
+                    <h6 className="text-lg font-bold text-red-500">
+                      {numberWithCommas(item.chart.chart[0].y)}원
+                    </h6>
                   </div>
 
-                  <h6 className="font-bold text-red-600">
-                    {numberWithCommas(item.chart.chart[0].y)}
-                  </h6>
                   <div className="h-16 w-48 pb-2">
                     <MyResponsiveLine
                       data={[
