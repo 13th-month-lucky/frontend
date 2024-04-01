@@ -3,6 +3,9 @@ import moneyBagImg from "~/assets/images/preview/money-bag.png";
 import React, { useEffect, useState } from "react";
 import SavingsCalculator from "~/components/Preview/SavingsCalculator";
 import { useSelector } from "react-redux";
+import GrayButton from "../Button/GrayButton";
+import BlueButton from "../Button/BlueButton";
+import WhiteButton from "../Button/WhiteButton";
 
 export default function PendingAndIRP({ updateTotal, myData }) {
   const yearTaxState = useSelector((state) => state.yearTax);
@@ -65,7 +68,14 @@ export default function PendingAndIRP({ updateTotal, myData }) {
   return (
     <Accordion collapseAll className="m-5">
       <Accordion.Panel>
-        <Accordion.Title className="flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left text-xl text-black-500 dark:text-gray-400 hover:bg-blue-100 focus:ring-4 focus:ring-blue-200 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+        <Accordion.Title
+          className="flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left text-xl text-black-500 dark:text-gray-400 hover:bg-blue-100 focus:ring-4 focus:ring-blue-200 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
+          theme={{
+            open: {
+              on: "bg-blue-100",
+            },
+          }}
+        >
           <div className="flex flex-row align-center">
             <img src={moneyBagImg} className="w-10 h-10 mt-1" />
             <h2 className="ml-2 mt-2">연금저축 및 IRP 추가하기</h2>
@@ -96,6 +106,19 @@ export default function PendingAndIRP({ updateTotal, myData }) {
               data={irp}
               rate={rate}
             ></SavingsCalculator>
+
+            <div className="flex items-center justify-center gap-5">
+              <WhiteButton
+                text="ETF
+투자하기"
+                destination="/etf/main"
+              />
+              <WhiteButton
+                text="펀드
+투자하기"
+                destination="/fund/main"
+              />
+            </div>
           </div>
         </Accordion.Content>
       </Accordion.Panel>

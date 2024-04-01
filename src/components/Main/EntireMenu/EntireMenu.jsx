@@ -8,7 +8,7 @@ import {
   FcBullish,
   FcIdea,
   FcOnlineSupport,
-  FcExport,
+  FcUnlock,
   FcReading,
   FcBriefcase,
   FcHome,
@@ -66,7 +66,17 @@ export default function EntireMenu(props) {
   ];
 
   return (
-    <div className="mt-4">
+    <div className="">
+      <div className="w-full h-16 bg-blue-50 flex items-center justify-center">
+        <div
+          className="m-4 border rounded-xl h-10 w-60 flex items-center justify-center bg-white hover:bg-blue-200"
+          style={{ cursor: "pointer" }}
+          onClick={() => alert("준비중입니다!")}
+        >
+          <p className="font-semibold">마이데이터 연결하기</p>
+        </div>
+      </div>
+
       {menus.map((ele, idx) => (
         <div
           key={ele.title}
@@ -93,7 +103,7 @@ export default function EntireMenu(props) {
         style={{ cursor: "pointer" }}
         className={divStyle}
       >
-        <FcExport className={iconStyle} />
+        <FcUnlock className={iconStyle} />
         <p className={parStyle}>로그아웃</p>
       </div>
 

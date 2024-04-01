@@ -5,6 +5,11 @@ import HouseProgressBar from "./HouseProgressBar";
 import { useSelector } from "react-redux";
 
 const MonthAndHouse = ({ updateTotal, myData }) => {
+  const [state, setState] = React.useState({
+    monthly: false,
+    yearly: true,
+  });
+
   const [checkLoan, setCheckLoan] = useState(false);
   const [checkMonthly, setCheckMonthly] = useState(false); // 월세 체크
   const [checkYearly, setCheckYearly] = useState(false); // 전세 체크
@@ -121,7 +126,14 @@ const MonthAndHouse = ({ updateTotal, myData }) => {
       <div>
         <Accordion collapseAll className="m-5">
           <Accordion.Panel>
-            <Accordion.Title className="flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left text-xl text-black-500 dark:text-gray-400 hover:bg-blue-100 focus:ring-4 focus:ring-blue-200 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+            <Accordion.Title
+              className="flex w-full items-center justify-between first:rounded-t-lg last:rounded-b-lg py-5 px-5 text-left text-xl text-black-500 dark:text-gray-400 hover:bg-blue-100 focus:ring-4 focus:ring-blue-200 dark:hover:bg-gray-800 dark:focus:ring-gray-800 "
+              theme={{
+                open: {
+                  on: "bg-blue-100",
+                },
+              }}
+            >
               <div className="flex flex-row">
                 <img src={houseImg} className="w-10 h-10" />
                 <h2 className="ml-2 mb-1">

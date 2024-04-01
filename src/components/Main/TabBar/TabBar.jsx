@@ -27,7 +27,10 @@ export default function TabBar(props) {
   let tabClassName = "max-h-full h-8";
 
   return (
-    <div className="fixed bottom-0 h-16" style={{ width: "400px" }}>
+    <div
+      className="fixed bottom-0 h-16 bg-white z-10"
+      style={{ width: "400px" }}
+    >
       <div className="flex justify-between h-full rounded-tl-lg rounded-tr-lg shadow-inner w-full bg-white">
         {tabs.map((ele, idx) => {
           let textColor = "text-gray-500";
