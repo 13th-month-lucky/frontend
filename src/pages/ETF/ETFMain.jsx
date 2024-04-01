@@ -33,7 +33,7 @@ const ETFMain = () => {
 
       <HotIssue />
 
-      <div className="bg-white mt-2">
+      <div className="bg-white mt-3">
         <DetailTabBar
           detailTabs={detailTabs}
           currentTab={currentTab}
