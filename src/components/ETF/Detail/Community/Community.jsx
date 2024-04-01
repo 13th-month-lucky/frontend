@@ -7,17 +7,26 @@ import { getComment } from "~/lib/apis/comment";
 
 export default function Community(props) {
   const code = props.code;
+  const isFund = props.isFund;
 
   const [writings, setWritings] = useState([]);
+  const [nextUrl, setNextUrl] = useState("");
 
-  const getAndSetComment = () => {
+  useEffect(() => {
     getComment(code).then((resp) => {
       setWritings(resp);
     });
-  };
 
-  useEffect(() => {
-    getAndSetComment();
+    let nextUrl = "/";
+    if (isFund) {
+      nextUrl += "fund";
+    } else {
+      nextUrl += "etf";
+    }
+
+    nextUrl += "/detail/" + code + "/3";
+
+    setNextUrl(nextUrl);
   }, []);
 
   return (
@@ -25,7 +34,7 @@ export default function Community(props) {
       <p className="text-md m-1">
         <span className="font-bold">{writings.length}</span>개의 댓글
       </p>
-      <Input code={code} depth={0} getAndSetComment={getAndSetComment} />
+      <Input code={code} depth={0} isFund={true} nextUrl={nextUrl} />
 
       {writings.map((ele, idx) => (
         <Writing
@@ -33,7 +42,7 @@ export default function Community(props) {
           writing={ele}
           code={code}
           depth={0}
-          getAndSetComment={getAndSetComment}
+          nextUrl={nextUrl}
         />
       ))}
     </div>

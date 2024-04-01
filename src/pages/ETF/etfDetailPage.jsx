@@ -25,9 +25,13 @@ export default function etfDetailPage() {
   const [priceData, setPriceData] = useState([]);
   const [ratio, setRatio] = useState();
 
-  const { code } = useParams();
+  const { code, tab } = useParams();
 
   useEffect(() => {
+    if (tab == 3) {
+      setCurrentTab(3);
+    }
+
     getEtfPriceData(code).then((resp) => {
       const prices = resp[0].chart.output2;
       setPriceData(prices);

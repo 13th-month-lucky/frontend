@@ -18,6 +18,8 @@ export default function Writing(props) {
   const writing = props.writing;
   const getAndSetComment = props.getAndSetComment;
   const depth = props.depth;
+  const nextUrl = props.nextUrl;
+
   const userState = useSelector((state) => state.user13th);
 
   const [isLiked, setIsLiked] = useState(false);
@@ -41,7 +43,7 @@ export default function Writing(props) {
 
   const clickDeleteBtn = () => {
     deleteComment(writing._id);
-    getAndSetComment();
+    window.location.href = nextUrl;
   };
 
   return (
@@ -58,6 +60,7 @@ export default function Writing(props) {
             onClick={() => {
               clickDeleteBtn();
             }}
+            style={{ cursor: "pointer" }}
           >
             삭제
           </p>
@@ -96,7 +99,9 @@ export default function Writing(props) {
         {openComment ? (
           <div>
             {writing.replyIds.map((ele, idx) => {
-              return <Writing key={idx} writing={ele} depth={1} />;
+              return (
+                <Writing key={idx} writing={ele} depth={1} nextUrl={nextUrl} />
+              );
             })}
 
             <Input
@@ -104,6 +109,7 @@ export default function Writing(props) {
               depth={1}
               getAndSetComment={getAndSetComment}
               commentId={writing._id}
+              nextUrl={nextUrl}
             />
           </div>
         ) : (

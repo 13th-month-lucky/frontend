@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function fuindDetailPage() {
   const userState = useSelector((state) => state.user13th);
 
-  const { code } = useParams();
+  const { code, tab } = useParams();
   const [fundInfo, setFundInfo] = useState();
   const [currentTab, setCurrentTab] = useState(0);
   const [priceData, setPriceData] = useState([]);
@@ -30,10 +30,14 @@ export default function fuindDetailPage() {
     <Chart code={code} priceData={priceData} isFund={true} />,
     <DailyPrice code={code} priceData={priceData} isFund={true} />,
     <StockInfo code={code} stockInfo={infoData} ratio={ratio} isFund={true} />,
-    <Community code={code} />,
+    <Community code={code} isFund={true} />,
   ];
 
   useEffect(() => {
+    if (tab == 3) {
+      setCurrentTab(3);
+    }
+
     getFundInfo(code).then((resp) => {
       setFundInfo(resp);
       setPriceData(resp.basePrice);

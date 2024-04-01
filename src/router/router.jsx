@@ -77,12 +77,20 @@ export const mainRoutes = [
         element: <ETFMain />,
       },
       {
+        path: "/etf/detail/:code/:tab",
+        element: <EtfDetailPage />,
+      },
+      {
         path: "/etf/detail/:code",
         element: <EtfDetailPage />,
       },
       {
         path: "/initialInfo",
         element: <InitialInfo />,
+      },
+      {
+        path: "/fund/detail/:code/:tab",
+        element: <FundDetailPage />,
       },
       {
         path: "/fund/detail/:code",

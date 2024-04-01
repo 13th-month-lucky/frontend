@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import WriterInfo from "./WriterInfo";
 
 import { publishComment, pushReplyIds } from "~/lib/apis/comment";
+import { useLocation, useNavigate } from "react-router";
 
 export default function Input(props) {
   const code = props.code;
   const depth = props.depth;
-  const getAndSetComment = props.getAndSetComment;
   const commentId = props.commentId;
+  const nextUrl = props.nextUrl;
 
   const userState = useSelector((state) => state.user13th);
 
@@ -30,8 +31,7 @@ export default function Input(props) {
       pushReplyIds(commentId, resp._id);
     }
 
-    setContent("");
-    getAndSetComment();
+    window.location.href = nextUrl;
   };
 
   return (
