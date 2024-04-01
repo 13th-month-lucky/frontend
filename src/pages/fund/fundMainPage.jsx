@@ -48,6 +48,7 @@ export default function fundMainPage() {
 
       newFunds[4] = [];
 
+      // rising
       let allStocks = [];
       let allResults = [];
       getRising()
@@ -90,8 +91,9 @@ export default function fundMainPage() {
     });
   }, []);
 
-  // liked
+  // load liked, history
   useEffect(() => {
+    // liked
     if (currentTab === 3) {
       findUserWithNickname(userState.nickname)
         .then((user) => {
@@ -106,6 +108,7 @@ export default function fundMainPage() {
           setFunds((prev) => {
             let updatedFunds = [...prev];
             updatedFunds[3] = likedFundInfo;
+
             return updatedFunds;
           });
         })
@@ -117,10 +120,12 @@ export default function fundMainPage() {
     // history
     if (currentTab === 4) {
       const history = userState.fundHistory;
+
       getFundInfoWithList(history).then((historyFundInfo) => {
         setFunds((prev) => {
           let updatedFunds = [...prev];
           updatedFunds[4] = historyFundInfo;
+
           return updatedFunds;
         });
       });
@@ -131,7 +136,6 @@ export default function fundMainPage() {
     <div>
       <TopBackBar />
 
-      {/* 핫이슈 목록 받기로 변경 */}
       {include.length > 0 ? (
         <HotFund rising={rising} include={include} />
       ) : (

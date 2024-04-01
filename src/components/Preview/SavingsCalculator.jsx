@@ -8,7 +8,7 @@ export default function SavingsCalculator({
   title,
   updateTotal,
   keyword,
-  payment,
+  data,
   limitPrice,
   rate,
   remainPendingLimitPrice,
@@ -19,6 +19,7 @@ export default function SavingsCalculator({
   const [link, setLink] = useState("");
   const remainPrice = 500000; // 남는 금액
 
+  const [hasAccount, setHasAccount] = useState(false);
   const unit = 10000; // 만원 단위
   const [fullPrice, setFullPrice] = useState(0); // 남은 돈 다 넣었을 경우
 
@@ -31,11 +32,13 @@ export default function SavingsCalculator({
   }, []);
 
   useEffect(() => {
+    const payment = data.납입액;
     if (payment) {
       setValue(payment / unit);
       setFullPrice((payment + remainPrice) / unit);
     }
-  }, [payment]);
+    setHasAccount(data.계좌유무);
+  }, [data]);
 
   useEffect(() => {
     updateTotal(keyword, deductiblePrice);
@@ -59,7 +62,7 @@ export default function SavingsCalculator({
 
   return (
     <Card>
-      {payment === 0 ? (
+      {!hasAccount ? (
         <div className="flex flex-col items-center justify-center gap-4">
           <img className="w-1/4" src={MoneyBagInHandImg} />
           <div className="text-center font-normal">

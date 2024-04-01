@@ -71,3 +71,13 @@ export function getTax(salary) {
 
   return { taxPaid, taxToPaid };
 }
+
+// json 모든 값 더해주기
+export function getTotalValue(json) {
+  let totalSum = 0;
+  for (const key in json) {
+    totalSum += json[key];
+  }
+
+  return totalSum;
+}

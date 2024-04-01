@@ -122,6 +122,7 @@ const HotIssue = () => {
                       {item.chart.hts_kor_isnm}
                     </h5>
                   </div>
+
                   <h6 className="font-bold text-red-600">
                     {numberWithCommas(item.chart.chart[0].y)}
                   </h6>

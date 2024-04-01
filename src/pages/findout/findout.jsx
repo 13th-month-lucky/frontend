@@ -13,9 +13,11 @@ import img9 from "~/assets/images/findout/9.png";
 const FindOut = () => {
   return (
     <div className="text-gray-600">
-      <div className="mt-20 font-extrabold text-3xl">🕵️연말정산 알아보기🕵️</div>
+      <div className="mt-6 font-bold text-3xl text-black">
+        연말정산 알아보기 🕵️
+      </div>
 
-      <div className="mt-16 font-bold text-lg">연말정산 기본정보</div>
+      <div className="mt-8 font-bold text-lg">연말정산 기본정보</div>
       <Accordion className="mt-3" collapseAll>
         <Accordion.Panel>
           <Accordion.Title>연말정산이란?</Accordion.Title>

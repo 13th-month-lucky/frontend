@@ -1,6 +1,7 @@
 import { React, useState, useEffect, useMemo } from "react";
 import { Accordion, Card } from "flowbite-react";
 import peopleImg from "~/assets/images/preview/Group 43.png";
+import { useSelector } from "react-redux";
 function PersonComponent({ updateTotal }) {
   const [spouseNum, setSpouseNum] = useState(0); //배우자 수
   const [babyNum, setBabyNum] = useState(0); // 자녀 수
@@ -8,12 +9,13 @@ function PersonComponent({ updateTotal }) {
   const [youngParentNum, setYoungParentNum] = useState(0); //60-70세 미만의 부모님
   const [oldParentNum, setOldParentNum] = useState(0); // 70세 이상의 부모님
   const [totalPeopleNum, setTotalPeopleNum] = useState(0);
+  const [result, setResult] = useState(0);
 
   useEffect(() => {
     // totalPeopleNum이 변경될 때마다 totalPrice를 업데이트합니다.
-    const price = calculatePrice();
-    console.log(price);
-    updateTotal("person", price);
+    const result = calculatePrice();
+    setResult(result);
+    updateTotal("person", result);
   }, [totalPeopleNum]);
 
   const calculatePrice = () => {
@@ -55,11 +57,10 @@ function PersonComponent({ updateTotal }) {
         prevValue = 0;
         return prevValue;
       } else {
+        setTotalPeopleNum((prevTotal) => prevTotal - 1);
         return prevValue - 1;
       }
     });
-
-    setTotalPeopleNum((prevTotal) => prevTotal - 1);
   };
 
   const MinusButton = useMemo(() => {
@@ -91,6 +92,15 @@ function PersonComponent({ updateTotal }) {
           </div>
         </Accordion.Title>
         <Accordion.Content className="bg-gray-100">
+          {result > 0 ? (
+            <div className="flex items-center ml-2 mb-2">
+              <p>
+                인적 공제 시,
+                <br /> 약 {result}원 돌려받을 수 있어요!
+              </p>
+            </div>
+          ) : null}
+
           <Card>
             <>
               <div className="flex items-center justify-between mb-3">
