@@ -17,14 +17,12 @@ export default function Community(props) {
       setWritings(resp);
     });
 
-    let nextUrl = "/";
+    let nextUrl = "";
     if (isFund) {
-      nextUrl += "fund";
+      nextUrl += "/fund/detail/" + code + "/3";
     } else {
-      nextUrl += "etf";
+      nextUrl += "/etf/detail/" + code + "/4";
     }
-
-    nextUrl += "/detail/" + code + "/3";
 
     setNextUrl(nextUrl);
   }, []);

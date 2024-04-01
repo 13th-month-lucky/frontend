@@ -28,8 +28,8 @@ export default function etfDetailPage() {
   const { code, tab } = useParams();
 
   useEffect(() => {
-    if (tab == 3) {
-      setCurrentTab(3);
+    if (tab >= 0) {
+      setCurrentTab(tab);
     }
 
     getEtfPriceData(code).then((resp) => {
