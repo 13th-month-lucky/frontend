@@ -46,7 +46,7 @@ const HotIssue = () => {
   }, []);
 
   return (
-    <>
+    <div className="bg-sky-100 pt-4 pb-4 rounded-xl">
       <style>
         {`
           .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
@@ -62,7 +62,7 @@ const HotIssue = () => {
           }
         `}
       </style>
-      <div className="flex flex-row mt-1 font-medium text-lg py-4 pl-4">
+      <div className="flex flex-row mt-1 font-medium text-lg pl-4">
         <p className="font-bold mr-1">{hotStock}</p> 포함 ETF
       </div>
       <ScrollMenu onWheel={onWheel} style={{ margin: "0 -1rem" }}>
@@ -80,9 +80,9 @@ const HotIssue = () => {
                   className="flex flex-col"
                   onClick={() => clickCard(etf[0].code)}
                 >
-                  <h5 className="font-bold text-gray-900 dark:text-white">
+                  <p className="text-gray-900 dark:text-white">
                     {etf[0].chart.hts_kor_isnm}
-                  </h5>
+                  </p>
                   <h6 className="font-bold text-red-600">
                     {numberWithCommas(etf[0].chart.chart[0].y)}
                   </h6>
@@ -117,9 +117,9 @@ const HotIssue = () => {
                   className="flex flex-col "
                   onClick={() => clickCard(etf[0].code)}
                 >
-                  <h5 className="font-bold text-gray-900 dark:text-white">
+                  <p className="text-gray-900 dark:text-white">
                     {item.chart.hts_kor_isnm}
-                  </h5>
+                  </p>
                   <h6 className="font-bold text-red-600">
                     {numberWithCommas(item.chart.chart[0].y)}
                   </h6>
@@ -142,7 +142,7 @@ const HotIssue = () => {
           )}
         </div>
       </ScrollMenu>
-    </>
+    </div>
   );
 };
 export default HotIssue;
